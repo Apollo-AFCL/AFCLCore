@@ -1,4 +1,7 @@
 .idea
 afclAPI/.idea
 afclAPI/out
+afclAPI/target
 examples/.idea
+examples/out
+examples/target
