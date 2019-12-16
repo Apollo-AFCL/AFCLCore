@@ -1,0 +1,125 @@
+---
+name: "gateChangeAlert"
+dataIns:
+- name: "InVal"
+  type: "number"
+  source: "some source"
+workflowBody:
+- function:
+    name: "getFlight"
+    type: "getFlightType"
+    dataIns:
+    - name: "InVal"
+      type: "number"
+      source: "gateChangeAlert/InVal"
+    dataOuts:
+    - name: "OutVal"
+      type: "string"
+- function:
+    name: "selectPassenger"
+    type: "selectPassengerType"
+    dataIns:
+    - name: "InVal"
+      type: "string"
+      source: "getFlight/OutVal"
+    dataOuts:
+    - name: "OutVal"
+      type: "collection"
+    - name: "OutVal2"
+      type: "number"
+- parallelFor:
+    name: "parallelFor"
+    dataIns:
+    - name: "InVal"
+      type: "collection"
+      source: "selectPassenger/OutVal"
+      dataFlow:
+        type: "BLOCK"
+        size:
+          type: "SINGLE"
+          value: "5"
+    loopCounter:
+      name: "counter"
+      type: "number"
+      from: "0"
+      to: "selectPassenger/OutVal2"
+    loopBody:
+    - parallel:
+        name: "parallelF3F4"
+        dataIns:
+        - name: "InVal"
+          type: "collection"
+          source: "parallelFor/InVal"
+        parallelBody:
+        - section:
+          - function:
+              name: "informPassenger"
+              type: "informPassengerType"
+              dataIns:
+              - name: "InVal"
+                type: "string"
+                source: "parallelF3F4/InVal"
+        - section:
+          - function:
+              name: "calculateTimeToGate"
+              type: "calculateTimeToGateType"
+              dataIns:
+              - name: "InVal"
+                type: "string"
+                source: "parallelF3F4/InVal"
+              dataOuts:
+              - name: "OutVal"
+                type: "number"
+          - if:
+              name: "ifThenElse"
+              dataIns:
+              - name: "InVal"
+                type: "number"
+                source: "calculateTimeToGate/OutVal"
+              condition:
+                combinedWith: "and"
+                conditions:
+                - data1: "ifThenElse/InVal"
+                  data2: "20"
+                  operator: ">"
+              then:
+              - function:
+                  name: "recommendShop"
+                  type: "recommendShopType"
+                  dataIns:
+                  - name: "InVal"
+                    type: "number"
+                    source: "ifThenElse/InVal"
+                  dataOuts:
+                  - name: "OutVal"
+                    type: "string"
+              else:
+              - function:
+                  name: "informTimeCritical"
+                  type: "informTimeCriticalType"
+                  dataIns:
+                  - name: "InVal"
+                    type: "number"
+                    source: "ifThenElse/InVal"
+                  dataOuts:
+                  - name: "OutVal"
+                    type: "string"
+              dataOuts:
+              - name: "OutVal"
+                type: "string"
+                source: "recommendShop/OutVal,informTimeCritical/OutVal"
+        dataOuts:
+        - name: "OutVal"
+          type: "string"
+          source: "ifThenElse/OutVal"
+    dataOuts:
+    - name: "OutVal"
+      type: "collection"
+      source: "parallelF3F4/OutVal"
+- function:
+    name: "log"
+    type: "logType"
+    dataIns:
+    - name: "InVal"
+      type: "collection"
+      source: "parallelFor/OutVal"
