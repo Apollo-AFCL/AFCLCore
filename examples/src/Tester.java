@@ -16,7 +16,41 @@ public class Tester {
 
     public static void main(String[] args) {
         Tester tester = new Tester();
-        tester.createSequentialLoop();
+        tester.createMonteCarlo();
+    }
+
+
+    private void createMonteCarlo(){
+        Workflow workflow = new Workflow();
+        workflow.setName("MonteCarlo");
+        workflow.setDataIns(Arrays.asList(new DataIns("InVal", "collection", "monteCarlo_pi_input")));
+
+        ParallelFor parallelFor = new ParallelFor();
+        parallelFor.setName("parallelFor");
+        parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
+        DataIns dataInsDataFlow = new DataIns("InVal", "collection", workflow.getName() + "/" + workflow.getDataIns().get(0).getName());
+        dataInsDataFlow.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor.setDataIns(Arrays.asList(dataInsDataFlow));
+
+        DataIns inParallelDataIns = new DataIns("total", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo = new AtomicFunction("monteCarlo", "monteCarloType", Arrays.asList(inParallelDataIns), Arrays.asList(new DataOutsAtomic("result", "object")));
+        parallelFor.setDataOuts(Arrays.asList(new DataOuts("OutVal", "collection",
+                monteCarlo.getName() + "/" + monteCarlo.getDataOuts().get(0).getName())));
+
+        parallelFor.setLoopBody(Arrays.asList(monteCarlo));
+
+        DataIns summaryDataIns = new DataIns("fraction", "object", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(0).getName());
+        AtomicFunction summary = new AtomicFunction("summary", "summaryType", Arrays.asList(summaryDataIns), Arrays.asList(new DataOutsAtomic("pi", "number")));
+
+        workflow.setWorkflowBody(Arrays.asList(parallelFor, summary));
+
+        // CFCL
+        monteCarlo.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo")));
+        summary.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo_summary")));
+
+        // Export workflow
+        Utils.writeYaml(workflow, "MonteCarlo_CFCL.yaml", "schema.json");
+        //Utils.writeYamlNoValidation(workflow, "MonteCarlo_CFCL.yaml");
     }
 
     private void createSequentialLoop() {
