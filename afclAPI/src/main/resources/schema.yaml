@@ -57,6 +57,31 @@ definitions:
         - name
         - type
         - source
+  dataLoopsDef:
+    type: array
+    items:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        initSource:
+          type: string
+        loopSource:
+          type: string
+        value:
+          type: string
+        passing:
+          type: boolean
+        properties:
+          "$ref": "#/definitions/propertiesConstraintDef"
+        constraints:
+          "$ref": "#/definitions/propertiesConstraintDef"
+      required:
+        - name
+        - type
   dataInsDataFlowDef:
     type: array
     items:
@@ -138,6 +163,66 @@ definitions:
         type: string
     required:
       - type
+  conditionDef:
+    type: object
+    additionalProperties: false
+    properties:
+      combinedWith:
+        type: string
+        enum:
+          - and
+          - or
+      conditions:
+        type: array
+        items:
+          - type: object
+            additionalProperties: false
+            properties:
+              data1:
+                type: string
+              data2:
+                type: string
+              operator:
+                type: string
+                enum:
+                  - "=="
+                  - "!="
+                  - ">"
+                  - ">="
+                  - "<"
+                  - "=<"
+                  - contains
+                  - startsWith
+                  - endsWith
+              negation:
+                type: string
+            required:
+              - data1
+              - data2
+              - operator
+        additionalItems: false
+    required:
+      - combinedWith
+      - conditions
+  loopCounterDef:
+    type: object
+    additionalProperties: false
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+      from:
+        type: string
+      to:
+        type: string
+      step:
+        type: string
+    required:
+      - name
+      - type
+      - from
+      - to
   atomicFunctionDef:
     additionalProperties: false
     properties:
@@ -209,46 +294,7 @@ definitions:
           dataIns:
             "$ref": "#/definitions/dataInsDef"
           condition:
-            type: object
-            additionalProperties: false
-            properties:
-              combinedWith:
-                type: string
-                enum:
-                  - and
-                  - or
-              conditions:
-                type: array
-                items:
-                  - type: object
-                    additionalProperties: false
-                    properties:
-                      data1:
-                        type: string
-                      data2:
-                        type: string
-                      operator:
-                        type: string
-                        enum:
-                          - "=="
-                          - "!="
-                          - ">"
-                          - ">="
-                          - "<"
-                          - "=<"
-                          - contains
-                          - startsWith
-                          - endsWith
-                      negation:
-                        type: string
-                    required:
-                      - data1
-                      - data2
-                      - operator
-                additionalItems: false
-            required:
-              - combinedWith
-              - conditions
+            "$ref": "#/definitions/conditionDef"
           then:
             "$ref": "#/definitions/functionDef"
           else:
@@ -314,6 +360,60 @@ definitions:
           - name
           - dataEval
           - cases
+  sequentialForDef:
+    additionalProperties: false
+    properties:
+      for:
+        type: object
+        additionalProperties: false
+        properties:
+          name:
+            type: string
+          dataIns:
+            "$ref": "#/definitions/dataInsDataFlowDef"
+          dataLoops:
+            "$ref": "#/definitions/dataLoopsDef"
+          loopCounter:
+            "$ref": "#/definitions/loopCounterDef"
+          loopBody:
+            "$ref": "#/definitions/functionDef"
+          dataOuts:
+            "$ref": "#/definitions/dataOutsDef"
+          properties:
+            "$ref": "#/definitions/propertiesConstraintDef"
+          constraints:
+            "$ref": "#/definitions/propertiesConstraintDef"
+        required:
+          - name
+          - loopCounter
+          - loopBody
+  sequentialWhileDef:
+    additionalProperties: false
+    properties:
+      while:
+        type: object
+        additionalProperties: false
+        properties:
+          name:
+            type: string
+          dataIns:
+            "$ref": "#/definitions/dataInsDataFlowDef"
+          dataLoops:
+            "$ref": "#/definitions/dataLoopsDef"
+          condition:
+            "$ref": "#/definitions/conditionDef"
+          loopBody:
+            "$ref": "#/definitions/functionDef"
+          dataOuts:
+            "$ref": "#/definitions/dataOutsDef"
+          properties:
+            "$ref": "#/definitions/propertiesConstraintDef"
+          constraints:
+            "$ref": "#/definitions/propertiesConstraintDef"
+        required:
+          - name
+          - condition
+          - loopBody
   parallelDef:
     additionalProperties: false
     properties:
@@ -354,24 +454,7 @@ definitions:
           dataIns:
             "$ref": "#/definitions/dataInsDataFlowDef"
           loopCounter:
-            type: object
-            additionalProperties: false
-            properties:
-              name:
-                type: string
-              type:
-                type: string
-              from:
-                type: string
-              to:
-                type: string
-              step:
-                type: string
-            required:
-              - name
-              - type
-              - from
-              - to
+            "$ref": "#/definitions/loopCounterDef"
           loopBody:
             "$ref": "#/definitions/functionDef"
           dataOuts:
@@ -413,6 +496,8 @@ definitions:
         - "$ref": "#/definitions/switchDef"
         - "$ref": "#/definitions/parallelDef"
         - "$ref": "#/definitions/parallelForDef"
+        - "$ref": "#/definitions/sequentialWhileDef"
+        - "$ref": "#/definitions/sequentialForDef"
 type: object
 additionalProperties: false
 properties:
