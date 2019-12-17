@@ -24,7 +24,7 @@ import java.util.Map;
 })
 @JsonTypeName("sequence")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Sequence extends CompoundSequential {
+public class Sequence extends CompoundSimpleDataFlow {
 
     /**
      * List of {@link Function}s to be executed sequentially

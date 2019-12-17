@@ -24,7 +24,7 @@ import java.util.Map;
 })
 @JsonTypeName("switch")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Switch extends CompoundSequential {
+public class Switch extends CompoundSimpleDataFlow {
 
     /**
      * Represents the data to be compared among the different ({@link Switch#cases})

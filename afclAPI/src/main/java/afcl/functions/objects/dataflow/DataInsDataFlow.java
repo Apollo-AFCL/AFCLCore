@@ -1,13 +1,13 @@
 package afcl.functions.objects.dataflow;
 
-import afcl.functions.CompoundParallel;
+import afcl.functions.CompoundAdvancedDataFlow;
 import afcl.functions.objects.DataIns;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * This class describes the data input port of {@link CompoundParallel}
+ * This class describes the data input port of {@link CompoundAdvancedDataFlow}
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)

@@ -27,7 +27,7 @@ import java.util.Map;
 })
 @JsonTypeName("if")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class IfThenElse extends CompoundSequential {
+public class IfThenElse extends CompoundSimpleDataFlow {
 
     /**
      * Represents the condition which should be fulfilled to execute

@@ -25,7 +25,7 @@ import java.util.Map;
 })
 @JsonTypeName("parallel")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Parallel extends CompoundParallel {
+public class Parallel extends CompoundAdvancedDataFlow {
 
 
     /**

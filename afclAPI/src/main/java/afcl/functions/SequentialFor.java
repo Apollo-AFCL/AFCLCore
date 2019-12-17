@@ -1,11 +1,7 @@
-
 package afcl.functions;
 
 import afcl.Function;
-import afcl.functions.objects.DataIns;
-import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.LoopCounter;
-import afcl.functions.objects.PropertyConstraint;
+import afcl.functions.objects.*;
 import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.*;
 
@@ -14,23 +10,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class describes the parallelFor compound
+ * This class describes the sequential For compound
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "name",
         "dataIns",
+        "dataLoops",
         "loopCounter",
         "loopBody",
         "dataOuts"
 })
-@JsonTypeName("parallelFor")
+@JsonTypeName("for")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class ParallelFor extends CompoundAdvancedDataFlow {
+public class SequentialFor extends CompoundAdvancedDataFlow {
 
     /**
-     * Contains needed information about the number of (parallel) loop iterations
+     * Contains needed information about potential loop data flow
+     */
+    @JsonProperty("dataLoops")
+    private List<DataLoops> dataLoops;
+
+    /**
+     * Contains needed information about the number of (sequential) loop iterations
      */
     @JsonProperty("loopCounter")
     private LoopCounter loopCounter;
@@ -58,7 +61,7 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public ParallelFor() {
+    public SequentialFor() {
     }
 
     /**
@@ -70,9 +73,10 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
      * @param loopBody    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public ParallelFor(String name, List<DataInsDataFlow> dataIns, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public SequentialFor(String name, List<DataInsDataFlow> dataIns, List<DataLoops> dataLoops, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
+        this.dataLoops = dataLoops;
         this.loopCounter = loopCounter;
         this.loopBody = loopBody;
         this.dataOuts = dataOuts;
@@ -81,6 +85,12 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     /**
      * Getter and Setter
      */
+
+    @JsonProperty("dataLoops")
+    public List<DataLoops> getDataLoops() { return dataLoops; }
+
+    @JsonProperty("dataLoops")
+    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
 
     @JsonProperty("loopCounter")
     public LoopCounter getLoopCounter() {
@@ -131,5 +141,4 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
 }

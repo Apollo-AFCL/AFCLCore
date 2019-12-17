@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * This class describes an abstract function ({@link AtomicFunction} or
- * {@link CompoundSequential})
+ * {@link CompoundSimpleDataFlow})
  * @author stefanpedratscher
  */
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)

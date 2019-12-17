@@ -1,39 +1,42 @@
-
 package afcl.functions;
 
 import afcl.Function;
-import afcl.functions.objects.DataIns;
-import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.LoopCounter;
-import afcl.functions.objects.PropertyConstraint;
+import afcl.functions.objects.*;
 import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.*;
-
+import afcl.functions.objects.Condition;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * This class describes the parallelFor compound
+ * This class describes the sequential While compound
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "name",
         "dataIns",
-        "loopCounter",
+        "dataLoops",
+        "condition",
         "loopBody",
         "dataOuts"
 })
-@JsonTypeName("parallelFor")
+@JsonTypeName("while")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class ParallelFor extends CompoundAdvancedDataFlow {
+public class SequentialWhile extends CompoundAdvancedDataFlow {
 
     /**
-     * Contains needed information about the number of (parallel) loop iterations
+     * Contains needed information about potential loop data flow
      */
-    @JsonProperty("loopCounter")
-    private LoopCounter loopCounter;
+    @JsonProperty("dataLoops")
+    private List<DataLoops> dataLoops;
+
+    /**
+     * Contains needed information about the number of (sequential) loop iterations
+     */
+    @JsonProperty("condition")
+    private Condition condition;
 
     /**
      * Contains {@link Function}s which should be executed in each iteration
@@ -58,7 +61,7 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public ParallelFor() {
+    public SequentialWhile() {
     }
 
     /**
@@ -66,14 +69,15 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param loopCounter information about the number of (parallel) loop iterations
+     * @param condition   while loop condition
      * @param loopBody    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public ParallelFor(String name, List<DataInsDataFlow> dataIns, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public SequentialWhile(String name, List<DataInsDataFlow> dataIns, List<DataLoops> dataLoops, Condition condition, List<Function> loopBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
-        this.loopCounter = loopCounter;
+        this.dataLoops = dataLoops;
+        this.condition = condition;
         this.loopBody = loopBody;
         this.dataOuts = dataOuts;
     }
@@ -82,14 +86,20 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
      * Getter and Setter
      */
 
-    @JsonProperty("loopCounter")
-    public LoopCounter getLoopCounter() {
-        return loopCounter;
+    @JsonProperty("dataLoops")
+    public List<DataLoops> getDataLoops() { return dataLoops; }
+
+    @JsonProperty("dataLoops")
+    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
+
+    @JsonProperty("condition")
+    public Condition getCondition() {
+        return condition;
     }
 
-    @JsonProperty("loopCounter")
-    public void setLoopCounter(LoopCounter loopCounter) {
-        this.loopCounter = loopCounter;
+    @JsonProperty("condition")
+    public void setCondition(Condition loopCounter) {
+        this.condition = loopCounter;
     }
 
     @JsonProperty("loopBody")
@@ -131,5 +141,4 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
 }

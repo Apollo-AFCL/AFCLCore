@@ -3,21 +3,21 @@ package afcl.functions;
 import afcl.Function;
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 /**
- * This class describes a parallel compound function
+ * This class describes a sequential compound function
  * @author stefanpedratscher
  */
-public class CompoundParallel extends Function {
+public class CompoundSimpleDataFlow extends Function {
+
     /**
      * Data input ports of the compound ({@link DataIns})
      */
     @JsonProperty("dataIns")
-    protected List<DataInsDataFlow> dataIns;
+    protected List<DataIns> dataIns;
 
     /**
      * Data output ports of the compound ({@link DataOuts})
@@ -31,12 +31,12 @@ public class CompoundParallel extends Function {
      */
 
     @JsonProperty("dataIns")
-    public List<DataInsDataFlow> getDataIns() {
+    public List<DataIns> getDataIns() {
         return dataIns;
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(List<DataInsDataFlow> dataIns) {
+    public void setDataIns(List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -49,4 +49,5 @@ public class CompoundParallel extends Function {
     public void setDataOuts(List<DataOuts> dataOuts) {
         this.dataOuts = dataOuts;
     }
+
 }
