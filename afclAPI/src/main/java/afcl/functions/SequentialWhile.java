@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class describes the sequential While compound
+ * This class describes the sequential while compound
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -65,7 +65,7 @@ public class SequentialWhile extends CompoundAdvancedDataFlow {
     }
 
     /**
-     * Constructor for function compound parallelFor
+     * Constructor for function compound while
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})

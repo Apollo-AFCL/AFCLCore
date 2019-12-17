@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class describes the sequential For compound
+ * This class describes the sequential for compound
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -65,11 +65,11 @@ public class SequentialFor extends CompoundAdvancedDataFlow {
     }
 
     /**
-     * Constructor for function compound parallelFor
+     * Constructor for function compound for
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param loopCounter information about the number of (parallel) loop iterations
+     * @param loopCounter information about the number of (sequential) loop iterations
      * @param loopBody    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
