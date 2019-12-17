@@ -24,27 +24,13 @@ import java.util.Map;
 })
 @JsonTypeName("sequence")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Sequence extends CompoundSimpleDataFlow {
+public class Sequence extends Compound {
 
     /**
      * List of {@link Function}s to be executed sequentially
      */
     @JsonProperty("sequenceBody")
     private List<Function> sequenceBody;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -79,26 +65,6 @@ public class Sequence extends CompoundSimpleDataFlow {
     @JsonProperty("sequenceBody")
     public void setSequenceBody(List<Function> sequenceBody) {
         this.sequenceBody = sequenceBody;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

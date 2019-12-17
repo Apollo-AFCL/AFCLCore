@@ -6,7 +6,6 @@ import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
 import afcl.functions.objects.LoopCounter;
 import afcl.functions.objects.PropertyConstraint;
-import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
@@ -27,7 +26,7 @@ import java.util.Map;
 })
 @JsonTypeName("parallelFor")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class ParallelFor extends CompoundAdvancedDataFlow {
+public class ParallelFor extends Compound {
 
     /**
      * Contains needed information about the number of (parallel) loop iterations
@@ -40,20 +39,6 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
      */
     @JsonProperty("loopBody")
     private List<Function> loopBody = null;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -70,7 +55,7 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
      * @param loopBody    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public ParallelFor(String name, List<DataInsDataFlow> dataIns, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public ParallelFor(String name, List<DataIns> dataIns, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.loopCounter = loopCounter;
@@ -100,26 +85,6 @@ public class ParallelFor extends CompoundAdvancedDataFlow {
     @JsonProperty("loopBody")
     public void setLoopBody(List<Function> loopBody) {
         this.loopBody = loopBody;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

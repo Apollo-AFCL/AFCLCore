@@ -11,7 +11,7 @@ import java.util.List;
  * This class describes a sequential compound function
  * @author stefanpedratscher
  */
-public class CompoundSimpleDataFlow extends Function {
+public class Compound extends Function {
 
     /**
      * Data input ports of the compound ({@link DataIns})

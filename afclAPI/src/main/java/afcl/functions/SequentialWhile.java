@@ -2,7 +2,6 @@ package afcl.functions;
 
 import afcl.Function;
 import afcl.functions.objects.*;
-import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.*;
 import afcl.functions.objects.Condition;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ import java.util.Map;
 })
 @JsonTypeName("while")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class SequentialWhile extends CompoundAdvancedDataFlow {
+public class SequentialWhile extends Compound {
 
     /**
      * Contains needed information about potential loop data flow
@@ -44,20 +43,6 @@ public class SequentialWhile extends CompoundAdvancedDataFlow {
     @JsonProperty("loopBody")
     private List<Function> loopBody = null;
 
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
-
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -73,7 +58,7 @@ public class SequentialWhile extends CompoundAdvancedDataFlow {
      * @param loopBody    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public SequentialWhile(String name, List<DataInsDataFlow> dataIns, List<DataLoops> dataLoops, Condition condition, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public SequentialWhile(String name, List<DataIns> dataIns, List<DataLoops> dataLoops, Condition condition, List<Function> loopBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.dataLoops = dataLoops;
@@ -110,26 +95,6 @@ public class SequentialWhile extends CompoundAdvancedDataFlow {
     @JsonProperty("loopBody")
     public void setLoopBody(List<Function> loopBody) {
         this.loopBody = loopBody;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

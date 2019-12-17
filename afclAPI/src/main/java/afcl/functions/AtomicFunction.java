@@ -1,11 +1,9 @@
-
 package afcl.functions;
 
 import afcl.Function;
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
 import afcl.functions.objects.DataOutsAtomic;
-import afcl.functions.objects.PropertyConstraint;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
@@ -45,20 +43,6 @@ public class AtomicFunction extends Function {
      */
     @JsonProperty("dataOuts")
     private List<DataOutsAtomic> dataOuts;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -113,26 +97,6 @@ public class AtomicFunction extends Function {
     @JsonProperty("dataOuts")
     public void setDataOuts(List<DataOutsAtomic> dataOuts) {
         this.dataOuts = dataOuts;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

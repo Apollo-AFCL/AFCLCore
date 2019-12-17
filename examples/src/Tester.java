@@ -2,10 +2,6 @@ import afcl.Function;
 import afcl.Workflow;
 import afcl.functions.*;
 import afcl.functions.objects.*;
-import afcl.functions.objects.dataflow.DataFlowBlock;
-import afcl.functions.objects.dataflow.DataFlowElementIndex;
-import afcl.functions.objects.dataflow.DataFlowReplication;
-import afcl.functions.objects.dataflow.DataInsDataFlow;
 import afcl.utils.Utils;
 
 import java.util.ArrayList;
@@ -103,7 +99,7 @@ public class Tester {
         AtomicFunction mutationalOverlap = new AtomicFunction("mutationsOverlap", "mutationsOverlapType",
                 Arrays.asList(
                         getDataInsDataFlow("chromNr", "string", workflow, 1),
-                        new DataInsDataFlow("POP", "number", mutationalOverlaps.getName() + "/" + mutationalOverlaps.getLoopCounter().getName()),
+                        new DataIns("POP", "number", mutationalOverlaps.getName() + "/" + mutationalOverlaps.getLoopCounter().getName()),
                         getDataOutsDataFlow("files", "string", parallel1, 0)),
                 null);
         mutationalOverlaps.setLoopBody(Arrays.asList(mutationalOverlap));
@@ -117,7 +113,7 @@ public class Tester {
         frequencies.setLoopCounter(new LoopCounter("counter", "number", "0", "7"));
         AtomicFunction frequency = new AtomicFunction("frequency", "frequencyType", Arrays.asList(
                 getDataInsDataFlow("chromNr", "string", workflow, 1),
-                new DataInsDataFlow("POP", "number", frequencies.getName() + "/" + frequencies.getLoopCounter().getName()),
+                new DataIns("POP", "number", frequencies.getName() + "/" + frequencies.getLoopCounter().getName()),
                 getDataOutsDataFlow("files", "string", parallel1, 0)),
                 null);
         frequencies.setLoopBody(Arrays.asList(frequency));
@@ -152,9 +148,16 @@ public class Tester {
         workflow.setName("anomalyDetection");
 
         Parallel p = new Parallel();
-        p.setDataIns(Arrays.asList(new DataInsDataFlow("name", "type", "source", new DataFlowBlock(new DataFlowBlock("C", "L"), "L")),
-                new DataInsDataFlow("name", "type", "source", new DataFlowReplication("S")),
-                new DataInsDataFlow("name", "type", "source", new DataFlowElementIndex("1:2:3"))));
+        DataIns d1 = new DataIns("name", "type", "source");
+        d1.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(C,L)")));
+
+        DataIns d2 = new DataIns("name", "type", "source");
+        d1.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "REPLICATE(S)")));
+
+        DataIns d3 = new DataIns("name", "type", "source");
+        d1.setConstraints(Arrays.asList(new PropertyConstraint("element-index", "1:6:3")));
+
+        p.setDataIns(Arrays.asList(d1, d2, d3));
 
         /*Parallel p2 = new Parallel();
         p2.setDataIns(Arrays.asList(new DataInsDataFlow("name", "type", "source", new DataFlowObject(DataFlowType.BLOCK, Arrays.asList(new PropertyConstraint("S", "10")))),
@@ -165,10 +168,6 @@ public class Tester {
         workflow.setWorkflowBody(Arrays.asList(p));
 
         Utils.writeYamlNoValidation(workflow, "test.yaml");
-        System.out.println("HES1");
-        Workflow wf2 = Utils.readYAMLNoValidation("test.yaml");
-        System.out.println("HES");
-        Utils.writeYamlNoValidation(workflow, "test2.yaml");
     }
 
     private void createAnomalyDetection() {
@@ -292,9 +291,8 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
@@ -302,7 +300,7 @@ public class Tester {
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelF3F4 = new Parallel();
         parallelF3F4.setName("parallelF3F4");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "collection", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "collection", parallelFor, 0);
         parallelF3F4.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelF3F4, 0)), null);
         AtomicFunction calculateTimeToGate = new AtomicFunction("calculateTimeToGate", "calculateTimeToGateType", Arrays.asList(getDataIns("InVal", "string", parallelF3F4, 0)), Arrays.asList(new DataOutsAtomic("OutVal", "number")));
@@ -608,16 +606,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:https://eu-gb.functions.cloud.ibm.com/api/v1/web/sashko%40dps.uibk.ac.at_dev/default/f4InformPassenger.json")));
@@ -669,16 +666,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:https://eu-gb.functions.cloud.ibm.com/api/v1/web/sashko%40dps.uibk.ac.at_dev/default/f4InformPassenger.json")));
@@ -730,16 +726,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:https://eu-gb.functions.cloud.ibm.com/api/v1/web/sashko%40dps.uibk.ac.at_dev/default/f4InformPassenger.json")));
@@ -791,16 +786,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:informPassenger")));
@@ -852,16 +846,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:informPassenger")));
@@ -913,16 +906,15 @@ public class Tester {
         // parallelFor
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
-        DataInsDataFlow dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
-        //dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(5)")));
-        dataIns.setDataFlow(new DataFlowBlock("5"));
+        DataIns dataIns = getDataOutsDataFlow("InVal", "collection", selectPassenger, 0);
+        dataIns.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
         parallelFor.setDataIns(Arrays.asList(dataIns));
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", getDataOutsByIndex(selectPassenger, 1)));
 
         // -> parallel informPassenger,calculateTimeToGate
         Parallel parallelInformCalc = new Parallel();
         parallelInformCalc.setName("parallelInformCalc");
-        DataInsDataFlow dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
+        DataIns dataInsParallel = getDataInsDataFlow("InVal", "string", parallelFor, 0);
         parallelInformCalc.setDataIns(Arrays.asList(dataInsParallel));
         AtomicFunction informPassenger = new AtomicFunction("informPassenger", "informPassengerType", Arrays.asList(getDataIns("InVal", "string", parallelInformCalc, 0)), null);
         informPassenger.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:informPassenger")));
@@ -966,12 +958,9 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = (AtomicFunction) function;
             return atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(index).getName();
-        } else if (function instanceof CompoundSimpleDataFlow) {
-            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
+        } else if (function instanceof Compound) {
+            Compound compoundSequential = (Compound) function;
             return compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(index).getName();
-        } else if (function instanceof CompoundAdvancedDataFlow) {
-            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
-            return compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(index).getName();
         }
         System.err.println("not found " + function.getName());
         return null;
@@ -981,12 +970,9 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = (AtomicFunction) function;
             return atomicFunction.getName() + "/" + atomicFunction.getDataOuts().get(index).getName();
-        } else if (function instanceof CompoundSimpleDataFlow) {
-            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
+        } else if (function instanceof Compound) {
+            Compound compoundSequential = (Compound) function;
             return compoundSequential.getName() + "/" + compoundSequential.getDataOuts().get(index).getName();
-        } else if (function instanceof CompoundAdvancedDataFlow) {
-            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
-            return compoundParallel.getName() + "/" + compoundParallel.getDataOuts().get(index).getName();
         }
         System.err.println("not found " + function.getName());
         return null;
@@ -1014,8 +1000,8 @@ public class Tester {
         return dataIns;
     }
 
-    private DataInsDataFlow getDataOutsDataFlow(String name, String type, Function function, int outParamIndex) {
-        DataInsDataFlow dataIns = new DataInsDataFlow();
+    private DataIns getDataOutsDataFlow(String name, String type, Function function, int outParamIndex) {
+        DataIns dataIns = new DataIns();
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = ((AtomicFunction) function);
             dataIns.setSource(atomicFunction.getName() + "/" + atomicFunction.getDataOuts().get(outParamIndex).getName());
@@ -1049,12 +1035,9 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = ((AtomicFunction) function);
             dataIns.setSource(atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundSimpleDataFlow) {
-            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
+        } else if (function instanceof Compound) {
+            Compound compoundSequential = (Compound) function;
             dataIns.setSource(compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundAdvancedDataFlow) {
-            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
-            dataIns.setSource(compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(inParamIndex).getName());
         } else {
             System.err.println("No allowed yet (DataIns class)");
         }
@@ -1063,25 +1046,22 @@ public class Tester {
         return dataIns;
     }
 
-    private DataInsDataFlow getDataInsDataFlow(String name, String type, Workflow wf, int inParamIndex) {
-        DataInsDataFlow dataIns = new DataInsDataFlow();
+    private DataIns getDataInsDataFlow(String name, String type, Workflow wf, int inParamIndex) {
+        DataIns dataIns = new DataIns();
         dataIns.setSource(wf.getName() + "/" + wf.getDataIns().get(inParamIndex).getName());
         dataIns.setName(name);
         dataIns.setType(type);
         return dataIns;
     }
 
-    private DataInsDataFlow getDataInsDataFlow(String name, String type, Function function, int inParamIndex) {
-        DataInsDataFlow dataIns = new DataInsDataFlow();
+    private DataIns getDataInsDataFlow(String name, String type, Function function, int inParamIndex) {
+        DataIns dataIns = new DataIns();
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = ((AtomicFunction) function);
             dataIns.setSource(atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundSimpleDataFlow) {
-            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
+        } else if (function instanceof Compound) {
+            Compound compoundSequential = (Compound) function;
             dataIns.setSource(compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundAdvancedDataFlow) {
-            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
-            dataIns.setSource(compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(inParamIndex).getName());
         } else {
             System.err.println("No allowed yet (DataIns class)");
         }

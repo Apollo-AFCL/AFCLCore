@@ -24,7 +24,7 @@ import java.util.Map;
 })
 @JsonTypeName("switch")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Switch extends CompoundSimpleDataFlow {
+public class Switch extends Compound {
 
     /**
      * Represents the data to be compared among the different ({@link Switch#cases})
@@ -44,20 +44,6 @@ public class Switch extends CompoundSimpleDataFlow {
      */
     @JsonProperty("default")
     private List<Function> _default = null;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -115,26 +101,6 @@ public class Switch extends CompoundSimpleDataFlow {
     @JsonProperty("default")
     public void setDefault(List<Function> _default) {
         this._default = _default;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

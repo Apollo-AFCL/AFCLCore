@@ -27,7 +27,7 @@ import java.util.Map;
 })
 @JsonTypeName("if")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class IfThenElse extends CompoundSimpleDataFlow {
+public class IfThenElse extends Compound {
 
     /**
      * Represents the condition which should be fulfilled to execute
@@ -50,20 +50,6 @@ public class IfThenElse extends CompoundSimpleDataFlow {
      */
     @JsonProperty("else")
     private List<Function> _else = null;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -126,26 +112,6 @@ public class IfThenElse extends CompoundSimpleDataFlow {
     @JsonProperty("else")
     public void setElse(List<Function> _else) {
         this._else = _else;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter

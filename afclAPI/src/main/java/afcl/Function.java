@@ -1,13 +1,16 @@
 package afcl;
 
 import afcl.functions.*;
+import afcl.functions.objects.PropertyConstraint;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.util.List;
+
 /**
  * This class describes an abstract function ({@link AtomicFunction} or
- * {@link CompoundSimpleDataFlow})
+ * {@link Compound})
  * @author stefanpedratscher
  */
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
@@ -27,6 +30,20 @@ public class Function {
     @JsonProperty("name")
     protected String name;
 
+    /**
+     * {@link PropertyConstraint} (information about the
+     * behaviour of functions)
+     */
+    @JsonProperty("properties")
+    private List<PropertyConstraint> properties;
+
+    /**
+     * {@link PropertyConstraint} (which must be fulfilled
+     * by underlying workflow runtime environment)
+     */
+    @JsonProperty("constraints")
+    private List<PropertyConstraint> constraints;
+
 
     /**
      * Getter and Setter
@@ -40,5 +57,25 @@ public class Function {
     @JsonProperty("name")
     public void setName(String name) {
         this.name = name;
+    }
+
+    @JsonProperty("properties")
+    public List<PropertyConstraint> getProperties() {
+        return properties;
+    }
+
+    @JsonProperty("properties")
+    public void setProperties(List<PropertyConstraint> properties) {
+        this.properties = properties;
+    }
+
+    @JsonProperty("constraints")
+    public List<PropertyConstraint> getConstraints() {
+        return constraints;
+    }
+
+    @JsonProperty("constraints")
+    public void setConstraints(List<PropertyConstraint> constraints) {
+        this.constraints = constraints;
     }
 }

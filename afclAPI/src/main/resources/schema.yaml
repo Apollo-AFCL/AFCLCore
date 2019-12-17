@@ -82,87 +82,6 @@ definitions:
       required:
         - name
         - type
-  dataInsDataFlowDef:
-    type: array
-    items:
-      type: object
-      additionalProperties: false
-      properties:
-        name:
-          type: string
-        type:
-          type: string
-        source:
-          type: string
-        value:
-          type: string
-        passing:
-          type: boolean
-        properties:
-          "$ref": "#/definitions/propertiesConstraintDef"
-        constraints:
-          "$ref": "#/definitions/propertiesConstraintDef"
-        dataFlow:
-          "$ref": "#/definitions/dataFlowDef"
-      required:
-        - name
-        - type
-  dataFlowDef:
-    oneOf:
-      - "$ref": "#/definitions/dataFlowBlockDef"
-      - "$ref": "#/definitions/dataFlowReplicateDef"
-      - "$ref": "#/definitions/dataFlowElementIndexDef"
-      - "$ref": "#/definitions/dataFlowStringDef"
-  dataFlowBlockDef:
-    type: object
-    additionalProperties: false
-    properties:
-      type:
-        type: string
-        enum:
-          - BLOCK
-      size:
-        "$ref": "#/definitions/dataFlowDef"
-      overlap:
-        "$ref": "#/definitions/dataFlowDef"
-    required:
-      - type
-  dataFlowReplicateDef:
-    type: object
-    additionalProperties: false
-    properties:
-      type:
-        type: string
-        enum:
-          - REPLICATE
-      times:
-        "$ref": "#/definitions/dataFlowDef"
-    required:
-      - type
-  dataFlowElementIndexDef:
-    type: object
-    additionalProperties: false
-    properties:
-      type:
-        type: string
-        enum:
-          - ELEMENT_INDEX
-      index:
-        "$ref": "#/definitions/dataFlowDef"
-    required:
-      - type
-  dataFlowStringDef:
-    type: object
-    additionalProperties: false
-    properties:
-      type:
-        type: string
-        enum:
-          - SINGLE
-      value:
-        type: string
-    required:
-      - type
   conditionDef:
     type: object
     additionalProperties: false
@@ -370,7 +289,7 @@ definitions:
           name:
             type: string
           dataIns:
-            "$ref": "#/definitions/dataInsDataFlowDef"
+            "$ref": "#/definitions/dataInsDef"
           dataLoops:
             "$ref": "#/definitions/dataLoopsDef"
           loopCounter:
@@ -397,7 +316,7 @@ definitions:
           name:
             type: string
           dataIns:
-            "$ref": "#/definitions/dataInsDataFlowDef"
+            "$ref": "#/definitions/dataInsDef"
           dataLoops:
             "$ref": "#/definitions/dataLoopsDef"
           condition:
@@ -424,7 +343,7 @@ definitions:
           name:
             type: string
           dataIns:
-            "$ref": "#/definitions/dataInsDataFlowDef"
+            "$ref": "#/definitions/dataInsDef"
           parallelBody:
             type: array
             items:
@@ -452,7 +371,7 @@ definitions:
           name:
             type: string
           dataIns:
-            "$ref": "#/definitions/dataInsDataFlowDef"
+            "$ref": "#/definitions/dataInsDef"
           loopCounter:
             "$ref": "#/definitions/loopCounterDef"
           loopBody:

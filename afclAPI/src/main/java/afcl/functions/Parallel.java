@@ -5,7 +5,6 @@ import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
 import afcl.functions.objects.PropertyConstraint;
 import afcl.functions.objects.Section;
-import afcl.functions.objects.dataflow.DataInsDataFlow;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
@@ -25,7 +24,7 @@ import java.util.Map;
 })
 @JsonTypeName("parallel")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class Parallel extends CompoundAdvancedDataFlow {
+public class Parallel extends Compound {
 
 
     /**
@@ -33,20 +32,6 @@ public class Parallel extends CompoundAdvancedDataFlow {
      */
     @JsonProperty("parallelBody")
     private List<Section> parallelBody = null;
-
-    /**
-     * {@link PropertyConstraint} (information about the
-     * behaviour of functions)
-     */
-    @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
-
-    /**
-     * {@link PropertyConstraint} (which must be fulfilled
-     * by underlying workflow runtime environment)
-     */
-    @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
 
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
@@ -62,7 +47,7 @@ public class Parallel extends CompoundAdvancedDataFlow {
      * @param parallelBody sections which can run in parallel
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
-    public Parallel(String name, List<DataInsDataFlow> dataIns, List<Section> parallelBody, List<DataOuts> dataOuts) {
+    public Parallel(String name, List<DataIns> dataIns, List<Section> parallelBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.parallelBody = parallelBody;
@@ -81,26 +66,6 @@ public class Parallel extends CompoundAdvancedDataFlow {
     @JsonProperty("parallelBody")
     public void setParallelBody(List<Section> parallelBody) {
         this.parallelBody = parallelBody;
-    }
-
-    @JsonProperty("properties")
-    public List<PropertyConstraint> getProperties() {
-        return properties;
-    }
-
-    @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
-    }
-
-    @JsonProperty("constraints")
-    public List<PropertyConstraint> getConstraints() {
-        return constraints;
-    }
-
-    @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
     }
 
     @JsonAnyGetter
