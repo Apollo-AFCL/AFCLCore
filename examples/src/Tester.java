@@ -10,6 +10,7 @@ import afcl.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,8 +20,29 @@ public class Tester {
 
     public static void main(String[] args) {
         Tester tester = new Tester();
-        tester.createGateChangeAlert();
-        tester.createGenome(true);
+        tester.createSequentialLoop();
+    }
+
+    private void createSequentialLoop() {
+        Workflow workflow = new Workflow();
+        workflow.setName("sequentialLoops");
+
+        AtomicFunction dummy = new AtomicFunction("dummy", "dummyType", null, Collections.singletonList(new DataOutsAtomic("OutVal", "number")));
+
+        SequentialFor sequentialFor = new SequentialFor();
+        sequentialFor.setName("seqFor");
+        sequentialFor.setLoopCounter(new LoopCounter("counter", "number", "0", "7"));
+        sequentialFor.setDataLoops(Collections.singletonList(new DataLoops("var", "number", "0", dummy.getName() + "/" + dummy.getDataOuts().get(0).getName())));
+        sequentialFor.setLoopBody(Arrays.asList(dummy));
+
+        SequentialWhile sequentialWhile = new SequentialWhile();
+        sequentialWhile.setName("seqWhile");
+        sequentialWhile.setCondition(new Condition("and", Arrays.asList(new ACondition(dummy.getName() + "/" + dummy.getDataOuts().get(0).getName(), "0", "=="))));
+        sequentialWhile.setDataLoops(Collections.singletonList(new DataLoops("var", "number", "0", dummy.getName() + "/" + dummy.getDataOuts().get(0).getName())));
+        sequentialWhile.setLoopBody(Arrays.asList(dummy));
+
+        workflow.setWorkflowBody(Arrays.asList(sequentialFor, sequentialWhile));
+        Utils.writeYaml(workflow, "sequentialLoops.yaml", "schema.json");
     }
 
     private void createGenome(boolean cfcl) {
@@ -944,11 +966,11 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = (AtomicFunction) function;
             return atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(index).getName();
-        } else if (function instanceof CompoundSequential) {
-            CompoundSequential compoundSequential = (CompoundSequential) function;
+        } else if (function instanceof CompoundSimpleDataFlow) {
+            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
             return compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(index).getName();
-        } else if (function instanceof CompoundParallel) {
-            CompoundParallel compoundParallel = (CompoundParallel) function;
+        } else if (function instanceof CompoundAdvancedDataFlow) {
+            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
             return compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(index).getName();
         }
         System.err.println("not found " + function.getName());
@@ -959,11 +981,11 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = (AtomicFunction) function;
             return atomicFunction.getName() + "/" + atomicFunction.getDataOuts().get(index).getName();
-        } else if (function instanceof CompoundSequential) {
-            CompoundSequential compoundSequential = (CompoundSequential) function;
+        } else if (function instanceof CompoundSimpleDataFlow) {
+            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
             return compoundSequential.getName() + "/" + compoundSequential.getDataOuts().get(index).getName();
-        } else if (function instanceof CompoundParallel) {
-            CompoundParallel compoundParallel = (CompoundParallel) function;
+        } else if (function instanceof CompoundAdvancedDataFlow) {
+            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
             return compoundParallel.getName() + "/" + compoundParallel.getDataOuts().get(index).getName();
         }
         System.err.println("not found " + function.getName());
@@ -1027,11 +1049,11 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = ((AtomicFunction) function);
             dataIns.setSource(atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundSequential) {
-            CompoundSequential compoundSequential = (CompoundSequential) function;
+        } else if (function instanceof CompoundSimpleDataFlow) {
+            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
             dataIns.setSource(compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundParallel) {
-            CompoundParallel compoundParallel = (CompoundParallel) function;
+        } else if (function instanceof CompoundAdvancedDataFlow) {
+            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
             dataIns.setSource(compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(inParamIndex).getName());
         } else {
             System.err.println("No allowed yet (DataIns class)");
@@ -1054,11 +1076,11 @@ public class Tester {
         if (function instanceof AtomicFunction) {
             AtomicFunction atomicFunction = ((AtomicFunction) function);
             dataIns.setSource(atomicFunction.getName() + "/" + atomicFunction.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundSequential) {
-            CompoundSequential compoundSequential = (CompoundSequential) function;
+        } else if (function instanceof CompoundSimpleDataFlow) {
+            CompoundSimpleDataFlow compoundSequential = (CompoundSimpleDataFlow) function;
             dataIns.setSource(compoundSequential.getName() + "/" + compoundSequential.getDataIns().get(inParamIndex).getName());
-        } else if (function instanceof CompoundParallel) {
-            CompoundParallel compoundParallel = (CompoundParallel) function;
+        } else if (function instanceof CompoundAdvancedDataFlow) {
+            CompoundAdvancedDataFlow compoundParallel = (CompoundAdvancedDataFlow) function;
             dataIns.setSource(compoundParallel.getName() + "/" + compoundParallel.getDataIns().get(inParamIndex).getName());
         } else {
             System.err.println("No allowed yet (DataIns class)");
