@@ -16,7 +16,7 @@ public class Tester {
 
     public static void main(String[] args) {
         Tester tester = new Tester();
-        tester.createMonteCarlo();
+        tester.createGenome(false);
     }
 
 
@@ -79,14 +79,14 @@ public class Tester {
         Workflow workflow = new Workflow();
         workflow.setName("genome");
         workflow.setDataIns(Arrays.asList(new DataIns("key", "string"), new DataIns("chromNr", "string"),
-                new DataIns("keyInputFile", "string")));
+                new DataIns("keyInputFile", "string"), new DataIns("stepSize", "number")));
 
         // Individuals
         ParallelFor individuals = new ParallelFor();
         individuals.setName("individuals");
 
         // Individual
-        individuals.setLoopCounter(new LoopCounter("counter", "number", "1", "10000", "1000"));
+        individuals.setLoopCounter(new LoopCounter("counter", "number", "1", "10000", workflow.getName() + "/" + workflow.getDataIns().get(3).getName()));
         DataIns dataInsCounter = new DataIns("counter", "number", individuals.getName() + "/counter");
         DataIns dataInsAmount = new DataIns("amount", "number", individuals.getName() + "/step");
         AtomicFunction individual = new AtomicFunction("individual", "individualType",
