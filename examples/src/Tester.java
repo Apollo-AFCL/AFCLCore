@@ -16,31 +16,42 @@ public class Tester {
 
     public static void main(String[] args) {
         Tester tester = new Tester();
-        tester.createGenome(false);
+        tester.createMonteCarloAsSequence();
     }
 
 
     private void createMonteCarlo(){
         Workflow workflow = new Workflow();
         workflow.setName("MonteCarlo");
-        workflow.setDataIns(Arrays.asList(new DataIns("InVal", "collection", "monteCarlo_pi_input")));
+        workflow.setDataIns(Arrays.asList(new DataIns("array", "collection", "array"),
+                new DataIns("total", "number", "total"),
+                new DataIns("each", "number", "each")));
 
         ParallelFor parallelFor = new ParallelFor();
         parallelFor.setName("parallelFor");
         parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
-        DataIns dataInsDataFlow = new DataIns("InVal", "collection", workflow.getName() + "/" + workflow.getDataIns().get(0).getName());
-        dataInsDataFlow.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
-        parallelFor.setDataIns(Arrays.asList(dataInsDataFlow));
+        DataIns dataInsDataFlow = new DataIns("InVal", "number", workflow.getName() + "/" + workflow.getDataIns().get(0).getName());
+        DataIns dataInsEach = new DataIns("each", "number", workflow.getName() + "/" + workflow.getDataIns().get(2).getName());
+        dataInsEach.setPassing(true);
+        DataIns dataInsTotal = new DataIns("total", "number", workflow.getName() + "/" + workflow.getDataIns().get(1).getName());
+        dataInsTotal.setPassing(true);
 
-        DataIns inParallelDataIns = new DataIns("total", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
-        AtomicFunction monteCarlo = new AtomicFunction("monteCarlo", "monteCarloType", Arrays.asList(inParallelDataIns), Arrays.asList(new DataOutsAtomic("result", "object")));
-        parallelFor.setDataOuts(Arrays.asList(new DataOuts("OutVal", "collection",
-                monteCarlo.getName() + "/" + monteCarlo.getDataOuts().get(0).getName())));
+        dataInsDataFlow.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor.setDataIns(Arrays.asList(dataInsDataFlow, dataInsTotal, dataInsEach));
+
+        DataIns inParallelDataIns = new DataIns("fraction", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo = new AtomicFunction("monteCarlo", "monteCarloType", Arrays.asList(inParallelDataIns), Arrays.asList(new DataOutsAtomic("result", "number")));
+        parallelFor.setDataOuts(Arrays.asList(new DataOuts("array", "collection",
+                monteCarlo.getName() + "/" + monteCarlo.getDataOuts().get(0).getName()),
+                new DataOuts("total", "number", parallelFor.getDataIns().get(1).getName()),
+                new DataOuts("each", "number", parallelFor.getDataIns().get(2).getName())));
 
         parallelFor.setLoopBody(Arrays.asList(monteCarlo));
 
-        DataIns summaryDataIns = new DataIns("fraction", "object", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(0).getName());
-        AtomicFunction summary = new AtomicFunction("summary", "summaryType", Arrays.asList(summaryDataIns), Arrays.asList(new DataOutsAtomic("pi", "number")));
+        DataIns array = new DataIns("array", "collection", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(0).getName());
+        DataIns total = new DataIns("total", "number", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(1).getName());
+        DataIns each = new DataIns("each", "number", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(2).getName());
+        AtomicFunction summary = new AtomicFunction("summary", "summaryType", Arrays.asList(array, total, each), Arrays.asList(new DataOutsAtomic("pi", "number")));
 
         workflow.setWorkflowBody(Arrays.asList(parallelFor, summary));
 
@@ -50,6 +61,144 @@ public class Tester {
 
         // Export workflow
         Utils.writeYaml(workflow, "MonteCarlo_CFCL.yaml", "schema.json");
+        //Utils.writeYamlNoValidation(workflow, "MonteCarlo_CFCL.yaml");
+    }
+
+    private void createMonteCarloDifferentProviders(){
+        Workflow workflow = new Workflow();
+        workflow.setName("MonteCarlo");
+        workflow.setDataIns(Arrays.asList(new DataIns("array", "collection", "array"),
+                new DataIns("total", "number", "total"),
+                new DataIns("each", "number", "each")));
+
+        Parallel parallel = new Parallel();
+        parallel.setName("parallel");
+        DataIns arrayParallel = new DataIns("array", "number", workflow.getName() + "/" + workflow.getDataIns().get(0).getName());
+        DataIns totalParallel = new DataIns("total", "number", workflow.getName() + "/" + workflow.getDataIns().get(1).getName());
+        DataIns eachParallel = new DataIns("each", "number", workflow.getName() + "/" + workflow.getDataIns().get(2).getName());
+        parallel.setDataIns(Arrays.asList(arrayParallel, totalParallel, eachParallel));
+
+        ParallelFor parallelFor = new ParallelFor();
+        parallelFor.setName("parallelFor");
+        parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
+        DataIns dataInsDataFlow = new DataIns("InVal", "number", parallel.getName() + "/" + parallel.getDataIns().get(0).getName());
+        DataIns dataInsEach = new DataIns("each", "number", parallel.getName() + "/" + parallel.getDataIns().get(2).getName());
+        dataInsEach.setPassing(true);
+        DataIns dataInsTotal = new DataIns("total", "number", parallel.getName() + "/" + parallel.getDataIns().get(1).getName());
+        dataInsTotal.setPassing(true);
+        dataInsDataFlow.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor.setDataIns(Arrays.asList(dataInsDataFlow, dataInsTotal, dataInsEach));
+        DataIns inParallelDataIns = new DataIns("fraction", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo = new AtomicFunction("monteCarlo", "monteCarloType", Arrays.asList(inParallelDataIns), Arrays.asList(new DataOutsAtomic("result", "number")));
+        parallelFor.setDataOuts(Arrays.asList(new DataOuts("array", "collection",
+                        monteCarlo.getName() + "/" + monteCarlo.getDataOuts().get(0).getName()),
+                new DataOuts("total", "number", parallelFor.getDataIns().get(1).getName()),
+                new DataOuts("each", "number", parallelFor.getDataIns().get(2).getName())));
+        parallelFor.setLoopBody(Arrays.asList(monteCarlo));
+
+        ParallelFor parallelFor2 = new ParallelFor();
+        parallelFor2.setName("parallelFor2");
+        parallelFor2.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
+        DataIns dataInsDataFlow2 = new DataIns("InVal", "number", parallel.getName() + "/" + parallel.getDataIns().get(0).getName());
+        DataIns dataInsEach2 = new DataIns("each", "number", parallel.getName() + "/" + parallel.getDataIns().get(2).getName());
+        dataInsEach2.setPassing(true);
+        DataIns dataInsTotal2 = new DataIns("total", "number", parallel.getName() + "/" + parallel.getDataIns().get(1).getName());
+        dataInsTotal2.setPassing(true);
+        dataInsDataFlow2.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor2.setDataIns(Arrays.asList(dataInsDataFlow, dataInsTotal, dataInsEach));
+        DataIns inParallelDataIns2 = new DataIns("fraction", "number", parallelFor2.getName() + "/" + parallelFor2.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo2 = new AtomicFunction("monteCarlo2", "monteCarlo2Type", Arrays.asList(inParallelDataIns2), Arrays.asList(new DataOutsAtomic("result", "number")));
+        parallelFor2.setDataOuts(Arrays.asList(new DataOuts("array", "collection",
+                        monteCarlo2.getName() + "/" + monteCarlo2.getDataOuts().get(0).getName()),
+                new DataOuts("total", "number", parallelFor2.getDataIns().get(1).getName()),
+                new DataOuts("each", "number", parallelFor2.getDataIns().get(2).getName())));
+        parallelFor2.setLoopBody(Arrays.asList(monteCarlo2));
+
+        DataOuts arrayParallelOut = new DataOuts("array", "collection", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(0).getName());
+        DataOuts array2ParallelOut = new DataOuts("array2", "collection", parallelFor2.getName() + "/" + parallelFor2.getDataOuts().get(0).getName());
+        DataOuts totalParallelOut = new DataOuts("total", "number", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(1).getName());
+        DataOuts eachParallelOut = new DataOuts("each", "number", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(2).getName());
+        parallel.setDataOuts(Arrays.asList(arrayParallelOut, array2ParallelOut, totalParallelOut, eachParallelOut));
+        Section section1 = new Section(Arrays.asList(parallelFor));
+        Section section2 = new Section(Arrays.asList(parallelFor2));
+        parallel.setParallelBody(Arrays.asList(section1, section2));
+
+        DataIns array = new DataIns("array", "collection", parallel.getName() + "/" + parallel.getDataOuts().get(0).getName());
+        DataIns array2 = new DataIns("array2", "collection", parallel.getName() + "/" + parallel.getDataOuts().get(1).getName());
+        DataIns total = new DataIns("total", "number", parallel.getName() + "/" + parallel.getDataOuts().get(2).getName());
+        DataIns each = new DataIns("each", "number", parallel.getName() + "/" + parallel.getDataOuts().get(3).getName());
+        AtomicFunction summary = new AtomicFunction("summary", "summaryType", Arrays.asList(array, array2, total, each), Arrays.asList(new DataOutsAtomic("pi", "number")));
+
+        workflow.setWorkflowBody(Arrays.asList(parallel, summary));
+
+        // CFCL
+        monteCarlo.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo")));
+        monteCarlo2.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-west-1:170392512081:function:EE_exp_1_1_monteCarlo")));
+        summary.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo_summary")));
+
+        // Export workflow
+        Utils.writeYaml(workflow, "MonteCarlo_CFCL_different_providers.yaml", "schema.json");
+        //Utils.writeYamlNoValidation(workflow, "MonteCarlo_CFCL.yaml");
+    }
+
+    private void createMonteCarloAsSequence(){
+        Workflow workflow = new Workflow();
+        workflow.setName("MonteCarlo");
+        workflow.setDataIns(Arrays.asList(new DataIns("array", "collection", "array"),
+                new DataIns("total", "number", "total"),
+                new DataIns("each", "number", "each")));
+
+        ParallelFor parallelFor = new ParallelFor();
+        parallelFor.setName("parallelFor");
+        parallelFor.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
+        DataIns dataInsDataFlow = new DataIns("InVal", "number", workflow.getName() + "/" + workflow.getDataIns().get(0).getName());
+        DataIns dataInsEach = new DataIns("each", "number", workflow.getName() + "/" + workflow.getDataIns().get(2).getName());
+        dataInsEach.setPassing(true);
+        DataIns dataInsTotal = new DataIns("total", "number", workflow.getName() + "/" + workflow.getDataIns().get(1).getName());
+        dataInsTotal.setPassing(true);
+        dataInsDataFlow.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor.setDataIns(Arrays.asList(dataInsDataFlow, dataInsTotal, dataInsEach));
+        DataIns inParallelDataIns = new DataIns("fraction", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo = new AtomicFunction("monteCarlo", "monteCarloType", Arrays.asList(inParallelDataIns), Arrays.asList(new DataOutsAtomic("result", "number")));
+        parallelFor.setDataOuts(Arrays.asList(new DataOuts("array", "collection",
+                        monteCarlo.getName() + "/" + monteCarlo.getDataOuts().get(0).getName()),
+                new DataOuts("total", "number", parallelFor.getDataIns().get(1).getName()),
+                new DataOuts("each", "number", parallelFor.getDataIns().get(2).getName())));
+        parallelFor.setLoopBody(Arrays.asList(monteCarlo));
+
+        ParallelFor parallelFor2 = new ParallelFor();
+        parallelFor2.setName("parallelFor2");
+        parallelFor2.setLoopCounter(new LoopCounter("counter", "number", "0", "2", "1"));
+        DataIns dataInsDataFlow2 = new DataIns("InVal", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(0).getName());
+        DataIns dataInsEach2 = new DataIns("each", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(2).getName());
+        dataInsEach2.setPassing(true);
+        DataIns dataInsTotal2 = new DataIns("total", "number", parallelFor.getName() + "/" + parallelFor.getDataIns().get(1).getName());
+        dataInsTotal2.setPassing(true);
+        dataInsDataFlow2.setConstraints(Arrays.asList(new PropertyConstraint("distribution", "BLOCK(1)")));
+        parallelFor2.setDataIns(Arrays.asList(dataInsDataFlow, dataInsTotal, dataInsEach));
+        DataIns inParallelDataIns2 = new DataIns("fraction", "number", parallelFor2.getName() + "/" + parallelFor2.getDataIns().get(0).getName());
+        AtomicFunction monteCarlo2 = new AtomicFunction("monteCarlo2", "monteCarlo2Type", Arrays.asList(inParallelDataIns2), Arrays.asList(new DataOutsAtomic("result", "number")));
+        parallelFor2.setDataOuts(Arrays.asList(new DataOuts("array", "collection",
+                        monteCarlo2.getName() + "/" + monteCarlo2.getDataOuts().get(0).getName()),
+                new DataOuts("total", "number", parallelFor2.getDataIns().get(1).getName()),
+                new DataOuts("each", "number", parallelFor2.getDataIns().get(2).getName())));
+        parallelFor2.setLoopBody(Arrays.asList(monteCarlo2));
+
+        DataIns array = new DataIns("array", "collection", parallelFor.getName() + "/" + parallelFor.getDataOuts().get(0).getName());
+        DataIns array2 = new DataIns("array2", "collection", parallelFor2.getName() + "/" + parallelFor2.getDataOuts().get(0).getName());
+        DataIns total = new DataIns("total", "number", parallelFor2.getName() + "/" + parallelFor2.getDataOuts().get(1).getName());
+        DataIns each = new DataIns("each", "number", parallelFor2.getName() + "/" + parallelFor2.getDataOuts().get(2).getName());
+        AtomicFunction summary = new AtomicFunction("summary", "summaryType", Arrays.asList(array, array2, total, each), Arrays.asList(new DataOutsAtomic("pi", "number")));
+
+        workflow.setWorkflowBody(Arrays.asList(parallelFor, parallelFor2, summary));
+
+        // CFCL
+        monteCarlo.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo")));
+        monteCarlo2.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo")));
+        summary.setProperties(Arrays.asList(new PropertyConstraint("resource", "python:arn:aws:lambda:us-east-1:170392512081:function:EE_exp_1_1_monteCarlo_summary")));
+
+        // Export workflow
+        Utils.writeYaml(workflow, "MonteCarlo_CFCL_750_seq_750.yaml", "schema.json");
         //Utils.writeYamlNoValidation(workflow, "MonteCarlo_CFCL.yaml");
     }
 
