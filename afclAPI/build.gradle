@@ -1,0 +1,32 @@
+plugins {
+    id "org.sonarqube" version "2.7"
+}
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "afclAPI"
+    }
+}
+
+apply plugin: 'java'
+
+
+group 'com.dps'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version:'2.9.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version:'2.9.8'
+    compile group: 'org.yaml', name: 'snakeyaml', version:'1.23'
+    compile group: 'com.fasterxml.jackson.module', name: 'jackson-module-jsonSchema', version:'2.9.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version:'2.9.8'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version:'2.9.8'
+    compile group: 'com.github.fge', name: 'json-schema-validator', version:'2.2.6'
+}
