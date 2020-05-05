@@ -11,9 +11,15 @@ sonarqube {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
-jacoco {
+    jacoco {
 		toolVersion = "0.8.2"
 	}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
 
 
 group 'com.dps'
