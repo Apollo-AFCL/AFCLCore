@@ -1,11 +1,9 @@
 package afcl.functions;
 
 import static org.junit.Assert.*;
-
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOutsAtomic;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
