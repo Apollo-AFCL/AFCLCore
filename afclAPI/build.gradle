@@ -9,12 +9,12 @@ sonarqube {
 }
 
 apply plugin: 'java'
+apply plugin: 'eclipse'
 
 
 group 'com.dps'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
