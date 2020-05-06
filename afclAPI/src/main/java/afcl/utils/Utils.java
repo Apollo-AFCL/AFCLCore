@@ -46,13 +46,13 @@ public class Utils {
                 try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
                     fileOutputStream.write(bytes);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.SEVERE, e.getMessage());
                 }
             }else{
                 LOGGER.log(Level.SEVERE, processingReport.toString());
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
     }
@@ -79,13 +79,13 @@ public class Utils {
                 try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
                     fileOuputStream.write(bytes);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.SEVERE, e.getMessage());
                 }
             }else{
                 LOGGER.log(Level.SEVERE, processingReport.toString());
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -114,7 +114,7 @@ public class Utils {
                 return null;
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
@@ -146,7 +146,7 @@ public class Utils {
                 return null;
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
@@ -177,7 +177,7 @@ public class Utils {
                 return null;
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
@@ -195,7 +195,7 @@ public class Utils {
         try {
             return objectMapper.readValue(origin, Workflow.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
@@ -221,7 +221,7 @@ public class Utils {
                 return false;
             }
         } catch (IOException | ProcessingException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return false;
     }
@@ -243,10 +243,10 @@ public class Utils {
             try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
                 fileOuputStream.write(bytes);
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.SEVERE, e.getMessage());
             }
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
     }
 
@@ -264,7 +264,7 @@ public class Utils {
         try {
             return objectMapper.readValue(file, Workflow.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return null;
     }
