@@ -16,12 +16,21 @@ public class AtomicFunctionTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        DataIns dataIns = new DataIns("inName", "inType");
+        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("outName", "outType");
+        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType",
+                new ArrayList<>(Collections.singleton(dataIns)),
+                new ArrayList<>(Collections.singleton(dataOutsAtomic)));
 
-        assertNull(atomicFunction.getDataIns());
-        assertNull(atomicFunction.getDataOuts());
         assertEquals("atomicFunction", atomicFunction.getName());
         assertEquals("atomicFunctionType", atomicFunction.getType());
+
+        assertEquals(atomicFunction.getDataIns().get(0), dataIns);
+        assertEquals(atomicFunction.getDataIns().get(0).hashCode(), dataIns.hashCode());
+
+        assertEquals(atomicFunction.getDataOuts().get(0), dataOutsAtomic);
+        assertEquals(atomicFunction.getDataOuts().get(0).hashCode(), dataOutsAtomic.hashCode());
+
         assertEquals(0, atomicFunction.getAdditionalProperties().size());
     }
 
@@ -46,13 +55,15 @@ public class AtomicFunctionTest {
         atomicFunction.setType("atomicFunctionType");
         assertEquals("atomicFunctionType", atomicFunction.getType());
 
-        atomicFunction.setDataIns(new ArrayList<>(Collections.singleton(new DataIns("inName", "inType"))));
-        assertEquals("inName", atomicFunction.getDataIns().get(0).getName());
-        assertEquals("inType", atomicFunction.getDataIns().get(0).getType());
+        DataIns dataIns = new DataIns("inName", "inType");
+        atomicFunction.setDataIns(new ArrayList<>(Collections.singleton(dataIns)));
+        assertEquals(atomicFunction.getDataIns().get(0), dataIns);
+        assertEquals(atomicFunction.getDataIns().get(0).hashCode(), dataIns.hashCode());
 
-        atomicFunction.setDataOuts(new ArrayList<>(Collections.singleton(new DataOutsAtomic("outName", "outType"))));
-        assertEquals("outName", atomicFunction.getDataOuts().get(0).getName());
-        assertEquals("outType", atomicFunction.getDataOuts().get(0).getType());
+        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("outName", "outType");
+        atomicFunction.setDataOuts(new ArrayList<>(Collections.singleton(dataOutsAtomic)));
+        assertEquals(atomicFunction.getDataOuts().get(0), dataOutsAtomic);
+        assertEquals(atomicFunction.getDataOuts().get(0).hashCode(), dataOutsAtomic.hashCode());
     }
 
     /**
