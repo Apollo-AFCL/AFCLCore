@@ -5,6 +5,7 @@ import afcl.functions.objects.*;
 import com.fasterxml.jackson.annotation.*;
 import afcl.functions.objects.Condition;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the sequential while compound
@@ -74,5 +75,20 @@ public class SequentialWhile extends LoopCompound {
     @JsonProperty("condition")
     public void setCondition(Condition loopCounter) {
         this.conditionSequentialWhile = loopCounter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SequentialWhile that = (SequentialWhile) o;
+        return Objects.equals(dataLoopsSequentialWhile, that.dataLoopsSequentialWhile) &&
+                Objects.equals(conditionSequentialWhile, that.conditionSequentialWhile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dataLoopsSequentialWhile, conditionSequentialWhile);
     }
 }

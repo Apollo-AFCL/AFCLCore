@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the data output ports of
@@ -157,5 +158,24 @@ public class DataOuts {
     @JsonProperty("constraints")
     public void setConstraints(List<Object> constraints) {
         this.constraintsDataOuts = constraints;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataOuts dataOuts = (DataOuts) o;
+        return Objects.equals(outputName, dataOuts.outputName) &&
+                Objects.equals(outputType, dataOuts.outputType) &&
+                Objects.equals(outputSource, dataOuts.outputSource) &&
+                Objects.equals(outputSaveTo, dataOuts.outputSaveTo) &&
+                Objects.equals(passingDataOuts, dataOuts.passingDataOuts) &&
+                Objects.equals(propertiesDataOuts, dataOuts.propertiesDataOuts) &&
+                Objects.equals(constraintsDataOuts, dataOuts.constraintsDataOuts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(outputName, outputType, outputSource, outputSaveTo, passingDataOuts, propertiesDataOuts, constraintsDataOuts);
     }
 }

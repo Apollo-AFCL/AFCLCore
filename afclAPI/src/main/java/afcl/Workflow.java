@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes a workflow
@@ -85,6 +86,16 @@ public class Workflow {
         this.name = name;
     }
 
+    @JsonProperty("dataOuts")
+    public List<DataOuts> getDataOuts() {
+        return dataOuts;
+    }
+
+    @JsonProperty("dataOuts")
+    public void setDataOuts(List<DataOuts> dataOuts) {
+        this.dataOuts = dataOuts;
+    }
+
     @JsonProperty("subFCs")
     public List<SubFC> getSubFCs() {
         return subFCs;
@@ -115,13 +126,20 @@ public class Workflow {
         this.workflowBody = workflowBody;
     }
 
-    @JsonProperty("dataOuts")
-    public List<DataOuts> getDataOuts() {
-        return dataOuts;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Workflow workflow = (Workflow) o;
+        return Objects.equals(name, workflow.name) &&
+                Objects.equals(subFCs, workflow.subFCs) &&
+                Objects.equals(dataIns, workflow.dataIns) &&
+                Objects.equals(workflowBody, workflow.workflowBody) &&
+                Objects.equals(dataOuts, workflow.dataOuts);
     }
 
-    @JsonProperty("dataOuts")
-    public void setDataOuts(List<DataOuts> dataOuts) {
-        this.dataOuts = dataOuts;
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, subFCs, dataIns, workflowBody, dataOuts);
     }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class represents a case of the {@link Switch} compound
@@ -40,7 +41,7 @@ public class Case {
     private List<Function> functions = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesCase = new HashMap<>();
 
     public Case() {
     }
@@ -92,12 +93,27 @@ public class Case {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesCase;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesCase.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Case aCase = (Case) o;
+        return Objects.equals(value, aCase.value) &&
+                Objects.equals(breakCase, aCase.breakCase) &&
+                Objects.equals(functions, aCase.functions) &&
+                Objects.equals(additionalPropertiesCase, aCase.additionalPropertiesCase);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, breakCase, functions, additionalPropertiesCase);
+    }
 }

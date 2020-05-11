@@ -6,6 +6,7 @@ import afcl.functions.objects.DataOuts;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes a sequential compound function
@@ -50,4 +51,17 @@ public class Compound extends Function {
         this.dataOuts = dataOuts;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Compound compound = (Compound) o;
+        return Objects.equals(dataIns, compound.dataIns) &&
+                Objects.equals(dataOuts, compound.dataOuts);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dataIns, dataOuts);
+    }
 }

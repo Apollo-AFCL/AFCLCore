@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class provides information about the number
@@ -53,7 +54,7 @@ public class LoopCounter {
     private String step;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesLoopCounter = new HashMap<>();
 
     public LoopCounter() {
     }
@@ -143,12 +144,29 @@ public class LoopCounter {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesLoopCounter;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesLoopCounter.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoopCounter that = (LoopCounter) o;
+        return Objects.equals(loopCounterName, that.loopCounterName) &&
+                Objects.equals(loopCounterType, that.loopCounterType) &&
+                Objects.equals(from, that.from) &&
+                Objects.equals(to, that.to) &&
+                Objects.equals(step, that.step) &&
+                Objects.equals(additionalPropertiesLoopCounter, that.additionalPropertiesLoopCounter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(loopCounterName, loopCounterType, from, to, step, additionalPropertiesLoopCounter);
+    }
 }

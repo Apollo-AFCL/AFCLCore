@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes the if-then-else compound
@@ -51,7 +52,7 @@ public class IfThenElse extends Compound {
     private List<Function> elseBranch = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesIfThenElse = new HashMap<>();
 
     public IfThenElse() {
     }
@@ -115,12 +116,28 @@ public class IfThenElse extends Compound {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesIfThenElse;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesIfThenElse.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        IfThenElse that = (IfThenElse) o;
+        return Objects.equals(condition, that.condition) &&
+                Objects.equals(thenBranch, that.thenBranch) &&
+                Objects.equals(elseBranch, that.elseBranch) &&
+                Objects.equals(additionalPropertiesIfThenElse, that.additionalPropertiesIfThenElse);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), condition, thenBranch, elseBranch, additionalPropertiesIfThenElse);
+    }
 }

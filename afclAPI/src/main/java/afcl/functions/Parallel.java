@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes the parallel compound
@@ -33,7 +34,7 @@ public class Parallel extends Compound {
     private List<Section> parallelBody = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesParallel = new HashMap<>();
 
     public Parallel() {
     }
@@ -69,12 +70,26 @@ public class Parallel extends Compound {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesParallel;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesParallel.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Parallel parallel = (Parallel) o;
+        return Objects.equals(parallelBody, parallel.parallelBody) &&
+                Objects.equals(additionalPropertiesParallel, parallel.additionalPropertiesParallel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), parallelBody, additionalPropertiesParallel);
+    }
 }

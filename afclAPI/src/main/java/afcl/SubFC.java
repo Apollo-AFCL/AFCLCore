@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes sub function choreographies
@@ -142,4 +143,21 @@ public class SubFC {
         this.constraintsSubFC = constraintsSubFC;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SubFC subFC = (SubFC) o;
+        return Objects.equals(name, subFC.name) &&
+                Objects.equals(dataIns, subFC.dataIns) &&
+                Objects.equals(subFCBody, subFC.subFCBody) &&
+                Objects.equals(dataOuts, subFC.dataOuts) &&
+                Objects.equals(propertiesSubFC, subFC.propertiesSubFC) &&
+                Objects.equals(constraintsSubFC, subFC.constraintsSubFC);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, dataIns, subFCBody, dataOuts, propertiesSubFC, constraintsSubFC);
+    }
 }

@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes a section of a
@@ -27,7 +28,7 @@ public class Section {
     private List<Function> sectionBody = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesSection = new HashMap<>();
 
     public Section() {
     }
@@ -57,12 +58,25 @@ public class Section {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesSection;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesSection.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Section section = (Section) o;
+        return Objects.equals(sectionBody, section.sectionBody) &&
+                Objects.equals(additionalPropertiesSection, section.additionalPropertiesSection);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(sectionBody, additionalPropertiesSection);
+    }
 }

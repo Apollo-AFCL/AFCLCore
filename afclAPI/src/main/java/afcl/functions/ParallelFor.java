@@ -7,6 +7,7 @@ import afcl.functions.objects.DataOuts;
 import afcl.functions.objects.LoopCounter;
 import com.fasterxml.jackson.annotation.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the parallelFor compound
@@ -62,5 +63,19 @@ public class ParallelFor extends LoopCompound {
     @JsonProperty("loopCounter")
     public void setLoopCounter(LoopCounter loopCounterParallelFor) {
         this.loopCounterParallelFor = loopCounterParallelFor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ParallelFor that = (ParallelFor) o;
+        return Objects.equals(loopCounterParallelFor, that.loopCounterParallelFor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), loopCounterParallelFor);
     }
 }

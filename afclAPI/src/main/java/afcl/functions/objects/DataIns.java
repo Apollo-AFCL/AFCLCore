@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the data input ports of
@@ -169,4 +170,22 @@ public class DataIns {
         this.constraintsDataIns = constraints;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataIns dataIns = (DataIns) o;
+        return Objects.equals(inputName, dataIns.inputName) &&
+                Objects.equals(inputType, dataIns.inputType) &&
+                Objects.equals(inputSource, dataIns.inputSource) &&
+                Objects.equals(inputValue, dataIns.inputValue) &&
+                Objects.equals(passingDataIns, dataIns.passingDataIns) &&
+                Objects.equals(propertiesDataIns, dataIns.propertiesDataIns) &&
+                Objects.equals(constraintsDataIns, dataIns.constraintsDataIns);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inputName, inputType, inputSource, inputValue, passingDataIns, propertiesDataIns, constraintsDataIns);
+    }
 }

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes an abstract function ({@link AtomicFunction} or
@@ -77,5 +78,20 @@ public class Function {
     @JsonProperty("constraints")
     public void setConstraints(List<PropertyConstraint> constraintsFunction) {
         this.constraintsFunction = constraintsFunction;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Function function = (Function) o;
+        return Objects.equals(name, function.name) &&
+                Objects.equals(propertiesFunction, function.propertiesFunction) &&
+                Objects.equals(constraintsFunction, function.constraintsFunction);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, propertiesFunction, constraintsFunction);
     }
 }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes an atomic function
@@ -45,7 +46,7 @@ public class AtomicFunction extends Function {
     private List<DataOutsAtomic> dataOuts;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesAtomicFunction = new HashMap<>();
 
     public AtomicFunction() {
     }
@@ -101,12 +102,27 @@ public class AtomicFunction extends Function {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesAtomicFunction;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesAtomicFunction.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AtomicFunction that = (AtomicFunction) o;
+        return Objects.equals(type, that.type) &&
+                Objects.equals(dataIns, that.dataIns) &&
+                Objects.equals(dataOuts, that.dataOuts) &&
+                Objects.equals(additionalPropertiesAtomicFunction, that.additionalPropertiesAtomicFunction);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, dataIns, dataOuts, additionalPropertiesAtomicFunction);
+    }
 }

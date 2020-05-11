@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes a loop compound
@@ -22,7 +23,7 @@ public class LoopCompound extends Compound {
     private List<Function> loopBody = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesLoopCompound = new HashMap<>();
 
     /**
      * Getter and Setter
@@ -40,11 +41,26 @@ public class LoopCompound extends Compound {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesLoopCompound;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesLoopCompound.put(name, value);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        LoopCompound that = (LoopCompound) o;
+        return Objects.equals(loopBody, that.loopBody) &&
+                Objects.equals(additionalPropertiesLoopCompound, that.additionalPropertiesLoopCompound);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), loopBody, additionalPropertiesLoopCompound);
     }
 }

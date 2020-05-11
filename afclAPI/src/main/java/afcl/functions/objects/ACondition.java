@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class represents a condition of {@link Condition}
@@ -43,7 +44,7 @@ public class ACondition {
     private String negation;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesACondition = new HashMap<>();
 
     public ACondition() {
     }
@@ -107,12 +108,28 @@ public class ACondition {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesACondition;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesACondition.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ACondition that = (ACondition) o;
+        return Objects.equals(data1, that.data1) &&
+                Objects.equals(data2, that.data2) &&
+                Objects.equals(operator, that.operator) &&
+                Objects.equals(negation, that.negation) &&
+                Objects.equals(additionalPropertiesACondition, that.additionalPropertiesACondition);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(data1, data2, operator, negation, additionalPropertiesACondition);
+    }
 }

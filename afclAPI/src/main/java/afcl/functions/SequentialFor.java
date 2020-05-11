@@ -4,6 +4,7 @@ import afcl.Function;
 import afcl.functions.objects.*;
 import com.fasterxml.jackson.annotation.*;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the sequential for compound
@@ -73,5 +74,20 @@ public class SequentialFor extends LoopCompound {
     @JsonProperty("loopCounter")
     public void setLoopCounter(LoopCounter loopCounterSequentialFor) {
         this.loopCounterSequentialFor = loopCounterSequentialFor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SequentialFor that = (SequentialFor) o;
+        return Objects.equals(dataLoopsSequentialFor, that.dataLoopsSequentialFor) &&
+                Objects.equals(loopCounterSequentialFor, that.loopCounterSequentialFor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dataLoopsSequentialFor, loopCounterSequentialFor);
     }
 }

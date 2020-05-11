@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class describes the data loop ports of
@@ -180,5 +181,25 @@ public class DataLoops {
     @JsonProperty("constraints")
     public void setConstraints(List<PropertyConstraint> constraints) {
         this.constraints = constraints;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataLoops dataLoops = (DataLoops) o;
+        return Objects.equals(dataLoopName, dataLoops.dataLoopName) &&
+                Objects.equals(dataLoopType, dataLoops.dataLoopType) &&
+                Objects.equals(initSource, dataLoops.initSource) &&
+                Objects.equals(loopSource, dataLoops.loopSource) &&
+                Objects.equals(value, dataLoops.value) &&
+                Objects.equals(passing, dataLoops.passing) &&
+                Objects.equals(properties, dataLoops.properties) &&
+                Objects.equals(constraints, dataLoops.constraints);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dataLoopName, dataLoopType, initSource, loopSource, value, passing, properties, constraints);
     }
 }

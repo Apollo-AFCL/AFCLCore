@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes the compound function switch
@@ -46,7 +47,7 @@ public class Switch extends Compound {
     private List<Function> defaultBranch = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesSwitch = new HashMap<>();
 
     public Switch() {
     }
@@ -105,12 +106,28 @@ public class Switch extends Compound {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesSwitch;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesSwitch.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Switch aSwitch = (Switch) o;
+        return Objects.equals(dataEval, aSwitch.dataEval) &&
+                Objects.equals(cases, aSwitch.cases) &&
+                Objects.equals(defaultBranch, aSwitch.defaultBranch) &&
+                Objects.equals(additionalPropertiesSwitch, aSwitch.additionalPropertiesSwitch);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), dataEval, cases, defaultBranch, additionalPropertiesSwitch);
+    }
 }

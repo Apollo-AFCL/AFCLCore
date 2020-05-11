@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes the data to be compared among the
@@ -98,4 +99,19 @@ public class DataEval {
         this.additionalPropertiesEvaluator.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DataEval dataEval = (DataEval) o;
+        return Objects.equals(evaluatorName, dataEval.evaluatorName) &&
+                Objects.equals(evaluatorType, dataEval.evaluatorType) &&
+                Objects.equals(evaluatorSource, dataEval.evaluatorSource) &&
+                Objects.equals(additionalPropertiesEvaluator, dataEval.additionalPropertiesEvaluator);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(evaluatorName, evaluatorType, evaluatorSource, additionalPropertiesEvaluator);
+    }
 }

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes the sequence compound
@@ -32,7 +33,7 @@ public class Sequence extends Compound {
     private List<Function> sequenceBody;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesSequence = new HashMap<>();
 
     public Sequence() {
     }
@@ -68,12 +69,26 @@ public class Sequence extends Compound {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesSequence;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesSequence.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Sequence sequence = (Sequence) o;
+        return Objects.equals(sequenceBody, sequence.sequenceBody) &&
+                Objects.equals(additionalPropertiesSequence, sequence.additionalPropertiesSequence);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), sequenceBody, additionalPropertiesSequence);
+    }
 }

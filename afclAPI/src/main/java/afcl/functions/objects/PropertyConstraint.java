@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * This class describes a property or constraint which
@@ -31,7 +32,7 @@ public class PropertyConstraint {
     @JsonProperty("value")
     private String value;
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<>();
+    private Map<String, Object> additionalPropertiesPropertiesConstraint = new HashMap<>();
 
     public PropertyConstraint() {
     }
@@ -74,12 +75,26 @@ public class PropertyConstraint {
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesPropertiesConstraint;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesPropertiesConstraint.put(name, value);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PropertyConstraint that = (PropertyConstraint) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(additionalPropertiesPropertiesConstraint, that.additionalPropertiesPropertiesConstraint);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, value, additionalPropertiesPropertiesConstraint);
+    }
 }
