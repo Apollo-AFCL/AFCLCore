@@ -27,41 +27,41 @@ public class DataOutsAtomic {
      * Unique identifier for the data output port
      */
     @JsonProperty("name")
-    private String name;
+    private String atomicOutputName;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String type;
-
-    /**
-     * Tells whether value will be passed to other
-     * function
-     */
-    @JsonProperty("passing")
-    private Boolean passing;
+    private String atomicOutputType;
 
     /**
      * To specify the output of the data output
      * port
      */
     @JsonProperty("saveto")
-    private String saveto;
+    private String atomicOutputSaveTo;
+
+    /**
+     * Tells whether value will be passed to other
+     * function
+     */
+    @JsonProperty("passing")
+    private Boolean passingDataOutsAtomic;
 
     /**
      * {@link PropertyConstraint} (information about the
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<Object> properties = null;
+    private List<Object> propertiesDataOutsAtomic = null;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<Object> constraints = null;
+    private List<Object> constraintsDataOutsAtomic = null;
 
     public DataOutsAtomic() {
     }
@@ -69,12 +69,12 @@ public class DataOutsAtomic {
     /**
      * Constructor for data output port of atomic function
      *
-     * @param name Unique identifier for the data output port
-     * @param type Data type of the data port
+     * @param atomicOutputName Unique identifier for the data output port
+     * @param atomicOutputType Data type of the data port
      */
-    public DataOutsAtomic(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public DataOutsAtomic(String atomicOutputName, String atomicOutputType) {
+        this.atomicOutputName = atomicOutputName;
+        this.atomicOutputType = atomicOutputType;
     }
 
     /**
@@ -83,62 +83,62 @@ public class DataOutsAtomic {
 
     @JsonProperty("name")
     public String getName() {
-        return name;
+        return atomicOutputName;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.name = name;
+        this.atomicOutputName = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return type;
+        return atomicOutputType;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.type = type;
+        this.atomicOutputType = type;
     }
 
     @JsonProperty("saveto")
     public String getSaveto() {
-        return saveto;
+        return atomicOutputSaveTo;
     }
 
     @JsonProperty("saveto")
     public void setSaveto(String saveto) {
-        this.saveto = saveto;
+        this.atomicOutputSaveTo = saveto;
     }
 
     @JsonProperty("passing")
     public Boolean getPassing() {
-        return passing;
+        return passingDataOutsAtomic;
     }
 
     @JsonProperty("passing")
     public void setPassing(Boolean passing) {
-        this.passing = passing;
+        this.passingDataOutsAtomic = passing;
     }
 
     @JsonProperty("properties")
     public List<Object> getProperties() {
-        return properties;
+        return propertiesDataOutsAtomic;
     }
 
     @JsonProperty("properties")
     public void setProperties(List<Object> properties) {
-        this.properties = properties;
+        this.propertiesDataOutsAtomic = properties;
     }
 
     @JsonProperty("constraints")
     public List<Object> getConstraints() {
-        return constraints;
+        return constraintsDataOutsAtomic;
     }
 
     @JsonProperty("constraints")
     public void setConstraints(List<Object> constraints) {
-        this.constraints = constraints;
+        this.constraintsDataOutsAtomic = constraints;
     }
 
 }

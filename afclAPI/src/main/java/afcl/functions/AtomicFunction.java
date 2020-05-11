@@ -45,7 +45,7 @@ public class AtomicFunction extends Function {
     private List<DataOutsAtomic> dataOuts;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public AtomicFunction() {
     }

@@ -5,7 +5,6 @@ import afcl.Function;
 import afcl.functions.objects.Condition;
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.PropertyConstraint;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
@@ -31,8 +30,8 @@ public class IfThenElse extends Compound {
 
     /**
      * Represents the condition which should be fulfilled to execute
-     * the {@link IfThenElse#then} functions. If the condition is not
-     * fulfilled {@link IfThenElse#_else} will be executed.
+     * the {@link IfThenElse#thenBranch} functions. If the condition is not
+     * fulfilled {@link IfThenElse#elseBranch} will be executed.
      */
     @JsonProperty("condition")
     private Condition condition;
@@ -42,17 +41,17 @@ public class IfThenElse extends Compound {
      * is fulfilled.
      */
     @JsonProperty("then")
-    private List<Function> then = null;
+    private List<Function> thenBranch = null;
 
     /**
      * List of functions that will be executed if {@link IfThenElse#condition}
      * is not fulfilled.
      */
     @JsonProperty("else")
-    private List<Function> _else = null;
+    private List<Function> elseBranch = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public IfThenElse() {
     }
@@ -63,20 +62,20 @@ public class IfThenElse extends Compound {
      * @param name      Unique identifier of the compound
      * @param dataIns   Data input ports ({@link DataIns})
      * @param condition Represents the condition which should be fulfilled to execute
-     *                  the {@link IfThenElse#then} functions. If the condition is not
-     *                  fulfilled {@link IfThenElse#_else} will be executed.
-     * @param then      List of functions that will be executed if {@link IfThenElse#condition}
+     *                  the {@link IfThenElse#thenBranch} functions. If the condition is not
+     *                  fulfilled {@link IfThenElse#elseBranch} will be executed.
+     * @param thenBranch List of functions that will be executed if {@link IfThenElse#condition}
      *                  is fulfilled.
-     * @param _else     List of functions that will be executed if {@link IfThenElse#condition}
+     * @param elseBranch     List of functions that will be executed if {@link IfThenElse#condition}
      *                  is not fulfilled.
      * @param dataOuts  Data output ports ({@link DataOuts})
      */
-    public IfThenElse(String name, List<DataIns> dataIns, Condition condition, List<Function> then, List<Function> _else, List<DataOuts> dataOuts) {
+    public IfThenElse(String name, List<DataIns> dataIns, Condition condition, List<Function> thenBranch, List<Function> elseBranch, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.condition = condition;
-        this.then = then;
-        this._else = _else;
+        this.thenBranch = thenBranch;
+        this.elseBranch = elseBranch;
         this.dataOuts = dataOuts;
     }
 
@@ -96,22 +95,22 @@ public class IfThenElse extends Compound {
 
     @JsonProperty("then")
     public List<Function> getThen() {
-        return then;
+        return thenBranch;
     }
 
     @JsonProperty("then")
-    public void setThen(List<Function> then) {
-        this.then = then;
+    public void setThen(List<Function> thenBranch) {
+        this.thenBranch = thenBranch;
     }
 
     @JsonProperty("else")
     public List<Function> getElse() {
-        return _else;
+        return elseBranch;
     }
 
     @JsonProperty("else")
-    public void setElse(List<Function> _else) {
-        this._else = _else;
+    public void setElse(List<Function> elseBranch) {
+        this.elseBranch = elseBranch;
     }
 
     @JsonAnyGetter

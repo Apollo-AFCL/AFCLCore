@@ -23,22 +23,22 @@ public class DataEval {
      * Unique identifier for the data eval
      */
     @JsonProperty("name")
-    private String name;
+    private String evaluatorName;
 
     /**
      * Indicates the data type
      */
     @JsonProperty("type")
-    private String type;
+    private String evaluatorType;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String source;
+    private String evaluatorSource;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalPropertiesEvaluator = new HashMap<>();
 
     public DataEval() {
     }
@@ -46,12 +46,12 @@ public class DataEval {
     /**
      * Constructor for data eval
      *
-     * @param name Unique identifier for the data eval
-     * @param type Data type
+     * @param evaluatorName Unique identifier for the data eval
+     * @param evaluatorType Data type
      */
-    public DataEval(String name, String type) {
-        this.name = name;
-        this.type = type;
+    public DataEval(String evaluatorName, String evaluatorType) {
+        this.evaluatorName = evaluatorName;
+        this.evaluatorType = evaluatorType;
     }
 
     /**
@@ -60,42 +60,42 @@ public class DataEval {
 
     @JsonProperty("name")
     public String getName() {
-        return name;
+        return evaluatorName;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.name = name;
+        this.evaluatorName = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return type;
+        return evaluatorType;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.type = type;
+        this.evaluatorType = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return source;
+        return evaluatorSource;
     }
 
     @JsonProperty("source")
     public void setSource(String source) {
-        this.source = source;
+        this.evaluatorSource = source;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+        return this.additionalPropertiesEvaluator;
     }
 
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.additionalPropertiesEvaluator.put(name, value);
     }
 
 }

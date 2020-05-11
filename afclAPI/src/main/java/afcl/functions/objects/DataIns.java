@@ -28,46 +28,46 @@ public class DataIns {
      * Unique identifier for the data input port
      */
     @JsonProperty("name")
-    private String name;
+    private String inputName;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String type;
+    private String inputType;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String source;
+    private String inputSource;
 
     /**
      * Represents a constant value
      */
     @JsonProperty("value")
-    private String value;
+    private String inputValue;
 
     /**
      * Tells whether value will be passed to other
      * function
      */
     @JsonProperty("passing")
-    private Boolean passing;
+    private Boolean passingDataIns;
 
     /**
      * {@link PropertyConstraint} (information about the
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> properties = null;
+    private List<PropertyConstraint> propertiesDataIns = null;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints = null;
+    private List<PropertyConstraint> constraintsDataIns = null;
 
     public DataIns() {
     }
@@ -75,24 +75,24 @@ public class DataIns {
     /**
      * Constructor for data input ports
      *
-     * @param name Unique identifier for the data input port
-     * @param type Data type of the data port
+     * @param inputName Unique identifier for the data input port
+     * @param inputType Data type of the data port
      */
-    public DataIns(String name, String type) {
-        this(name, type, null);
+    public DataIns(String inputName, String inputType) {
+        this(inputName, inputType, null);
     }
 
     /**
      * Constructor for data input ports
      *
-     * @param name   Unique identifier for the data input port
-     * @param type   Data type of the data port
-     * @param source Specifies where the data comes from
+     * @param inputName   Unique identifier for the data input port
+     * @param inputType   Data type of the data port
+     * @param inputSource Specifies where the data comes from
      */
-    public DataIns(String name, String type, String source) {
-        this.name = name;
-        this.type = type;
-        this.source = source;
+    public DataIns(String inputName, String inputType, String inputSource) {
+        this.inputName = inputName;
+        this.inputType = inputType;
+        this.inputSource = inputSource;
     }
 
     /**
@@ -101,72 +101,72 @@ public class DataIns {
 
     @JsonProperty("name")
     public String getName() {
-        return name;
+        return inputName;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.name = name;
+        this.inputName = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return type;
+        return inputType;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.type = type;
+        this.inputType = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return source;
+        return inputSource;
     }
 
     @JsonProperty("source")
     public void setSource(String source) {
-        this.source = source;
+        this.inputSource = source;
     }
 
     @JsonProperty("value")
     public String getValue() {
-        return value;
+        return inputValue;
     }
 
     @JsonProperty("value")
     public void setValue(String value) {
-        this.value = value;
+        this.inputValue = value;
     }
 
     @JsonProperty("passing")
     public Boolean getPassing() {
-        return passing;
+        return passingDataIns;
     }
 
     @JsonProperty("passing")
     public void setPassing(Boolean passing) {
-        this.passing = passing;
+        this.passingDataIns = passing;
     }
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return properties;
+        return propertiesDataIns;
     }
 
     @JsonProperty("properties")
     public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
+        this.propertiesDataIns = properties;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraints;
+        return constraintsDataIns;
     }
 
     @JsonProperty("constraints")
     public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
+        this.constraintsDataIns = constraints;
     }
 
 }

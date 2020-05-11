@@ -53,14 +53,14 @@ public class SubFC {
      * {@link PropertyConstraint} (information about the behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<Object> properties = null;
+    private List<Object> propertiesSubFC = null;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled by underlying workflow
      * runtime environment)
      */
     @JsonProperty("constraints")
-    private List<Object> constraints = null;
+    private List<Object> constraintsSubFC = null;
 
     /**
      * Constructor for sub function choreographies
@@ -124,22 +124,22 @@ public class SubFC {
 
     @JsonProperty("properties")
     public List<Object> getProperties() {
-        return properties;
+        return propertiesSubFC;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<Object> properties) {
-        this.properties = properties;
+    public void setProperties(List<Object> propertiesSubFC) {
+        this.propertiesSubFC = propertiesSubFC;
     }
 
     @JsonProperty("constraints")
     public List<Object> getConstraints() {
-        return constraints;
+        return constraintsSubFC;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<Object> constraints) {
-        this.constraints = constraints;
+    public void setConstraints(List<Object> constraintsSubFC) {
+        this.constraintsSubFC = constraintsSubFC;
     }
 
 }

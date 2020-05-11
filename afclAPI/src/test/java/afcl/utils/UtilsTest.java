@@ -1,13 +1,12 @@
 package afcl.utils;
 
+import static org.junit.Assert.*;
 import afcl.Function;
 import afcl.Workflow;
 import afcl.functions.AtomicFunction;
 import afcl.functions.ParallelFor;
 import afcl.functions.objects.LoopCounter;
 import org.junit.Test;
-import static org.junit.Assert.*;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;

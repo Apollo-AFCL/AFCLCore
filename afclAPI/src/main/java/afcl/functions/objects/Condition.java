@@ -35,7 +35,7 @@ public class Condition {
     private List<ACondition> conditions = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Condition() {
     }

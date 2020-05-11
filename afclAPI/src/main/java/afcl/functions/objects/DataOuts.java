@@ -27,47 +27,47 @@ public class DataOuts {
      * Unique identifier for the data output port
      */
     @JsonProperty("name")
-    private String name;
+    private String outputName;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String type;
+    private String outputType;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String source;
+    private String outputSource;
 
     /**
      * To specify the output of the data output
      * port
      */
     @JsonProperty("saveto")
-    private String saveto;
+    private String outputSaveTo;
 
     /**
      * Tells whether value will be passed to other
      * function
      */
     @JsonProperty("passing")
-    private Boolean passing;
+    private Boolean passingDataOuts;
 
     /**
      * {@link PropertyConstraint} (information about the
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<Object> properties = null;
+    private List<Object> propertiesDataOuts = null;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<Object> constraints = null;
+    private List<Object> constraintsDataOuts = null;
 
     public DataOuts() {
     }
@@ -75,14 +75,14 @@ public class DataOuts {
     /**
      * Constructor for data output port of compound function
      *
-     * @param name   Unique identifier for the data output port
-     * @param type   Data type of the data port
-     * @param source Source location of the data port
+     * @param outputName   Unique identifier for the data output port
+     * @param outputType   Data type of the data port
+     * @param outputSource Source location of the data port
      */
-    public DataOuts(String name, String type, String source) {
-        this.name = name;
-        this.type = type;
-        this.source = source;
+    public DataOuts(String outputName, String outputType, String outputSource) {
+        this.outputName = outputName;
+        this.outputType = outputType;
+        this.outputSource = outputSource;
     }
 
     /**
@@ -91,71 +91,71 @@ public class DataOuts {
 
     @JsonProperty("name")
     public String getName() {
-        return name;
+        return outputName;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.name = name;
+        this.outputName = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return type;
+        return outputType;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.type = type;
+        this.outputType = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return source;
+        return outputSource;
     }
 
     @JsonProperty("source")
     public void setSource(String source) {
-        this.source = source;
+        this.outputSource = source;
     }
 
     @JsonProperty("saveto")
     public String getSaveto() {
-        return saveto;
+        return outputSaveTo;
     }
 
     @JsonProperty("saveto")
     public void setSaveto(String saveto) {
-        this.saveto = saveto;
+        this.outputSaveTo = saveto;
     }
 
     @JsonProperty("passing")
     public Boolean getPassing() {
-        return passing;
+        return passingDataOuts;
     }
 
     @JsonProperty("passing")
     public void setPassing(Boolean passing) {
-        this.passing = passing;
+        this.passingDataOuts = passing;
     }
 
     @JsonProperty("properties")
     public List<Object> getProperties() {
-        return properties;
+        return propertiesDataOuts;
     }
 
     @JsonProperty("properties")
     public void setProperties(List<Object> properties) {
-        this.properties = properties;
+        this.propertiesDataOuts = properties;
     }
 
     @JsonProperty("constraints")
     public List<Object> getConstraints() {
-        return constraints;
+        return constraintsDataOuts;
     }
 
     @JsonProperty("constraints")
     public void setConstraints(List<Object> constraints) {
-        this.constraints = constraints;
+        this.constraintsDataOuts = constraints;
     }
 }

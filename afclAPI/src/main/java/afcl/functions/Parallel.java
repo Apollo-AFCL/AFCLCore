@@ -3,7 +3,6 @@ package afcl.functions;
 
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.PropertyConstraint;
 import afcl.functions.objects.Section;
 import com.fasterxml.jackson.annotation.*;
 
@@ -34,7 +33,7 @@ public class Parallel extends Compound {
     private List<Section> parallelBody = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Parallel() {
     }

@@ -43,10 +43,10 @@ public class Switch extends Compound {
      * criterion of {@link Switch#dataEval}
      */
     @JsonProperty("default")
-    private List<Function> _default = null;
+    private List<Function> defaultBranch = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Switch() {
     }
@@ -95,12 +95,12 @@ public class Switch extends Compound {
 
     @JsonProperty("default")
     public List<Function> getDefault() {
-        return _default;
+        return defaultBranch;
     }
 
     @JsonProperty("default")
-    public void setDefault(List<Function> _default) {
-        this._default = _default;
+    public void setDefault(List<Function> defaultBranch) {
+        this.defaultBranch = defaultBranch;
     }
 
     @JsonAnyGetter

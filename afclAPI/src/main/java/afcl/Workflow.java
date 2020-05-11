@@ -71,9 +71,6 @@ public class Workflow {
         this.dataOuts = dataOuts;
     }
 
-    public static void main(String[] args) {}
-
-
     /**
      * Getter and Setter
      */

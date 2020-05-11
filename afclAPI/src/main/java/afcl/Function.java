@@ -35,14 +35,14 @@ public class Function {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> properties;
+    private List<PropertyConstraint> propertiesFunction;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints;
+    private List<PropertyConstraint> constraintsFunction;
 
 
     /**
@@ -61,21 +61,21 @@ public class Function {
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return properties;
+        return propertiesFunction;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
-        this.properties = properties;
+    public void setProperties(List<PropertyConstraint> propertiesFunction) {
+        this.propertiesFunction = propertiesFunction;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraints;
+        return constraintsFunction;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraints = constraints;
+    public void setConstraints(List<PropertyConstraint> constraintsFunction) {
+        this.constraintsFunction = constraintsFunction;
     }
 }

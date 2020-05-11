@@ -25,13 +25,13 @@ public class LoopCounter {
      * Unique identifier for the loop counter
      */
     @JsonProperty("name")
-    private String name;
+    private String loopCounterName;
 
     /**
      * Type of the counter variable (e.g. integer)
      */
     @JsonProperty("type")
-    private String type;
+    private String loopCounterType;
 
     /**
      * Initial assignment of the counter variable
@@ -53,7 +53,7 @@ public class LoopCounter {
     private String step;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public LoopCounter() {
     }
@@ -61,27 +61,27 @@ public class LoopCounter {
     /**
      * Constructor for loop counter
      *
-     * @param name Unique identifier for the loop counter
-     * @param type Type of the counter variable (e.g. integer)
+     * @param loopCounterName Unique identifier for the loop counter
+     * @param loopCounterType Type of the counter variable (e.g. integer)
      * @param from Initial assignment of the counter variable
      * @param to If this value is reached or exceeded the iterations stops
      */
-    public LoopCounter(String name, String type, String from, String to) {
-        this(name, type, from, to, null);
+    public LoopCounter(String loopCounterName, String loopCounterType, String from, String to) {
+        this(loopCounterName, loopCounterType, from, to, null);
     }
 
     /**
      * Constructor for loop counter
      *
-     * @param name Unique identifier for the loop counter
-     * @param type Type of the counter variable (e.g. integer)
+     * @param loopCounterName Unique identifier for the loop counter
+     * @param loopCounterType Type of the counter variable (e.g. integer)
      * @param from Initial assignment of the counter variable
      * @param to If this value is reached or exceeded the iterations stops
      * @param step The counter variable will be increased step times in each iteration.
      */
-    public LoopCounter(String name, String type, String from, String to, String step) {
-        this.name = name;
-        this.type = type;
+    public LoopCounter(String loopCounterName, String loopCounterType, String from, String to, String step) {
+        this.loopCounterName = loopCounterName;
+        this.loopCounterType = loopCounterType;
         this.from = from;
         this.to = to;
         this.step = step;
@@ -93,22 +93,22 @@ public class LoopCounter {
 
     @JsonProperty("name")
     public String getName() {
-        return name;
+        return loopCounterName;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.name = name;
+        this.loopCounterName = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return type;
+        return loopCounterType;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.type = type;
+        this.loopCounterType = type;
     }
 
     @JsonProperty("from")

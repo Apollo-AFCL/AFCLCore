@@ -23,8 +23,83 @@ import java.util.logging.Logger;
  */
 public class Utils {
 
+    private Utils(){}
+
+    private static final String PREFIX_ERROR = "ERROR: ";
+
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
-    //private static final URL JSON_SCHEMA_LOCATION =  Utils.class.getResource("schema.json");
+
+    /**
+     * Parse a workflow
+     *
+     * @param workflow object to parse
+     * @param yf yaml factory used for parsing
+     * @param jsonSchema to validate
+     * @param objectMapper to map objects
+     * @return workflow
+     * @throws IOException on failure
+     * @throws ProcessingException on failure
+     */
+    private static Workflow parseWorkflow(Workflow workflow, YAMLFactory yf, String jsonSchema, ObjectMapper objectMapper) throws IOException, ProcessingException {
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
+        ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
+        if(processingReport.isSuccess()){
+            return workflow;
+        }else{
+            LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
+            return null;
+        }
+    }
+
+    /**
+     * Validate a workflowNode with a given schema
+     *
+     * @param jsonSchema used for validation
+     * @param workflowNode to validate
+     * @return processing report with results
+     * @throws ProcessingException on failure
+     * @throws IOException on failure
+     */
+    private static ProcessingReport validateWorkflowNode(String jsonSchema, JsonNode workflowNode) throws ProcessingException, IOException {
+        JsonSchemaFactory schemaFactory = JsonSchemaFactory.byDefault();
+        JsonSchema schema = schemaFactory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
+        return schema.validate(workflowNode);
+    }
+
+    /**
+     * Write workflow to file if validation succeeds
+     *
+     * @param workflowNode workflow to write
+     * @param bytes to write to file
+     * @param destination of the file
+     * @param jsonSchema used for validation
+     * @throws IOException on failure
+     * @throws ProcessingException on failure
+     */
+    private static void validateAndWriteFile(JsonNode workflowNode, byte[] bytes, String destination, String jsonSchema) throws IOException, ProcessingException {
+        ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
+        if(processingReport.isSuccess()){
+            File file = new File(destination);
+            writeBytes(file, bytes);
+        }else{
+            LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
+        }
+    }
+
+    /**
+     * Write byte[] to file
+     *
+     * @param file on which byte[] should be written
+     * @param bytes to write
+     */
+    private static void writeBytes(File file, byte[] bytes){
+        try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            fileOutputStream.write(bytes);
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+        }
+    }
 
     /**
      * Write workflow to Json File
@@ -37,20 +112,7 @@ public class Utils {
         try {
             byte[] bytes = objectMapper.writeValueAsBytes(workflow);
             JsonNode workflowNode = objectMapper.readTree(bytes);
-
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
-            if(processingReport.isSuccess()){
-                File file = new File(destination);
-                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-                    fileOutputStream.write(bytes);
-                } catch (IOException e) {
-                    LOGGER.log(Level.SEVERE, e.getMessage());
-                }
-            }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
-            }
+            validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
         } catch (IOException | ProcessingException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
@@ -70,20 +132,7 @@ public class Utils {
         try {
             byte[] bytes = objectMapper.writeValueAsBytes(workflow);
             JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
-
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
-            if(processingReport.isSuccess()){
-                File file = new File(destination);
-                try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
-                    fileOuputStream.write(bytes);
-                } catch (IOException e) {
-                    LOGGER.log(Level.SEVERE, e.getMessage());
-                }
-            }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
-            }
+            validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
         } catch (IOException | ProcessingException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
@@ -104,13 +153,11 @@ public class Utils {
             byte[] bytes = objectMapper.writeValueAsBytes(workflow);
             JsonNode workflowNode = objectMapper.readTree(bytes);
 
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
+            ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
             if(processingReport.isSuccess()){
                 return workflow;
             }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
+                LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
                 return null;
             }
         } catch (IOException | ProcessingException e) {
@@ -129,22 +176,11 @@ public class Utils {
         File file = new File(origin);
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+
         ObjectMapper objectMapper = new ObjectMapper(yf);
         try {
             Workflow workflow = objectMapper.readValue(file, Workflow.class);
-
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
-
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
-            if(processingReport.isSuccess()){
-                return workflow;
-            }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
-                return null;
-            }
+            return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
         } catch (IOException | ProcessingException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
@@ -160,22 +196,11 @@ public class Utils {
     public static Workflow readJSONString(String origin, String jsonSchema) {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+
         ObjectMapper objectMapper = new ObjectMapper(yf);
         try {
             Workflow workflow = objectMapper.readValue(origin, Workflow.class);
-
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
-
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
-            if(processingReport.isSuccess()){
-                return workflow;
-            }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
-                return null;
-            }
+            return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
         } catch (IOException | ProcessingException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
@@ -211,13 +236,11 @@ public class Utils {
             byte[] bytes = objectMapper.writeValueAsBytes(workflow);
             JsonNode workflowNode = objectMapper.readTree(bytes);
 
-            JsonSchemaFactory schema_factory = JsonSchemaFactory.byDefault();
-            JsonSchema schema = schema_factory.getJsonSchema(JsonLoader.fromFile(new File(jsonSchema)));
-            ProcessingReport processingReport = schema.validate(workflowNode);
+            ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
             if(processingReport.isSuccess()){
                 return true;
             }else{
-                LOGGER.log(Level.SEVERE, processingReport.toString());
+                LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
                 return false;
             }
         } catch (IOException | ProcessingException e) {
@@ -240,11 +263,7 @@ public class Utils {
             byte[] bytes = objectMapper.writeValueAsBytes(workflow);
 
             File file = new File(destination);
-            try (FileOutputStream fileOuputStream = new FileOutputStream(file)) {
-                fileOuputStream.write(bytes);
-            } catch (IOException e) {
-                LOGGER.log(Level.SEVERE, e.getMessage());
-            }
+            writeBytes(file, bytes);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }

@@ -3,10 +3,7 @@ package afcl.functions;
 import afcl.Function;
 import afcl.functions.objects.*;
 import com.fasterxml.jackson.annotation.*;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class describes the sequential for compound
@@ -23,28 +20,19 @@ import java.util.Map;
 })
 @JsonTypeName("for")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class SequentialFor extends Compound {
+public class SequentialFor extends LoopCompound {
 
     /**
      * Contains needed information about potential loop data flow
      */
     @JsonProperty("dataLoops")
-    private List<DataLoops> dataLoops;
+    private List<DataLoops> dataLoopsSequentialFor;
 
     /**
      * Contains needed information about the number of (sequential) loop iterations
      */
     @JsonProperty("loopCounter")
-    private LoopCounter loopCounter;
-
-    /**
-     * Contains {@link Function}s which should be executed in each iteration
-     */
-    @JsonProperty("loopBody")
-    private List<Function> loopBody = null;
-
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private LoopCounter loopCounterSequentialFor;
 
     public SequentialFor() {
     }
@@ -54,16 +42,16 @@ public class SequentialFor extends Compound {
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param loopCounter information about the number of (sequential) loop iterations
-     * @param loopBody    functions which should be executed in each iteration
+     * @param loopCounterSequentialFor information about the number of (sequential) loop iterations
+     * @param loopBodySequentialFor    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public SequentialFor(String name, List<DataIns> dataIns, List<DataLoops> dataLoops, LoopCounter loopCounter, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public SequentialFor(String name, List<DataIns> dataIns, List<DataLoops> dataLoopsSequentialFor, LoopCounter loopCounterSequentialFor, List<Function> loopBodySequentialFor, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
-        this.dataLoops = dataLoops;
-        this.loopCounter = loopCounter;
-        this.loopBody = loopBody;
+        this.dataLoopsSequentialFor = dataLoopsSequentialFor;
+        this.loopCounterSequentialFor = loopCounterSequentialFor;
+        this.setLoopBody(loopBodySequentialFor);
         this.dataOuts = dataOuts;
     }
 
@@ -72,38 +60,18 @@ public class SequentialFor extends Compound {
      */
 
     @JsonProperty("dataLoops")
-    public List<DataLoops> getDataLoops() { return dataLoops; }
+    public List<DataLoops> getDataLoops() { return dataLoopsSequentialFor; }
 
     @JsonProperty("dataLoops")
-    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
+    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoopsSequentialFor = dataLoops; }
 
     @JsonProperty("loopCounter")
     public LoopCounter getLoopCounter() {
-        return loopCounter;
+        return loopCounterSequentialFor;
     }
 
     @JsonProperty("loopCounter")
-    public void setLoopCounter(LoopCounter loopCounter) {
-        this.loopCounter = loopCounter;
-    }
-
-    @JsonProperty("loopBody")
-    public List<Function> getLoopBody() {
-        return loopBody;
-    }
-
-    @JsonProperty("loopBody")
-    public void setLoopBody(List<Function> loopBody) {
-        this.loopBody = loopBody;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    public void setLoopCounter(LoopCounter loopCounterSequentialFor) {
+        this.loopCounterSequentialFor = loopCounterSequentialFor;
     }
 }

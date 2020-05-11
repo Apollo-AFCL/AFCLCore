@@ -31,7 +31,7 @@ public class Case {
      * Terminated the enclosing switch.
      */
     @JsonProperty("break")
-    private String _break;
+    private String breakCase;
 
     /**
      * List of functions to be executed if the cases matches {@link DataEval}
@@ -40,7 +40,7 @@ public class Case {
     private List<Function> functions = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Case() {
     }
@@ -72,12 +72,12 @@ public class Case {
 
     @JsonProperty("break")
     public String getBreak() {
-        return _break;
+        return breakCase;
     }
 
     @JsonProperty("break")
-    public void setBreak(String _break) {
-        this._break = _break;
+    public void setBreak(String breakCase) {
+        this.breakCase = breakCase;
     }
 
     @JsonProperty("functions")

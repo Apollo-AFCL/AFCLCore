@@ -4,9 +4,7 @@ import afcl.Function;
 import afcl.functions.objects.*;
 import com.fasterxml.jackson.annotation.*;
 import afcl.functions.objects.Condition;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * This class describes the sequential while compound
@@ -23,28 +21,19 @@ import java.util.Map;
 })
 @JsonTypeName("while")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
-public class SequentialWhile extends Compound {
+public class SequentialWhile extends LoopCompound {
 
     /**
      * Contains needed information about potential loop data flow
      */
     @JsonProperty("dataLoops")
-    private List<DataLoops> dataLoops;
+    private List<DataLoops> dataLoopsSequentialWhile;
 
     /**
      * Contains needed information about the number of (sequential) loop iterations
      */
     @JsonProperty("condition")
-    private Condition condition;
-
-    /**
-     * Contains {@link Function}s which should be executed in each iteration
-     */
-    @JsonProperty("loopBody")
-    private List<Function> loopBody = null;
-
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Condition conditionSequentialWhile;
 
     public SequentialWhile() {
     }
@@ -54,16 +43,16 @@ public class SequentialWhile extends Compound {
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param condition   while loop condition
-     * @param loopBody    functions which should be executed in each iteration
+     * @param conditionSequentialWhile   while loop condition
+     * @param loopBodySequentialWhile    functions which should be executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public SequentialWhile(String name, List<DataIns> dataIns, List<DataLoops> dataLoops, Condition condition, List<Function> loopBody, List<DataOuts> dataOuts) {
+    public SequentialWhile(String name, List<DataIns> dataIns, List<DataLoops> dataLoopsSequentialWhile, Condition conditionSequentialWhile, List<Function> loopBodySequentialWhile, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
-        this.dataLoops = dataLoops;
-        this.condition = condition;
-        this.loopBody = loopBody;
+        this.dataLoopsSequentialWhile = dataLoopsSequentialWhile;
+        this.conditionSequentialWhile = conditionSequentialWhile;
+        this.setLoopBody(loopBodySequentialWhile);
         this.dataOuts = dataOuts;
     }
 
@@ -72,38 +61,18 @@ public class SequentialWhile extends Compound {
      */
 
     @JsonProperty("dataLoops")
-    public List<DataLoops> getDataLoops() { return dataLoops; }
+    public List<DataLoops> getDataLoops() { return dataLoopsSequentialWhile; }
 
     @JsonProperty("dataLoops")
-    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
+    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoopsSequentialWhile = dataLoops; }
 
     @JsonProperty("condition")
     public Condition getCondition() {
-        return condition;
+        return conditionSequentialWhile;
     }
 
     @JsonProperty("condition")
     public void setCondition(Condition loopCounter) {
-        this.condition = loopCounter;
-    }
-
-    @JsonProperty("loopBody")
-    public List<Function> getLoopBody() {
-        return loopBody;
-    }
-
-    @JsonProperty("loopBody")
-    public void setLoopBody(List<Function> loopBody) {
-        this.loopBody = loopBody;
-    }
-
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+        this.conditionSequentialWhile = loopCounter;
     }
 }

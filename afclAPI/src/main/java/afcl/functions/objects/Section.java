@@ -24,10 +24,10 @@ public class Section {
      * List of {@link Function}s within one section
      */
     @JsonProperty("section")
-    private List<Function> section = null;
+    private List<Function> sectionBody = null;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Section() {
     }
@@ -38,7 +38,7 @@ public class Section {
      * @param section List of {@link Function}s within one section
      */
     public Section(List<Function> section) {
-        this.section = section;
+        this.sectionBody = section;
     }
 
     /**
@@ -47,12 +47,12 @@ public class Section {
 
     @JsonProperty("section")
     public List<Function> getSection() {
-        return section;
+        return sectionBody;
     }
 
     @JsonProperty("section")
     public void setSection(List<Function> section) {
-        this.section = section;
+        this.sectionBody = section;
     }
 
     @JsonAnyGetter

@@ -4,7 +4,6 @@ package afcl.functions;
 import afcl.Function;
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOuts;
-import afcl.functions.objects.PropertyConstraint;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
@@ -33,7 +32,7 @@ public class Sequence extends Compound {
     private List<Function> sequenceBody;
 
     @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    private Map<String, Object> additionalProperties = new HashMap<>();
 
     public Sequence() {
     }
