@@ -1,4 +1,4 @@
-# AFCL and CFCL API
+# AFCL and CFCL
 
 - **/afclAPI** contains the source code of the API
 - **/examples** contains
