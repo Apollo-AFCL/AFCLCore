@@ -1,6 +1,7 @@
 package afcl.utils;
 
 import afcl.Workflow;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -107,16 +108,11 @@ public class Utils {
      * @param workflow    to write
      * @param destination file to write (i.e. workflow.json)
      */
-    public static void writeJson(Workflow workflow, String destination, String jsonSchema) {
+    public static void writeJson(Workflow workflow, String destination, String jsonSchema) throws IOException, ProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(bytes);
-            validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
-
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        JsonNode workflowNode = objectMapper.readTree(bytes);
+        validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
     }
 
     /**
@@ -125,17 +121,14 @@ public class Utils {
      * @param workflow    to write
      * @param destination file to write (i.e. workflow.json)
      */
-    public static void writeYaml(Workflow workflow, String destination, String jsonSchema) {
+    public static void writeYaml(Workflow workflow, String destination, String jsonSchema) throws IOException, ProcessingException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
-            validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
+        validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
+
     }
 
     /**
@@ -144,25 +137,19 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readJSON(String origin, String jsonSchema) {
+    public static Workflow readJSON(String origin, String jsonSchema) throws IOException, ProcessingException {
         File file = new File(origin);
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            Workflow workflow = objectMapper.readValue(file, Workflow.class);
+        Workflow workflow = objectMapper.readValue(file, Workflow.class);
 
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(bytes);
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        JsonNode workflowNode = objectMapper.readTree(bytes);
 
-            ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
-            if(processingReport.isSuccess()){
-                return workflow;
-            }else{
-                LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
-                return null;
-            }
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
+        ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
+        if(processingReport.isSuccess()){
+            return workflow;
         }
+        LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
         return null;
     }
 
@@ -172,19 +159,15 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readYAML(String origin, String jsonSchema) {
+    public static Workflow readYAML(String origin, String jsonSchema) throws IOException, ProcessingException {
         File file = new File(origin);
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
 
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            Workflow workflow = objectMapper.readValue(file, Workflow.class);
-            return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
-        return null;
+        Workflow workflow = objectMapper.readValue(file, Workflow.class);
+        return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
+
     }
 
     /**
@@ -193,18 +176,13 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readJSONString(String origin, String jsonSchema) {
+    public static Workflow readJSONString(String origin, String jsonSchema) throws IOException, ProcessingException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
 
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            Workflow workflow = objectMapper.readValue(origin, Workflow.class);
-            return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
-        return null;
+        Workflow workflow = objectMapper.readValue(origin, Workflow.class);
+        return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
     }
 
     /**
@@ -213,16 +191,11 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readJSONStringNoValidation(String origin) {
+    public static Workflow readJSONStringNoValidation(String origin) throws IOException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            return objectMapper.readValue(origin, Workflow.class);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
-        return null;
+        return objectMapper.readValue(origin, Workflow.class);
     }
 
     /**
@@ -230,23 +203,18 @@ public class Utils {
      *
      * @return true if validation was successful
      */
-    public static boolean validate(Workflow workflow, String jsonSchema){
+    public static boolean validate(Workflow workflow, String jsonSchema) throws IOException, ProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-            JsonNode workflowNode = objectMapper.readTree(bytes);
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        JsonNode workflowNode = objectMapper.readTree(bytes);
 
-            ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
-            if(processingReport.isSuccess()){
-                return true;
-            }else{
-                LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
-                return false;
-            }
-        } catch (IOException | ProcessingException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
+        ProcessingReport processingReport = validateWorkflowNode(jsonSchema, workflowNode);
+        if(processingReport.isSuccess()){
+            return true;
+        }else{
+            LOGGER.log(Level.SEVERE, PREFIX_ERROR + "{0}", processingReport);
+            return false;
         }
-        return false;
     }
 
     /**
@@ -255,18 +223,14 @@ public class Utils {
      * @param workflow    to write
      * @param destination file to write (i.e. workflow.json)
      */
-    public static void writeYamlNoValidation(Workflow workflow, String destination) {
+    public static void writeYamlNoValidation(Workflow workflow, String destination) throws JsonProcessingException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            byte[] bytes = objectMapper.writeValueAsBytes(workflow);
+        byte[] bytes = objectMapper.writeValueAsBytes(workflow);
 
-            File file = new File(destination);
-            writeBytes(file, bytes);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
+        File file = new File(destination);
+        writeBytes(file, bytes);
     }
 
     /**
@@ -275,16 +239,11 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readYAMLNoValidation(String origin) {
+    public static Workflow readYAMLNoValidation(String origin) throws IOException {
         File file = new File(origin);
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);
-        try {
-            return objectMapper.readValue(file, Workflow.class);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-        }
-        return null;
+        return objectMapper.readValue(file, Workflow.class);
     }
 }
