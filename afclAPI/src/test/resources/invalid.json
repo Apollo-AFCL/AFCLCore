@@ -1,0 +1,36 @@
+{
+  "name": "workflow",
+  "workflowBody": [
+    {
+      "switch": {
+        "name": "switch",
+        "dataIns": [
+          {
+            "name": "inName",
+            "type": "inType"
+          }
+        ],
+        "cases": [
+          {
+            "value": "value",
+            "functions": [
+              {
+                "function": {
+                  "name": "atomicFunction",
+                  "type": "atomicFunctionType"
+                }
+              }
+            ]
+          }
+        ],
+        "dataOuts": [
+          {
+            "name": "outName",
+            "type": "outType",
+            "source": "outSource"
+          }
+        ]
+      }
+    }
+  ]
+}
