@@ -56,7 +56,8 @@ public class Compound extends Function {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Compound compound = (Compound) o;
-        return Objects.equals(dataIns, compound.dataIns) &&
+        return super.equals(o) &&
+                Objects.equals(dataIns, compound.dataIns) &&
                 Objects.equals(dataOuts, compound.dataOuts);
     }
 
