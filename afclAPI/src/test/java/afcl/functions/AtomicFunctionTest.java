@@ -1,16 +1,20 @@
 package afcl.functions;
 
-import static org.junit.Assert.*;
+import afcl.Function;
 import afcl.functions.objects.DataIns;
 import afcl.functions.objects.DataOutsAtomic;
+import org.junit.Assert;
 import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.meanbean.test.BeanTester;
 
 public class AtomicFunctionTest {
 
     /**
-     * Test full construction of an AtomicFunction.
+     * Test full construction of an atomicFunction.
      *
      * @author stefanpedratscher
      */
@@ -22,48 +26,34 @@ public class AtomicFunctionTest {
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(dataOutsAtomic)));
 
-        assertEquals("atomicFunction", atomicFunction.getName());
-        assertEquals("atomicFunctionType", atomicFunction.getType());
+        Assert.assertEquals("atomicFunction", atomicFunction.getName());
+        Assert.assertEquals("atomicFunctionType", atomicFunction.getType());
 
-        assertEquals(atomicFunction.getDataIns().get(0), dataIns);
-        assertEquals(atomicFunction.getDataIns().get(0).hashCode(), dataIns.hashCode());
+        Assert.assertEquals(1, atomicFunction.getDataIns().size());
+        Assert.assertEquals(atomicFunction.getDataIns().get(0), dataIns);
+        Assert.assertEquals(atomicFunction.getDataIns().get(0).hashCode(), dataIns.hashCode());
 
-        assertEquals(atomicFunction.getDataOuts().get(0), dataOutsAtomic);
-        assertEquals(atomicFunction.getDataOuts().get(0).hashCode(), dataOutsAtomic.hashCode());
+        Assert.assertEquals(1, atomicFunction.getDataOuts().size());
+        Assert.assertEquals(atomicFunction.getDataOuts().get(0), dataOutsAtomic);
+        Assert.assertEquals(atomicFunction.getDataOuts().get(0).hashCode(), dataOutsAtomic.hashCode());
 
-        assertEquals(0, atomicFunction.getAdditionalProperties().size());
+        Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
     }
 
     /**
-     * Test the later creation of an atomicFunction.
+     * Test the empty construction of an atomicFunction.
      *
      * @author stefanpedratscher
      */
     @Test
-    public void testLateConstruction() {
+    public void testEmptyConstruction() {
         AtomicFunction atomicFunction = new AtomicFunction();
 
-        assertNull(atomicFunction.getDataIns());
-        assertNull(atomicFunction.getDataOuts());
-        assertNull(atomicFunction.getName());
-        assertNull(atomicFunction.getName());
-        assertEquals(0, atomicFunction.getAdditionalProperties().size());
-
-        atomicFunction.setName("atomicFunction");
-        assertEquals("atomicFunction", atomicFunction.getName());
-
-        atomicFunction.setType("atomicFunctionType");
-        assertEquals("atomicFunctionType", atomicFunction.getType());
-
-        DataIns dataIns = new DataIns("inName", "inType");
-        atomicFunction.setDataIns(new ArrayList<>(Collections.singleton(dataIns)));
-        assertEquals(atomicFunction.getDataIns().get(0), dataIns);
-        assertEquals(atomicFunction.getDataIns().get(0).hashCode(), dataIns.hashCode());
-
-        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("outName", "outType");
-        atomicFunction.setDataOuts(new ArrayList<>(Collections.singleton(dataOutsAtomic)));
-        assertEquals(atomicFunction.getDataOuts().get(0), dataOutsAtomic);
-        assertEquals(atomicFunction.getDataOuts().get(0).hashCode(), dataOutsAtomic.hashCode());
+        Assert.assertNull(atomicFunction.getName());
+        Assert.assertNull(atomicFunction.getType());
+        Assert.assertNull(atomicFunction.getDataIns());
+        Assert.assertNull(atomicFunction.getDataOuts());
+        Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
     }
 
     /**
@@ -74,15 +64,64 @@ public class AtomicFunctionTest {
     @Test
     public void testAdditionalProperties() {
         AtomicFunction atomicFunction = new AtomicFunction();
-        assertEquals(0, atomicFunction.getAdditionalProperties().size());
+        Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
 
         atomicFunction.setAdditionalProperty("name", "value");
-        assertEquals(1, atomicFunction.getAdditionalProperties().size());
+        Assert.assertEquals(1, atomicFunction.getAdditionalProperties().size());
 
         atomicFunction.setAdditionalProperty("name2", "value2");
-        assertEquals(2, atomicFunction.getAdditionalProperties().size());
+        Assert.assertEquals(2, atomicFunction.getAdditionalProperties().size());
 
-        assertEquals("value", atomicFunction.getAdditionalProperties().get("name"));
-        assertEquals("value2", atomicFunction.getAdditionalProperties().get("name2"));
+        Assert.assertEquals("value", atomicFunction.getAdditionalProperties().get("name"));
+        Assert.assertEquals("value2", atomicFunction.getAdditionalProperties().get("name2"));
+    }
+
+    /**
+     * Test getter and setter
+     *
+     * @author stefanpedratscher
+     */
+    @Test
+    public void testGetterAndSetter() {
+        new BeanTester().testBean(AtomicFunction.class);
+    }
+
+    /**
+     * Test hashCode and equals
+     *
+     * @author stefanpedratscher
+     */
+    @Test
+    public void testHashEquals() {
+        AtomicFunction atomicFunction1 = new AtomicFunction("name", "type", null, null);
+        Assert.assertEquals(atomicFunction1, atomicFunction1);
+        Assert.assertEquals(atomicFunction1.hashCode(), atomicFunction1.hashCode());
+        Assert.assertNotEquals(atomicFunction1, null);
+
+        Function function = new Function();
+        Assert.assertNotEquals(atomicFunction1, function);
+
+        AtomicFunction atomicFunction2 = new AtomicFunction("name", "type", null, null);
+        Assert.assertEquals(atomicFunction1, atomicFunction2);
+        Assert.assertEquals(atomicFunction1.hashCode(), atomicFunction2.hashCode());
+        ;
+
+        atomicFunction2.setAdditionalProperty("name", "type");
+        Assert.assertNotEquals(atomicFunction1, atomicFunction2);
+
+        AtomicFunction atomicFunction3;
+        atomicFunction3 = new AtomicFunction("nameWrong", "type", null, null);
+        Assert.assertNotEquals(atomicFunction1, atomicFunction3);
+
+        atomicFunction3 = new AtomicFunction("name", "typeWrong", null, null);
+        Assert.assertNotEquals(atomicFunction1, atomicFunction3);
+
+        atomicFunction3 = new AtomicFunction("name", "type",
+                Collections.singletonList(new DataIns("name", "type", "source")), null);
+        Assert.assertNotEquals(atomicFunction1, atomicFunction3);
+
+        atomicFunction3 = new AtomicFunction("name", "type", null,
+                Collections.singletonList(new DataOutsAtomic("name", "type")));
+        Assert.assertNotEquals(atomicFunction1, atomicFunction3);
     }
 }
