@@ -36,7 +36,7 @@ public class SubFC {
      * Data input ports ({@link DataIns})
      */
     @JsonProperty("dataIns")
-    private DataIns dataIns;
+    private List<DataIns> dataIns;
 
     /**
      * Body of the sub function choreography containing {@link Function}s
@@ -48,7 +48,7 @@ public class SubFC {
      * Data output ports ({@link DataOuts})
      */
     @JsonProperty("dataOuts")
-    private DataOuts dataOuts;
+    private List<DataOuts> dataOuts;
 
     /**
      * {@link PropertyConstraint} (information about the behaviour of functions)
@@ -71,12 +71,18 @@ public class SubFC {
      * @param subFCBody Body of the sub function choreography containing {@link Function}s
      * @param dataOuts  Data output ports ({@link DataOuts})
      */
-    public SubFC(String name, DataIns dataIns, List<Function> subFCBody, DataOuts dataOuts) {
+    public SubFC(String name, List<DataIns> dataIns, List<Function> subFCBody, List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.subFCBody = subFCBody;
         this.dataOuts = dataOuts;
     }
+
+    /**
+     * Empty constructor for sub function choreographies
+     *
+     */
+    public SubFC() { }
 
 
     /**
@@ -94,12 +100,12 @@ public class SubFC {
     }
 
     @JsonProperty("dataIns")
-    public DataIns getDataIns() {
+    public List<DataIns> getDataIns() {
         return dataIns;
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(DataIns dataIns) {
+    public void setDataIns(List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -114,12 +120,12 @@ public class SubFC {
     }
 
     @JsonProperty("dataOuts")
-    public DataOuts getDataOuts() {
+    public List<DataOuts> getDataOuts() {
         return dataOuts;
     }
 
     @JsonProperty("dataOuts")
-    public void setDataOuts(DataOuts dataOuts) {
+    public void setDataOuts(List<DataOuts> dataOuts) {
         this.dataOuts = dataOuts;
     }
 
