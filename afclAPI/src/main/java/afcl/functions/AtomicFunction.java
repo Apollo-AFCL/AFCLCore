@@ -13,6 +13,7 @@ import java.util.Objects;
 
 /**
  * This class describes an atomic function
+ *
  * @author stefanpedratscher
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -115,7 +116,8 @@ public class AtomicFunction extends Function {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AtomicFunction that = (AtomicFunction) o;
-        return Objects.equals(type, that.type) &&
+        return super.equals(o) &&
+                Objects.equals(type, that.type) &&
                 Objects.equals(dataIns, that.dataIns) &&
                 Objects.equals(dataOuts, that.dataOuts) &&
                 Objects.equals(additionalPropertiesAtomicFunction, that.additionalPropertiesAtomicFunction);
@@ -123,6 +125,6 @@ public class AtomicFunction extends Function {
 
     @Override
     public int hashCode() {
-        return Objects.hash(type, dataIns, dataOuts, additionalPropertiesAtomicFunction);
+        return Objects.hash(super.hashCode(), type, dataIns, dataOuts, additionalPropertiesAtomicFunction);
     }
 }
