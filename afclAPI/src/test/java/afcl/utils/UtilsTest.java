@@ -1,17 +1,17 @@
 package afcl.utils;
 
-import static org.junit.Assert.*;
 import afcl.Function;
 import afcl.Workflow;
 import afcl.functions.AtomicFunction;
 import afcl.functions.ParallelFor;
-import afcl.functions.objects.LoopCounter;
+import afcl.functions.objects.*;
+import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import org.junit.Assert;
 import org.junit.Test;
+
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
 
 public class UtilsTest {
 
@@ -21,7 +21,7 @@ public class UtilsTest {
      *
      * @return simple workflow
      */
-    private Workflow getSimpleWorkflow(){
+    private Workflow getSimpleWorkflow() {
 
         List<Function> workflowBody = new ArrayList<>();
 
@@ -38,67 +38,38 @@ public class UtilsTest {
     }
 
     /**
-     * Compare two atomic functions.
+     * Creates an example of a simple workflow which is not
+     * valid according to the schema.
      *
-     * @param atomicFunction1 to compare
-     * @param atomicFunction2 to compare
+     * @return simple invalid workflow
      */
-    private void compareAtomicFunctions(AtomicFunction atomicFunction1, AtomicFunction atomicFunction2){
-        assertEquals(atomicFunction1.getName(), atomicFunction2.getName());
-        assertEquals(atomicFunction1.getType(), atomicFunction2.getType());
-        assertEquals(atomicFunction1.getDataIns(), atomicFunction2.getDataIns());
-        assertEquals(atomicFunction1.getDataOuts(), atomicFunction2.getDataOuts());
-    }
+    private Workflow getSimpleInvalidWorkflow() {
 
-    /**
-     * Compare two workflows.
-     *
-     * @param workflow1 to compare
-     * @param workflow2 to compare
-     */
-    private void compareSimpleWorkflow(Workflow workflow1, Workflow workflow2){
+        List<Function> workflowBody = new ArrayList<>();
+        ParallelFor parallelFor = new ParallelFor();
+        workflowBody.add(parallelFor);
 
-        assertEquals(workflow1.getName(), workflow2.getName());
-        assertEquals(workflow1.getDataIns(), workflow2.getDataIns());
-        assertEquals(workflow1.getDataOuts(), workflow2.getDataOuts());
-
-        AtomicFunction atomicFunction1 = (AtomicFunction) workflow1.getWorkflowBody().get(0);
-        AtomicFunction atomicFunction2 = (AtomicFunction) workflow2.getWorkflowBody().get(0);
-        compareAtomicFunctions(atomicFunction1, atomicFunction2);
-
-        ParallelFor parallelFor1 = (ParallelFor) workflow1.getWorkflowBody().get(1);
-        ParallelFor parallelFor2 = (ParallelFor) workflow2.getWorkflowBody().get(1);
-        assertEquals(parallelFor1.getName(), parallelFor2.getName());
-        assertEquals(parallelFor1.getDataIns(), parallelFor2.getDataIns());
-        assertEquals(parallelFor1.getDataOuts(), parallelFor2.getDataOuts());
-        assertEquals(parallelFor1.getDataOuts(), parallelFor2.getDataOuts());
-        compareAtomicFunctions((AtomicFunction) parallelFor1.getLoopBody().get(0),
-                (AtomicFunction) parallelFor2.getLoopBody().get(0));
-
-        LoopCounter loopCounter1 = parallelFor1.getLoopCounter();
-        LoopCounter loopCounter2 = parallelFor2.getLoopCounter();
-        assertEquals(loopCounter1.getName(), loopCounter2.getName());
-        assertEquals(loopCounter1.getFrom(), loopCounter2.getFrom());
-        assertEquals(loopCounter1.getTo(), loopCounter2.getTo());
-        assertEquals(loopCounter1.getStep(), loopCounter2.getStep());
-        assertEquals(loopCounter1.getType(), loopCounter2.getType());
-        assertEquals(loopCounter1.getAdditionalProperties().size(), loopCounter2.getAdditionalProperties().size());
+        return new Workflow("workflow", null, workflowBody, null);
     }
 
     /**
      * Test the reading and writing of a json workflow.
      */
     @Test
-    public void writeReadJsonTest(){
+    public void writeReadJsonTest() {
         File workflowFile = new File("writeRead.json");
         File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
 
         Workflow workflow1 = getSimpleWorkflow();
+        Workflow workflow2 = null;
+        try {
+            Utils.writeJson(workflow1, workflowFile.getName(), schema.getAbsolutePath());
+            workflow2 = Utils.readJSON(workflowFile.getName(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
 
-        Utils.writeJson(workflow1, workflowFile.getName(), schema.getAbsolutePath());
-        Workflow workflow2 = Utils.readJSON(workflowFile.getName(), schema.getAbsolutePath());
-
-        compareSimpleWorkflow(workflow1, workflow2);
+        Assert.assertEquals(workflow1, workflow2);
 
         workflowFile.delete();
     }
@@ -107,17 +78,215 @@ public class UtilsTest {
      * Test the reading and writing of a yaml workflow.
      */
     @Test
-    public void writeReadYamlTest(){
+    public void writeReadYamlTest() {
         File workflowFile = new File("writeRead.yaml");
         File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
 
         Workflow workflow1 = getSimpleWorkflow();
+        Workflow workflow2 = null;
+        try {
+            Utils.writeYaml(workflow1, workflowFile.getName(), schema.getAbsolutePath());
+            workflow2 = Utils.readYAML(workflowFile.getName(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
 
-        Utils.writeYaml(workflow1, workflowFile.getName(), schema.getAbsolutePath());
-        Workflow workflow2 = Utils.readYAML(workflowFile.getName(), schema.getAbsolutePath());
-
-        compareSimpleWorkflow(workflow1, workflow2);
+        Assert.assertEquals(workflow1, workflow2);
 
         workflowFile.delete();
     }
+
+    /**
+     * Test the reading of a invalid YAML workflow file.
+     */
+    @Test
+    public void invalidReadYamlFile() {
+        File workflowFile = new File("src/test/resources/invalid.yaml");
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+
+        Workflow workflow2 = null;
+        try {
+            workflow2 = Utils.readYAML(workflowFile.getAbsolutePath(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNull(workflow2);
+    }
+
+    /**
+     * Test the reading of a invalid JSON workflow file.
+     */
+    @Test
+    public void invalidReadJsonFile() {
+        File workflowFile = new File("src/test/resources/invalid.json");
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+
+        Workflow workflow2 = null;
+        try {
+            workflow2 = Utils.readJSON(workflowFile.getAbsolutePath(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNull(workflow2);
+    }
+
+    /**
+     * Test the writing of a invalid workflow file.
+     * <p>
+     * Expected: file will not be written.
+     */
+    @Test
+    public void invalidWriteFile() {
+        File workflowFile = new File("writeInvalid.yaml");
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+
+        Workflow workflow1 = getSimpleInvalidWorkflow();
+        try {
+            Utils.writeYaml(workflow1, workflowFile.getName(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+        Assert.assertFalse(workflowFile.exists());
+    }
+
+    /**
+     * Test the reading of a invalid workflow file which does not exist.
+     */
+    @Test
+    public void fileNotExistRead() {
+        File workflowFile = new File("wrong/path/to/workflow.yaml");
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+        Workflow workflow2 = null;
+        try {
+            workflow2 = Utils.readYAML(workflowFile.getName(), schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNull(workflow2);
+
+        workflowFile.delete();
+    }
+
+    /**
+     * Test the reading of a json string.
+     */
+    @Test
+    public void readJsonString() {
+        String jsonString = "{\r\n  \"name\": \"workflow\",\r\n  \"workflowBody\": [\r\n    {\r\n      \"function\": {\r\n        \"name\": \"atomicFunction\",\r\n        " +
+                "\"type\": \"atomicFunctionType\"\r\n      }\r\n    },\r\n    {\r\n      \"parallelFor\": {\r\n        \"name\": \"parallelFor\",\r\n        " +
+                "\"loopCounter\": {\r\n          \"name\": \"loopCounter\",\r\n          \"type\": \"loopCounterType\",\r\n          \"from\": \"0\",\r\n          " +
+                "\"to\": \"10\"\r\n        },\r\n        \"loopBody\": [\r\n          {\r\n            \"function\": {\r\n              " +
+                "\"name\": \"atomicFunction\",\r\n              \"type\": \"atomicFunctionType\"\r\n            }\r\n          }\r\n        " +
+                "]\r\n      }\r\n    }\r\n  ]\r\n}";
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+
+        Workflow workflow1 = getSimpleWorkflow();
+        Workflow workflow2 = null;
+        try {
+            workflow2 = Utils.readJSONString(jsonString, schema.getAbsolutePath());
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(workflow1, workflow2);
+    }
+
+    /**
+     * Test the reading of an invalid json string.
+     */
+    @Test
+    public void readJsonStringInvalid() {
+        String jsonString = "{\r\n  \"name\": \"workflow\",\r\n  \"workflowBody\": [\r\n    {\r\n      \"function\": {\r\n        \"name\": \"atomicFunction\",\r\n        " +
+                "\"type\": \"atomicFunctionType\"\r\n      }\r\n    },\r\n    {\r\n      \"parallelFor\": {\r\n        \"name\": \"parallelFor\",\r\n        " +
+                "\"loopCounter\": {\r\n          \"name\": \"loopCounter\",\r\n          \"type\": \"loopCounterType\",\r\n          \"from\": \"0\",\r\n          " +
+                "\"to\": \"10\"\r\n        },\r\n        \"loopBody\": [\r\n          {\r\n            \"function\": {\r\n              " +
+                "\"name\": \"atomicFunction\"            }\r\n          }\r\n        " +
+                "]\r\n      }\r\n    }\r\n  ]\r\n}";
+
+        Workflow workflow1 = getSimpleWorkflow();
+        Workflow workflow2 = null;
+        try {
+            workflow2 = Utils.readJSONStringNoValidation(jsonString);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertNotEquals(workflow1, workflow2);
+    }
+
+    /**
+     * Test the validation of a Workflow.
+     */
+    @Test
+    public void validateWorkflow() {
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+        Workflow workflow1 = getSimpleWorkflow();
+        try {
+            Assert.assertTrue(Utils.validate(workflow1, schema.getAbsolutePath()));
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test the validation of an invalid Workflow.
+     */
+    @Test
+    public void validateInvalidWorkflow() {
+        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+        Workflow workflow1 = getSimpleInvalidWorkflow();
+        try {
+            Assert.assertFalse(Utils.validate(workflow1, schema.getAbsolutePath()));
+        } catch (IOException | ProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Test the reading and writing of a yaml workflow.
+     */
+    @Test
+    public void writeReadYamlNoValidationTest() {
+        File workflowFile = new File("writeReadNoValidation.yaml");
+
+        Workflow workflow1 = getSimpleInvalidWorkflow();
+        Workflow workflow2 = null;
+        try {
+            Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
+            workflow2 = Utils.readYAMLNoValidation(workflowFile.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(workflow1, workflow2);
+
+        workflowFile.delete();
+    }
+
+    /**
+     * Test the writing of a yaml workflow with missing permissions.
+     */
+    @Test
+    public void writeFileInvalidPermissions() {
+        File workflowFile = new File("invalidPermissions.yaml");
+
+        try {
+            workflowFile.createNewFile();
+            workflowFile.setReadOnly();
+
+            Workflow workflow1 = getSimpleWorkflow();
+            Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
+
+            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getAbsolutePath());
+            Assert.assertNotEquals(workflow1, workflow2);
+
+        } catch (IOException ignored) {
+        } finally {
+            workflowFile.delete();
+        }
+    }
+
 }
