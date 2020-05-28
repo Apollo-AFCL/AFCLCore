@@ -5,6 +5,10 @@ plugins {
 sonarqube {
     properties {
         property "sonar.projectName", "afclAPI"
+        // Check that this one is the same as the one used in the buildBreaker.py
+	     property "sonar.projectKey", "abo:afclAPI"	     
+	     // URL of the sonarQube host (comment out when working with SonarQube in localhost)
+		 property "sonar.host.url", "http://138.232.66.154:3000"
     }
 }
 
@@ -18,6 +22,7 @@ apply plugin: 'jacoco'
 jacocoTestReport {
     reports {
         xml.enabled true
+        html.enabled true
     }
 }
 

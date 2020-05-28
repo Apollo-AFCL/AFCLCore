@@ -1,0 +1,37 @@
+image: openjdk:11
+
+stages:
+  - buildTest  # build the project; fails if doesn't build or if there are failing tests
+  - codeQuality # execute the code quality and code coverage checks
+  - qualityGate # check that the quality gate of SonarQube is satisfied
+
+cache:
+  paths:
+    - afclAPI/.gradle/wrapper
+    - afclAPI/.gradle/caches
+
+buildTest:
+  stage: buildTest
+  script:
+    - cd afclAPI/
+    - ./gradlew build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 day
+  only:
+    - master
+
+codeQuality:
+  stage: codeQuality
+  script:
+    - cd afclAPI/
+    - ./gradlew build jacocotestreport
+    - ./gradlew sonarqube
+
+qualityGate:
+  stage: qualityGate
+  script:
+    - python3 afclAPI/buildBreaker.py "abo:afclAPI" # the arg corresponds to the projectKey defined in the sonarQube properties of the build.gradle
+
+

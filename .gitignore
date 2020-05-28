@@ -4,10 +4,6 @@ afclAPI/out
 afclAPI/target
 afclAPI/.gradle/
 afclAPI/build/
-afclAPI/gradle/
-afclAPI/gradlew
-afclAPI/gradlew.bat
-afclAPI/settings.gradle
 examples/.idea
 examples/out
 examples/target
