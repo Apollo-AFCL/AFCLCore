@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
+import java.io.RandomAccessFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -289,6 +290,9 @@ public class UtilsTest {
             Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("r--r--r--");
             FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions.asFileAttribute(permissions);
             Files.createFile(filePath, fileAttributes);
+
+            final RandomAccessFile i = new RandomAccessFile(workflowFile, "rw");
+            i.getChannel().lock();
 
             Workflow workflow1 = getSimpleWorkflow();
             Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
