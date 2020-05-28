@@ -7,13 +7,13 @@ stages:
 
 cache:
   paths:
-    - afclAPI/.gradle/wrapper
-    - afclAPI/.gradle/caches
+    - afclCore/.gradle/wrapper
+    - afclCore/.gradle/caches
 
 buildTest:
   stage: buildTest
   script:
-    - cd afclAPI/
+    - cd afclCore/
     - ./gradlew build
   artifacts:
     paths:
@@ -25,13 +25,13 @@ buildTest:
 codeQuality:
   stage: codeQuality
   script:
-    - cd afclAPI/
+    - cd afclCore/
     - ./gradlew build jacocotestreport
     - ./gradlew sonarqube
 
 qualityGate:
   stage: qualityGate
   script:
-    - python3 /home/fedor/buildBreaker.py "abo:afclAPI" # the arg corresponds to the projectKey defined in the sonarQube properties of the build.gradle
+    - python3 /home/fedor/buildBreaker.py "abo:afclCore" # the arg corresponds to the projectKey defined in the sonarQube properties of the build.gradle
 
 

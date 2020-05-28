@@ -4,9 +4,9 @@ plugins {
 
 sonarqube {
     properties {
-        property "sonar.projectName", "afclAPI"
+        property "sonar.projectName", "afclCore"
         // Check that this one is the same as the one used in the buildBreaker.py
-	     property "sonar.projectKey", "abo:afclAPI"	     
+	     property "sonar.projectKey", "abo:afclCore"	     
 	     // URL of the sonarQube host (comment out when working with SonarQube in localhost)
 		 property "sonar.host.url", "http://138.232.66.154:3000"
     }
