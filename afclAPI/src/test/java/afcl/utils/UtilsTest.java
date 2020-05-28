@@ -8,6 +8,14 @@ import afcl.functions.objects.*;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.junit.Assert;
 import org.junit.Test;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.io.RandomAccessFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -265,28 +273,4 @@ public class UtilsTest {
 
         workflowFile.delete();
     }
-
-    /**
-     * Test the writing of a yaml workflow with missing permissions.
-     */
-    @Test
-    public void writeFileInvalidPermissions() {
-        File workflowFile = new File("invalidPermissions.yaml");
-
-        try {
-            workflowFile.createNewFile();
-            workflowFile.setReadOnly();
-
-            Workflow workflow1 = getSimpleWorkflow();
-            Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
-
-            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getAbsolutePath());
-            Assert.assertNotEquals(workflow1, workflow2);
-
-        } catch (IOException ignored) {
-        } finally {
-            workflowFile.delete();
-        }
-    }
-
 }
