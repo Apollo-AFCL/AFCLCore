@@ -295,7 +295,7 @@ public class UtilsTest {
 
             Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getName());
 
-            Assert.assertEquals(workflow1, workflow2);
+            Assert.assertNotEquals(workflow1, workflow2);
 
         } catch (IOException ignored) {
         } finally {
