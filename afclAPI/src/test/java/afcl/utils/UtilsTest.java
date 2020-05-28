@@ -280,8 +280,7 @@ public class UtilsTest {
             Workflow workflow1 = getSimpleWorkflow();
             Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
 
-            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getAbsolutePath());
-            Assert.assertNotEquals(workflow1, workflow2);
+            Assert.assertEquals(0, workflowFile.length());
 
         } catch (IOException ignored) {
         } finally {
