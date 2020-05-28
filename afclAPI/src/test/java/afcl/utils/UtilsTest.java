@@ -273,4 +273,23 @@ public class UtilsTest {
 
         workflowFile.delete();
     }
+
+    /**
+     * Test the writing of a yaml workflow with missing permissions.
+     */
+    @Test
+    public void writeFileInvalidPermissions() {
+        File workflowFile = new File("src/test/resources/invalidPermissions.yaml");
+
+        try {
+            Workflow workflow1 = getSimpleWorkflow();
+            Utils.writeYamlNoValidation(workflow1, workflowFile.getAbsolutePath());
+
+            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getAbsolutePath());
+
+            Assert.assertNotEquals(workflow1, workflow2);
+
+        } catch (Exception ignored) {
+        }
+    }
 }
