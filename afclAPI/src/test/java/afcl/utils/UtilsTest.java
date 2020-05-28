@@ -291,7 +291,7 @@ public class UtilsTest {
             FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions.asFileAttribute(permissions);
             Files.createFile(filePath, fileAttributes);
 
-            final RandomAccessFile i = new RandomAccessFile(workflowFile, "rw");
+            final RandomAccessFile i = new RandomAccessFile(workflowFile, "r");
             i.getChannel().lock();
 
             Workflow workflow1 = getSimpleWorkflow();
@@ -301,7 +301,7 @@ public class UtilsTest {
 
             Assert.assertNotEquals(workflow1, workflow2);
 
-        } catch (IOException ignored) {
+        } catch (Exception ignored) {
         } finally {
             workflowFile.delete();
         }
