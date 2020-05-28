@@ -26,6 +26,11 @@ jacocoTestReport {
     }
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'at.uibk.dps.afcl.Workflow'
+    }
+}
 
 group 'com.dps'
 version '1.0-SNAPSHOT'
