@@ -8,14 +8,6 @@ import afcl.functions.objects.*;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
 import org.junit.Assert;
 import org.junit.Test;
-import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.io.RandomAccessFile;
 
 import java.io.File;
 import java.io.IOException;
