@@ -32,6 +32,6 @@ codeQuality:
 qualityGate:
   stage: qualityGate
   script:
-    - python3 afclAPI/buildBreaker.py "abo:afclAPI" # the arg corresponds to the projectKey defined in the sonarQube properties of the build.gradle
+    - python3 /home/fedor/buildBreaker.py "abo:afclAPI" # the arg corresponds to the projectKey defined in the sonarQube properties of the build.gradle
 
 
