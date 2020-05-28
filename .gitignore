@@ -1,9 +1,9 @@
 .idea
-afclAPI/.idea
-afclAPI/out
-afclAPI/target
-afclAPI/.gradle/
-afclAPI/build/
+afclCore/.idea
+afclCore/out
+afclCore/target
+afclCore/.gradle/
+afclCore/build/
 examples/.idea
 examples/out
 examples/target
