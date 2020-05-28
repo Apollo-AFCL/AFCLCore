@@ -273,9 +273,13 @@ public class UtilsTest {
     public void writeFileInvalidPermissions() {
         File workflowFile = new File("invalidPermissions.yaml");
 
+        if(workflowFile.exists()){
+            workflowFile.delete();
+        }
+
         try {
             workflowFile.createNewFile();
-            workflowFile.setReadOnly();
+            workflowFile.setWritable(false, false);
 
             Workflow workflow1 = getSimpleWorkflow();
             Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
