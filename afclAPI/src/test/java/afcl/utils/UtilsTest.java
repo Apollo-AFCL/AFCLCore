@@ -285,7 +285,6 @@ public class UtilsTest {
         }
 
         try {
-            // File Path
             Path filePath = Paths.get("invalidPermissions.yaml");
             Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("r--r--r--");
             FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions.asFileAttribute(permissions);
@@ -293,7 +292,10 @@ public class UtilsTest {
 
             Workflow workflow1 = getSimpleWorkflow();
             Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
-            Assert.assertEquals(0, workflowFile.length());
+
+            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getName());
+
+            Assert.assertEquals(workflow1, workflow2);
 
         } catch (IOException ignored) {
         } finally {
