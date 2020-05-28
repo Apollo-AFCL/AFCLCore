@@ -273,38 +273,4 @@ public class UtilsTest {
 
         workflowFile.delete();
     }
-
-    /**
-     * Test the writing of a yaml workflow with missing permissions.
-     */
-    @Test
-    public void writeFileInvalidPermissions() {
-        File workflowFile = new File("invalidPermissions.yaml");
-
-        if(workflowFile.exists()){
-            workflowFile.delete();
-        }
-
-        try {
-            Path filePath = Paths.get("invalidPermissions.yaml");
-            Set<PosixFilePermission> permissions = PosixFilePermissions.fromString("r--r--r--");
-            FileAttribute<Set<PosixFilePermission>> fileAttributes = PosixFilePermissions.asFileAttribute(permissions);
-            Files.createFile(filePath, fileAttributes);
-
-            final RandomAccessFile i = new RandomAccessFile(workflowFile, "r");
-            i.getChannel().lock();
-
-            Workflow workflow1 = getSimpleWorkflow();
-            Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
-
-            Workflow workflow2 = Utils.readYAMLNoValidation(workflowFile.getName());
-
-            Assert.assertNotEquals(workflow1, workflow2);
-
-        } catch (Exception ignored) {
-        } finally {
-            workflowFile.delete();
-        }
-    }
-
 }
