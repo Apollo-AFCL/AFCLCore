@@ -16,7 +16,7 @@ sleep(time)
 
 # send request to quality gate api and read the status
 print ('requesting status')
-r = requests.get('http://138.232.66.154:3000/api/qualitygates/project_status?projectKey={}'.format(projectAboName))
+r = requests.get('http://138.232.66.154:3000/api/qualitygates/project_status?projectKey={}'.format(projectAboName), auth=('d353d91c40273f40b4cd5d4eca34e9f9cce4ecc3', ''))
 print ('request returned')
 json = r.json()
 status = (json['projectStatus']['status'])
