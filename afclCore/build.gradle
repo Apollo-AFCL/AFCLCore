@@ -16,7 +16,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'jacoco'
     jacoco {
-		toolVersion = "0.8.2"
+		toolVersion = "0.8.5"
 	}
 
 jacocoTestReport {
