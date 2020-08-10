@@ -55,14 +55,14 @@ public class DataOutsAtomic {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<Object> propertiesDataOutsAtomic = null;
+    private List<PropertyConstraint> propertiesDataOutsAtomic = null;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<Object> constraintsDataOutsAtomic = null;
+    private List<PropertyConstraint> constraintsDataOutsAtomic = null;
 
     public DataOutsAtomic() {
     }
@@ -123,22 +123,22 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("properties")
-    public List<Object> getProperties() {
+    public List<PropertyConstraint> getProperties() {
         return propertiesDataOutsAtomic;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<Object> properties) {
+    public void setProperties(List<PropertyConstraint> properties) {
         this.propertiesDataOutsAtomic = properties;
     }
 
     @JsonProperty("constraints")
-    public List<Object> getConstraints() {
+    public List<PropertyConstraint> getConstraints() {
         return constraintsDataOutsAtomic;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<Object> constraints) {
+    public void setConstraints(List<PropertyConstraint> constraints) {
         this.constraintsDataOutsAtomic = constraints;
     }
 
