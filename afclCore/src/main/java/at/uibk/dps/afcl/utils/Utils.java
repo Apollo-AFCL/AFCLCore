@@ -246,4 +246,17 @@ public class Utils {
         ObjectMapper objectMapper = new ObjectMapper(yf);
         return objectMapper.readValue(file, Workflow.class);
     }
+
+    /**
+     * Read Yaml byte[] to get workflow and do not validate
+     *
+     * @param origin byte[] origin to read from
+     * @return workflow
+     */
+    public static Workflow readYAMLNoValidation(byte[] origin) throws IOException {
+        YAMLFactory yf = new YAMLFactory();
+        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        ObjectMapper objectMapper = new ObjectMapper(yf);
+        return objectMapper.readValue(origin, Workflow.class);
+    }
 }
