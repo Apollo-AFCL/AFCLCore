@@ -6,6 +6,7 @@ import at.uibk.dps.afcl.functions.AtomicFunction;
 import at.uibk.dps.afcl.functions.ParallelFor;
 import at.uibk.dps.afcl.functions.objects.LoopCounter;
 import com.github.fge.jsonschema.core.exceptions.ProcessingException;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -257,6 +258,27 @@ public class UtilsTest {
         try {
             Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
             workflow2 = Utils.readYAMLNoValidation(workflowFile.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(workflow1, workflow2);
+
+        workflowFile.delete();
+    }
+
+    /**
+     * Test the reading and writing of a yaml workflow.
+     */
+    @Test
+    public void writeReadYamlNoValidationByteArrayTest() {
+        File workflowFile = new File("writeReadNoValidation.yaml");
+
+        Workflow workflow1 = getSimpleInvalidWorkflow();
+        Workflow workflow2 = null;
+        try {
+            Utils.writeYamlNoValidation(workflow1, workflowFile.getName());
+            workflow2 = Utils.readYAMLNoValidation(FileUtils.readFileToByteArray(workflowFile));
         } catch (IOException e) {
             e.printStackTrace();
         }
