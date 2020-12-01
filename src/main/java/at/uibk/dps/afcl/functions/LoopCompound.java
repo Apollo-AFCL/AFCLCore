@@ -20,7 +20,7 @@ public class LoopCompound extends Compound {
      * Contains {@link Function}s which should be executed in each iteration
      */
     @JsonProperty("loopBody")
-    private List<Function> loopBody = null;
+    private List<Function> loopBody;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesLoopCompound = new HashMap<>();

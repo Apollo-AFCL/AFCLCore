@@ -31,7 +31,7 @@ public class Parallel extends Compound {
      * List of sections which can run in parallel
      */
     @JsonProperty("parallelBody")
-    private List<Section> parallelBody = null;
+    private List<Section> parallelBody;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesParallel = new HashMap<>();

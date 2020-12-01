@@ -40,14 +40,14 @@ public class Switch extends Compound {
      * List of cases within the switch compound
      */
     @JsonProperty("cases")
-    private List<Case> cases = null;
+    private List<Case> cases;
 
     /**
      * Default case (if no other case in {@link Switch#cases} matches the
      * criterion of {@link Switch#dataEval}
      */
     @JsonProperty("default")
-    private List<Function> defaultBranch = null;
+    private List<Function> defaultBranch;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesSwitch = new HashMap<>();

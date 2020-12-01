@@ -61,14 +61,14 @@ public class DataIns {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesDataIns = null;
+    private List<PropertyConstraint> propertiesDataIns;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsDataIns = null;
+    private List<PropertyConstraint> constraintsDataIns;
 
     public DataIns() {
     }

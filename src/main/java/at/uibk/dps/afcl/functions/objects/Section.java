@@ -25,7 +25,7 @@ public class Section {
      * List of {@link Function}s within one section
      */
     @JsonProperty("section")
-    private List<Function> sectionBody = null;
+    private List<Function> sectionBody;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesSection = new HashMap<>();

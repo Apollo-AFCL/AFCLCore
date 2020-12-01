@@ -38,7 +38,7 @@ public class Case {
      * List of functions to be executed if the cases matches {@link DataEval}
      */
     @JsonProperty("functions")
-    private List<Function> functions = null;
+    private List<Function> functions;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesCase = new HashMap<>();

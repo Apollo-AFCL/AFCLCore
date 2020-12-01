@@ -55,14 +55,14 @@ public class DataOutsAtomic {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesDataOutsAtomic = null;
+    private List<PropertyConstraint> propertiesDataOutsAtomic;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsDataOutsAtomic = null;
+    private List<PropertyConstraint> constraintsDataOutsAtomic;
 
     public DataOutsAtomic() {
     }

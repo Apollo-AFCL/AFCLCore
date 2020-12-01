@@ -61,14 +61,14 @@ public class DataOuts {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesDataOuts = null;
+    private List<PropertyConstraint> propertiesDataOuts;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsDataOuts = null;
+    private List<PropertyConstraint> constraintsDataOuts;
 
     public DataOuts() {
     }

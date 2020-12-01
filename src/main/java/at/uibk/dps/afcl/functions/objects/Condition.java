@@ -33,7 +33,7 @@ public class Condition {
      * List of conditions
      */
     @JsonProperty("conditions")
-    private List<ACondition> conditions = null;
+    private List<ACondition> conditions;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesCondition = new HashMap<>();

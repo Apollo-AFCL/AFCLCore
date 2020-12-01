@@ -42,14 +42,14 @@ public class IfThenElse extends Compound {
      * is fulfilled.
      */
     @JsonProperty("then")
-    private List<Function> thenBranch = null;
+    private List<Function> thenBranch;
 
     /**
      * List of functions that will be executed if {@link IfThenElse#condition}
      * is not fulfilled.
      */
     @JsonProperty("else")
-    private List<Function> elseBranch = null;
+    private List<Function> elseBranch;
 
     @JsonIgnore
     private Map<String, Object> additionalPropertiesIfThenElse = new HashMap<>();

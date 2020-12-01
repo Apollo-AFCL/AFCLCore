@@ -34,7 +34,7 @@ public class Workflow {
      * List of sub function choreographies ({@link SubFC})
      */
     @JsonProperty("subFCs")
-    private List<SubFC> subFCs = null;
+    private List<SubFC> subFCs;
 
     /**
      * Data input ports ({@link DataIns})
@@ -46,7 +46,7 @@ public class Workflow {
      * Workflow body containing {@link Function}s
      */
     @JsonProperty("workflowBody")
-    private List<Function> workflowBody = null;
+    private List<Function> workflowBody;
 
     /**
      * Data output ports ({@link DataOuts})

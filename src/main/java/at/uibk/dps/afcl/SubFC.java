@@ -42,7 +42,7 @@ public class SubFC {
      * Body of the sub function choreography containing {@link Function}s
      */
     @JsonProperty("subFCBody")
-    private List<Function> subFCBody = null;
+    private List<Function> subFCBody;
 
     /**
      * Data output ports ({@link DataOuts})
@@ -54,14 +54,14 @@ public class SubFC {
      * {@link PropertyConstraint} (information about the behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesSubFC = null;
+    private List<PropertyConstraint> propertiesSubFC;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled by underlying workflow
      * runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsSubFC = null;
+    private List<PropertyConstraint> constraintsSubFC;
 
     /**
      * Constructor for sub function choreographies

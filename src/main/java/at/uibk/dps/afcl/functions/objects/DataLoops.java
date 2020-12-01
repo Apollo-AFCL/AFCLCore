@@ -69,14 +69,14 @@ public class DataLoops {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> properties = null;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraints = null;
+    private List<PropertyConstraint> constraints;
 
     public DataLoops() {
     }

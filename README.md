@@ -27,7 +27,7 @@ This aim of this project is to provide a possibility to create, parse and valida
 -   Validate a workflow using a predefined `.json` schema. 
 
 ## Structure
-```
+```text
 .
 │── src                         
 │   ├── main                   
@@ -41,12 +41,11 @@ This aim of this project is to provide a possibility to create, parse and valida
 ```
 
 ## Pre-Requisites
-- Gradle
+-   Gradle
 
 ## Installation
-```
-gradle shadowJar  
-```
+`gradle shadowJar`
+
 
 ## Publications
-- TBA
+-   TBA
