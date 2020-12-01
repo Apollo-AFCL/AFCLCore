@@ -62,6 +62,12 @@ dependencies {
     compile group: 'com.github.fge', name: 'json-schema-validator', version:'2.2.6'
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
+
 shadowJar {
     baseName = 'afclCore'
     classifier = null
