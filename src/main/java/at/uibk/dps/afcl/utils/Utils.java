@@ -13,13 +13,14 @@ import com.github.fge.jsonschema.main.JsonSchema;
 import com.github.fge.jsonschema.main.JsonSchemaFactory;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import static java.nio.file.StandardOpenOption.WRITE;
 
 /**
  * Utility class to write and read a workflow
@@ -98,7 +99,7 @@ public class Utils {
      * @param bytes to write
      */
     private static void writeBytes(File file, byte[] bytes){
-        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(file.getName()))) {
+        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(file.getName()), WRITE)) {
             fileOutputStream.write(bytes);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());

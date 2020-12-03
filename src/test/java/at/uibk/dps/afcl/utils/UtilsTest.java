@@ -293,7 +293,7 @@ public class UtilsTest {
      */
     @Test
     public void fileNotExistWrite() {
-        File invalidFile = new File("path/to/invalidName.yaml");
+        File invalidFile = new File("invalidName.yaml");
 
         try {
             Workflow workflow1 = getSimpleWorkflow();
