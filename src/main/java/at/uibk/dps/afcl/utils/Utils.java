@@ -99,7 +99,7 @@ public class Utils {
      * @param bytes to write
      */
     private static void writeBytes(File file, byte[] bytes){
-        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(file.getName()), WRITE)) {
+        try (OutputStream fileOutputStream = Files.newOutputStream(Paths.get(file.getName()))) {
             fileOutputStream.write(bytes);
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());

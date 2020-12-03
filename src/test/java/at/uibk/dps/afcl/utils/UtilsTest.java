@@ -81,6 +81,7 @@ public class UtilsTest {
     @Test
     public void writeReadYamlTest() {
         File workflowFile = new File("writeRead.yaml");
+
         File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
 
         Workflow workflow1 = getSimpleWorkflow();
@@ -293,7 +294,7 @@ public class UtilsTest {
      */
     @Test
     public void fileNotExistWrite() {
-        File invalidFile = new File("invalidName.yaml");
+        File invalidFile = new File("path/to/invalidName.yaml");
 
         try {
             Workflow workflow1 = getSimpleWorkflow();
