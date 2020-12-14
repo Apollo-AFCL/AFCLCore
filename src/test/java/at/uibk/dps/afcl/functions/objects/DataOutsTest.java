@@ -7,6 +7,11 @@ import org.meanbean.test.BeanTester;
 
 import java.util.Collections;
 
+/**
+ * Test the functionality of a data ouput object.
+ *
+ * @author stefanpedratscher
+ */
 public class DataOutsTest {
     /**
      * Test full construction of a dataOuts.
@@ -29,7 +34,7 @@ public class DataOutsTest {
      */
     @Test
     public void testEmptyConstruction() {
-        DataOuts dataOuts = new DataOuts();
+        final DataOuts dataOuts = new DataOuts();
 
         Assert.assertNull(dataOuts.getName());
         Assert.assertNull(dataOuts.getType());

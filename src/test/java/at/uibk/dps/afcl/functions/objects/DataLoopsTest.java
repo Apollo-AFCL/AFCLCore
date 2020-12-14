@@ -7,6 +7,11 @@ import org.meanbean.test.BeanTester;
 
 import java.util.Collections;
 
+/**
+ * Test the functionality of a data loop object.
+ *
+ * @author stefanpedratscher
+ */
 public class DataLoopsTest {
     /**
      * Test full construction of a dataLoop.
@@ -63,7 +68,7 @@ public class DataLoopsTest {
         Assert.assertEquals(dataLoops.hashCode(), dataLoops.hashCode());
         Assert.assertNotEquals(dataLoops, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(dataLoops, compound);
 
         DataLoops dataLoops2 = new DataLoops("name", "type");

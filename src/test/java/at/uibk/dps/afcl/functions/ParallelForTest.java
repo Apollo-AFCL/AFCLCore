@@ -10,6 +10,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a parallelFor construct.
+ *
+ * @author stefanpedratscher
+ */
 public class ParallelForTest {
 
     /**

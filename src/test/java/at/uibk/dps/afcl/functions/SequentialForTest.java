@@ -11,6 +11,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a sequqntialFor object.
+ *
+ * @author stefanpedratscher
+ */
 public class SequentialForTest {
     /**
      * Test full construction of a sequentialFor.

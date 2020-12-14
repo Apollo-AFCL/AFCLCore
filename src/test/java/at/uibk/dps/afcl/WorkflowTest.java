@@ -11,6 +11,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a workflow object.
+ *
+ * @author stefanpedratscher
+ */
 public class WorkflowTest {
     /**
      * Test full construction of a workflow.

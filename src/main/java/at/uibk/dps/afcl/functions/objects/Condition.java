@@ -38,6 +38,9 @@ public class Condition {
     @JsonIgnore
     private Map<String, Object> additionalPropertiesCondition = new HashMap<>();
 
+    /**
+     * Empty constructor for a condition.
+     */
     public Condition() {
     }
 
@@ -94,7 +97,7 @@ public class Condition {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Condition condition = (Condition) o;
+        final Condition condition = (Condition) o;
         return Objects.equals(combinedWith, condition.combinedWith) &&
                 Objects.equals(conditions, condition.conditions) &&
                 Objects.equals(additionalPropertiesCondition, condition.additionalPropertiesCondition);

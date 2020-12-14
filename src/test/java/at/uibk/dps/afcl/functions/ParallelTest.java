@@ -10,6 +10,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a parallel object.
+ *
+ * @author stefanpedratscher
+ */
 public class ParallelTest {
     /**
      * Test full construction of a parallel.
@@ -18,7 +23,7 @@ public class ParallelTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
         Section section = new Section(Collections.singletonList(atomicFunction));
         DataIns dataIns = new DataIns("inName", "inType");
         DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
@@ -84,10 +89,10 @@ public class ParallelTest {
         Assert.assertEquals(parallel.hashCode(), parallel.hashCode());
         Assert.assertNotEquals(parallel, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(parallel, compound);
 
-        Parallel parallel2 = new Parallel("name", null, null, null);
+        final Parallel parallel2 = new Parallel("name", null, null, null);
         Assert.assertEquals(parallel, parallel2);
         Assert.assertEquals(parallel.hashCode(), parallel2.hashCode());
         parallel2.setAdditionalProperty("name", "type");

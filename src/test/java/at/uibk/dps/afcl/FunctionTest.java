@@ -8,6 +8,11 @@ import org.meanbean.test.BeanTester;
 
 import java.util.Collections;
 
+/**
+ * Test the functionality of a function object.
+ *
+ * @author stefanpedratscher
+ */
 public class FunctionTest {
 
     /**
@@ -35,7 +40,7 @@ public class FunctionTest {
         Compound compound = new Compound();
         Assert.assertNotEquals(function1, compound);
 
-        Function function2 = new Function();
+        final Function function2 = new Function();
         Assert.assertEquals(function1, function2);
         Assert.assertEquals(function1.hashCode(), function2.hashCode());
 

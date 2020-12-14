@@ -35,6 +35,9 @@ public class Sequence extends Compound {
     @JsonIgnore
     private Map<String, Object> additionalPropertiesSequence = new HashMap<>();
 
+    /**
+     * Empty constructor for sequence construct.
+     */
     public Sequence() {
     }
 

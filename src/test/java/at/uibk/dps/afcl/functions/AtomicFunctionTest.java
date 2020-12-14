@@ -11,6 +11,11 @@ import java.util.Collections;
 
 import org.meanbean.test.BeanTester;
 
+/**
+ * Test the functionality of an atomic function object.
+ *
+ * @author stefanpedratscher
+ */
 public class AtomicFunctionTest {
 
     /**

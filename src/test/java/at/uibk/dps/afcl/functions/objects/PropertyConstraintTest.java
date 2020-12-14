@@ -5,6 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.meanbean.test.BeanTester;
 
+/**
+ * Test the functionality of a property or constraint.
+ *
+ * @author stefanpedratscher
+ */
 public class PropertyConstraintTest {
     /**
      * Test full construction of a propertyConstraint.

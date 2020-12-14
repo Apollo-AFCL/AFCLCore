@@ -8,6 +8,11 @@ import org.meanbean.test.BeanTester;
 
 import java.util.Collections;
 
+/**
+ * Test the functionality of a loop compound object.
+ *
+ * @author stefanpedratscher
+ */
 public class LoopCompoundTest {
 
     /**

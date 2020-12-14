@@ -14,6 +14,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Test the functionality of the utility class.
+ *
+ * @author stefanpedratscher
+ */
 public class UtilsTest {
 
     /**

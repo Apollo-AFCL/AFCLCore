@@ -11,6 +11,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a sequential while test.
+ *
+ * @author stefanpedratscher
+ */
 public class SequentialWhileTest {
     /**
      * Test full construction of a sequentialWhile.
@@ -20,7 +25,7 @@ public class SequentialWhileTest {
     @Test
     public void testFullConstruction() {
         AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
+        final DataIns dataIns = new DataIns("inName", "inType");
         DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
         DataLoops dataLoops = new DataLoops();
         Condition condition = new Condition();

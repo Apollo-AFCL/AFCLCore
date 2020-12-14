@@ -5,6 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.meanbean.test.BeanTester;
 
+/**
+ * Test the functionality of a loop counter object.
+ *
+ * @author stefanpedratscher
+ */
 public class LoopCounterTest {
     /**
      * Test full construction of a loopCounter.

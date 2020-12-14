@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a if-then-else object.
+ *
+ * @author stefanpedratscher
+ */
 public class IfThenElseTest {
     /**
      * Test full construction of an ifThenElse.

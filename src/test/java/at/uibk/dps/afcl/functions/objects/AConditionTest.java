@@ -5,6 +5,11 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.meanbean.test.BeanTester;
 
+/**
+ * Test the functionality of a condition object.
+ *
+ * @author stefanpedratscher
+ */
 public class AConditionTest {
     /**
      * Test full construction of an aCondition.

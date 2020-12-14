@@ -12,6 +12,11 @@ import org.meanbean.test.BeanTester;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * Test the functionality of a sub-fc.
+ *
+ * @author stefanpedratscher
+ */
 public class SubFCTest {
     /**
      * Test full construction of a subFC.
@@ -24,7 +29,7 @@ public class SubFCTest {
         DataIns dataIns = new DataIns("inName", "inType");
         DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        SubFC subFC = new SubFC("subFC",
+        final SubFC subFC = new SubFC("subFC",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(atomicFunction)),
                 new ArrayList<>(Collections.singleton(dataOuts)));

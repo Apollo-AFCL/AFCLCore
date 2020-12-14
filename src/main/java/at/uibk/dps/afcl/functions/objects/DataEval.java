@@ -41,6 +41,9 @@ public class DataEval {
     @JsonIgnore
     private Map<String, Object> additionalPropertiesEvaluator = new HashMap<>();
 
+    /**
+     * Empty constructor for a data evaluation object.
+     */
     public DataEval() {
     }
 

@@ -7,6 +7,11 @@ import org.meanbean.test.BeanTester;
 
 import java.util.Collections;
 
+/**
+ * Test the functionality of a data out object of an atomic function.
+ *
+ * @author stefanpedratscher
+ */
 public class DataOutsAtomicTest {
     /**
      * Test full construction of a dataOutsAtomic.
