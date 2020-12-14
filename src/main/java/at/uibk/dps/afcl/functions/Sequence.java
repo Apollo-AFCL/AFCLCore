@@ -36,7 +36,6 @@ public class Sequence extends Compound {
     private Map<String, Object> additionalPropertiesSequence = new HashMap<>();
 
     public Sequence() {
-        super();
     }
 
     /**
@@ -52,7 +51,7 @@ public class Sequence extends Compound {
         this.dataIns = dataIns;
         this.sequenceBody = sequenceBody;
         this.dataOuts = dataOuts;
-        this();
+        super();
     }
 
     /**
