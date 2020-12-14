@@ -51,7 +51,6 @@ public class Sequence extends Compound {
         this.dataIns = dataIns;
         this.sequenceBody = sequenceBody;
         this.dataOuts = dataOuts;
-        super();
     }
 
     /**
