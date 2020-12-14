@@ -119,9 +119,15 @@ public class Switch extends Compound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         Switch aSwitch = (Switch) o;
         return Objects.equals(dataEval, aSwitch.dataEval) &&
                 Objects.equals(cases, aSwitch.cases) &&

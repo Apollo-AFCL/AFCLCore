@@ -82,8 +82,12 @@ public class Function {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Function function = (Function) o;
         return Objects.equals(name, function.name) &&
                 Objects.equals(propertiesFunction, function.propertiesFunction) &&

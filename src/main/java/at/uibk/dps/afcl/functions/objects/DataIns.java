@@ -172,8 +172,12 @@ public class DataIns {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DataIns dataIns = (DataIns) o;
         return Objects.equals(inputName, dataIns.inputName) &&
                 Objects.equals(inputType, dataIns.inputType) &&

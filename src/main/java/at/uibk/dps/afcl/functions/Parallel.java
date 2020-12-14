@@ -80,9 +80,15 @@ public class Parallel extends Compound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         Parallel parallel = (Parallel) o;
         return Objects.equals(parallelBody, parallel.parallelBody) &&
                 Objects.equals(additionalPropertiesParallel, parallel.additionalPropertiesParallel);

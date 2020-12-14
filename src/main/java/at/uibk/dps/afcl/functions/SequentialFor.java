@@ -81,9 +81,15 @@ public class SequentialFor extends LoopCompound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         SequentialFor that = (SequentialFor) o;
         return Objects.equals(dataLoopsSequentialFor, that.dataLoopsSequentialFor) &&
                 Objects.equals(loopCounterSequentialFor, that.loopCounterSequentialFor);

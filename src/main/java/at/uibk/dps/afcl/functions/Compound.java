@@ -53,8 +53,12 @@ public class Compound extends Function {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Compound compound = (Compound) o;
         return super.equals(o) &&
                 Objects.equals(dataIns, compound.dataIns) &&

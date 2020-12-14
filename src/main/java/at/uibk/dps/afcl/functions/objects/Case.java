@@ -103,8 +103,12 @@ public class Case {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Case aCase = (Case) o;
         return Objects.equals(value, aCase.value) &&
                 Objects.equals(breakCase, aCase.breakCase) &&

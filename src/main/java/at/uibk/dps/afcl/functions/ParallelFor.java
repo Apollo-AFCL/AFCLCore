@@ -67,9 +67,15 @@ public class ParallelFor extends LoopCompound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ParallelFor that = (ParallelFor) o;
         return Objects.equals(loopCounterParallelFor, that.loopCounterParallelFor);
     }

@@ -113,8 +113,12 @@ public class AtomicFunction extends Function {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         AtomicFunction that = (AtomicFunction) o;
         return super.equals(o) &&
                 Objects.equals(type, that.type) &&

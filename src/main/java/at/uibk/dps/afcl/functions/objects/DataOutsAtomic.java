@@ -144,8 +144,12 @@ public class DataOutsAtomic {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DataOutsAtomic that = (DataOutsAtomic) o;
         return Objects.equals(atomicOutputName, that.atomicOutputName) &&
                 Objects.equals(atomicOutputType, that.atomicOutputType) &&

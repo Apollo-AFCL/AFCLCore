@@ -151,8 +151,12 @@ public class SubFC {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         SubFC subFC = (SubFC) o;
         return Objects.equals(name, subFC.name) &&
                 Objects.equals(dataIns, subFC.dataIns) &&

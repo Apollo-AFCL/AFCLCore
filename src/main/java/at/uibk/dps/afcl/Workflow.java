@@ -128,8 +128,12 @@ public class Workflow {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Workflow workflow = (Workflow) o;
         return Objects.equals(name, workflow.name) &&
                 Objects.equals(subFCs, workflow.subFCs) &&

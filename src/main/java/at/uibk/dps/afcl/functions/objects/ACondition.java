@@ -118,8 +118,12 @@ public class ACondition {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         ACondition that = (ACondition) o;
         return Objects.equals(data1, that.data1) &&
                 Objects.equals(data2, that.data2) &&

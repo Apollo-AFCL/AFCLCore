@@ -82,9 +82,15 @@ public class SequentialWhile extends LoopCompound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         SequentialWhile that = (SequentialWhile) o;
         return Objects.equals(dataLoopsSequentialWhile, that.dataLoopsSequentialWhile) &&
                 Objects.equals(conditionSequentialWhile, that.conditionSequentialWhile);

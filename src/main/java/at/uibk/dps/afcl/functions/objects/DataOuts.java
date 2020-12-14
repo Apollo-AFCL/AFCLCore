@@ -162,8 +162,12 @@ public class DataOuts {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DataOuts dataOuts = (DataOuts) o;
         return Objects.equals(outputName, dataOuts.outputName) &&
                 Objects.equals(outputType, dataOuts.outputType) &&

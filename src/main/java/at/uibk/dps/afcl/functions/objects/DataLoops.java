@@ -187,8 +187,12 @@ public class DataLoops {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         DataLoops dataLoops = (DataLoops) o;
         return Objects.equals(dataLoopName, dataLoops.dataLoopName) &&
                 Objects.equals(dataLoopType, dataLoops.dataLoopType) &&

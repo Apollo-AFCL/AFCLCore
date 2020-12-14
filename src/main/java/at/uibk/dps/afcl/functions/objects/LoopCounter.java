@@ -154,8 +154,12 @@ public class LoopCounter {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         LoopCounter that = (LoopCounter) o;
         return Objects.equals(loopCounterName, that.loopCounterName) &&
                 Objects.equals(loopCounterType, that.loopCounterType) &&
