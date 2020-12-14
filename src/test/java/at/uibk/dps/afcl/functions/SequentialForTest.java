@@ -22,7 +22,7 @@ public class SequentialForTest {
         AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
         DataIns dataIns = new DataIns("inName", "inType");
         DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
-        DataLoops dataLoops = new DataLoops();
+        final DataLoops dataLoops = new DataLoops();
         LoopCounter loopCounter = new LoopCounter();
 
         SequentialFor sequentialFor = new SequentialFor("sequentialFor",

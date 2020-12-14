@@ -17,7 +17,7 @@ public class SequenceTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
         DataIns dataIns = new DataIns("inName", "inType");
         DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 

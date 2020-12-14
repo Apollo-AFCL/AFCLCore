@@ -20,8 +20,6 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static java.nio.file.StandardOpenOption.WRITE;
-
 /**
  * Utility class to write and read a workflow
  * @author stefanpedratscher
@@ -195,7 +193,7 @@ public class Utils {
      * @param origin file origin to read from
      * @return workflow
      */
-    public static Workflow readJSONStringNoValidation(String origin) throws IOException {
+    public static Workflow readJSONStringNoValidation(final String origin) throws IOException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);
@@ -227,7 +225,7 @@ public class Utils {
      * @param workflow    to write
      * @param destination file to write (i.e. workflow.json)
      */
-    public static void writeYamlNoValidation(Workflow workflow, String destination) throws JsonProcessingException {
+    public static void writeYamlNoValidation(Workflow workflow, final String destination) throws JsonProcessingException {
         YAMLFactory yf = new YAMLFactory();
         yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
         ObjectMapper objectMapper = new ObjectMapper(yf);

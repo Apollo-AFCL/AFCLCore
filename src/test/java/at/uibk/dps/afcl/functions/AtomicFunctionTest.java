@@ -21,7 +21,7 @@ public class AtomicFunctionTest {
     @Test
     public void testFullConstruction() {
         DataIns dataIns = new DataIns("inName", "inType");
-        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("outName", "outType");
+        final DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("outName", "outType");
         AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(dataOutsAtomic)));

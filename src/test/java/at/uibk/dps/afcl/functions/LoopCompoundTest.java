@@ -35,7 +35,7 @@ public class LoopCompoundTest {
         Compound compound = new Compound();
         Assert.assertNotEquals(loopCompound1, compound);
 
-        LoopCompound loopCompound2 = new LoopCompound();
+        final LoopCompound loopCompound2 = new LoopCompound();
         Assert.assertEquals(loopCompound1, loopCompound2);
         Assert.assertEquals(loopCompound1.hashCode(), loopCompound2.hashCode());
 
