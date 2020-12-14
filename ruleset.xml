@@ -81,7 +81,7 @@
         </properties>
     </rule>
 
-    <!-- Duplicate literals.
+    <!-- Duplicate literals. -->
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
         <properties>
             <property name="separator" value="," />
@@ -90,6 +90,6 @@
             <property name="skipAnnotations" value="true" />
             <property name="exceptionList" value="" />
         </properties>
-    </rule> -->
+    </rule>
 
 </ruleset>
