@@ -36,6 +36,7 @@ public class Sequence extends Compound {
     private Map<String, Object> additionalPropertiesSequence = new HashMap<>();
 
     public Sequence() {
+        super();
     }
 
     /**
@@ -51,6 +52,7 @@ public class Sequence extends Compound {
         this.dataIns = dataIns;
         this.sequenceBody = sequenceBody;
         this.dataOuts = dataOuts;
+        this();
     }
 
     /**
@@ -79,9 +81,15 @@ public class Sequence extends Compound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         Sequence sequence = (Sequence) o;
         return Objects.equals(sequenceBody, sequence.sequenceBody) &&
                 Objects.equals(additionalPropertiesSequence, sequence.additionalPropertiesSequence);

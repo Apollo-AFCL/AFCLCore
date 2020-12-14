@@ -51,9 +51,15 @@ public class LoopCompound extends Compound {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         LoopCompound that = (LoopCompound) o;
         return Objects.equals(loopBody, that.loopBody) &&
                 Objects.equals(additionalPropertiesLoopCompound, that.additionalPropertiesLoopCompound);

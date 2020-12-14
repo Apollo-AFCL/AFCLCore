@@ -46,6 +46,5 @@ This aim of this project is to provide a possibility to create, parse and valida
 ## Installation
 `gradle shadowJar`
 
-
 ## Publications
 -   TBA
