@@ -73,7 +73,9 @@ public class DataIns {
     /**
      * Default empty constructor for data input ports.
      */
-    public DataIns() { }
+    public DataIns() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
 
     /**
      * Constructor for data input ports

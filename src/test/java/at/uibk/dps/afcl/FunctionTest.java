@@ -32,12 +32,12 @@ public class FunctionTest {
      */
     @Test
     public void testHashEquals() {
-        Function function1 = new Function();
+        final Function function1 = new Function();
         Assert.assertEquals(function1, function1);
         Assert.assertEquals(function1.hashCode(), function1.hashCode());
         Assert.assertNotEquals(function1, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(function1, compound);
 
         final Function function2 = new Function();
