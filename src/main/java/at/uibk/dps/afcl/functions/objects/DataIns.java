@@ -29,71 +29,74 @@ public class DataIns {
      * Unique identifier for the data input port
      */
     @JsonProperty("name")
-    private String inputName;
+    private String name;
 
     /**
      * Indicates the data type of the data port
      */
     @JsonProperty("type")
-    private String inputType;
+    private String type;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String inputSource;
+    private String source;
 
     /**
      * Represents a constant value
      */
     @JsonProperty("value")
-    private String inputValue;
+    private String value;
 
     /**
      * Tells whether value will be passed to other
      * function
      */
     @JsonProperty("passing")
-    private Boolean passingDataIns;
+    private Boolean passing;
 
     /**
      * {@link PropertyConstraint} (information about the
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesDataIns;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsDataIns;
+    private List<PropertyConstraint> constraints;
 
+    /**
+     * Default empty constructor for data input ports.
+     */
     public DataIns() {
     }
 
     /**
      * Constructor for data input ports
      *
-     * @param inputName Unique identifier for the data input port
-     * @param inputType Data type of the data port
+     * @param name Unique identifier for the data input port
+     * @param type Data type of the data port
      */
-    public DataIns(String inputName, String inputType) {
-        this(inputName, inputType, null);
+    public DataIns(final String name, final String type) {
+        this(name, type, null);
     }
 
     /**
      * Constructor for data input ports
      *
-     * @param inputName   Unique identifier for the data input port
-     * @param inputType   Data type of the data port
-     * @param inputSource Specifies where the data comes from
+     * @param name   Unique identifier for the data input port
+     * @param type   Data type of the data port
+     * @param source Specifies where the data comes from
      */
-    public DataIns(String inputName, String inputType, String inputSource) {
-        this.inputName = inputName;
-        this.inputType = inputType;
-        this.inputSource = inputSource;
+    public DataIns(final String name, final String type, final String source) {
+        this.name = name;
+        this.type = type;
+        this.source = source;
     }
 
     /**
@@ -102,94 +105,94 @@ public class DataIns {
 
     @JsonProperty("name")
     public String getName() {
-        return inputName;
+        return name;
     }
 
     @JsonProperty("name")
     public void setName(String name) {
-        this.inputName = name;
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return inputType;
+        return type;
     }
 
     @JsonProperty("type")
     public void setType(String type) {
-        this.inputType = type;
+        this.type = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return inputSource;
+        return source;
     }
 
     @JsonProperty("source")
     public void setSource(String source) {
-        this.inputSource = source;
+        this.source = source;
     }
 
     @JsonProperty("value")
     public String getValue() {
-        return inputValue;
+        return value;
     }
 
     @JsonProperty("value")
     public void setValue(String value) {
-        this.inputValue = value;
+        this.value = value;
     }
 
     @JsonProperty("passing")
     public Boolean getPassing() {
-        return passingDataIns;
+        return passing;
     }
 
     @JsonProperty("passing")
     public void setPassing(Boolean passing) {
-        this.passingDataIns = passing;
+        this.passing = passing;
     }
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return propertiesDataIns;
+        return properties;
     }
 
     @JsonProperty("properties")
     public void setProperties(List<PropertyConstraint> properties) {
-        this.propertiesDataIns = properties;
+        this.properties = properties;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraintsDataIns;
+        return constraints;
     }
 
     @JsonProperty("constraints")
     public void setConstraints(List<PropertyConstraint> constraints) {
-        this.constraintsDataIns = constraints;
+        this.constraints = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataIns dataIns = (DataIns) o;
-        return Objects.equals(inputName, dataIns.inputName) &&
-                Objects.equals(inputType, dataIns.inputType) &&
-                Objects.equals(inputSource, dataIns.inputSource) &&
-                Objects.equals(inputValue, dataIns.inputValue) &&
-                Objects.equals(passingDataIns, dataIns.passingDataIns) &&
-                Objects.equals(propertiesDataIns, dataIns.propertiesDataIns) &&
-                Objects.equals(constraintsDataIns, dataIns.constraintsDataIns);
+        final DataIns dataIns = (DataIns) object;
+        return Objects.equals(name, dataIns.name) &&
+                Objects.equals(type, dataIns.type) &&
+                Objects.equals(source, dataIns.source) &&
+                Objects.equals(value, dataIns.value) &&
+                Objects.equals(passing, dataIns.passing) &&
+                Objects.equals(properties, dataIns.properties) &&
+                Objects.equals(constraints, dataIns.constraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inputName, inputType, inputSource, inputValue, passingDataIns, propertiesDataIns, constraintsDataIns);
+        return Objects.hash(name, type, source, value, passing, properties, constraints);
     }
 }
