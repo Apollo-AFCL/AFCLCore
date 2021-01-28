@@ -1,7 +1,7 @@
 # AFCLCore
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5d6a02b99a734dbdac52ee4403a84283)](https://www.codacy.com/gh/stefanpedratscher/AFCLCore/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=stefanpedratscher/AFCLCore&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/5d6a02b99a734dbdac52ee4403a84283)](https://www.codacy.com/gh/stefanpedratscher/AFCLCore/dashboard?utm_source=github.com&utm_medium=referral&utm_content=stefanpedratscher/AFCLCore&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/b88d30f798814c589bc76609fb83f4bb)](https://www.codacy.com/gh/Apollo-AFCL/AFCLCore/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Apollo-AFCL/AFCLCore&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/b88d30f798814c589bc76609fb83f4bb)](https://www.codacy.com/gh/Apollo-AFCL/AFCLCore/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Apollo-AFCL/AFCLCore&utm_campaign=Badge_Coverage)
 
 A project to create and manage AFCL and CFCL workflows using Java objects.
  
