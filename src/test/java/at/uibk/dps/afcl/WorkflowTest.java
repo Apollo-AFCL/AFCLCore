@@ -24,11 +24,11 @@ public class WorkflowTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        Workflow workflow = new Workflow("workflow",
+        final Workflow workflow = new Workflow("workflow",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(atomicFunction)),
                 new ArrayList<>(Collections.singleton(dataOuts)));
@@ -57,7 +57,7 @@ public class WorkflowTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Workflow workflow = new Workflow();
+        final Workflow workflow = new Workflow();
 
         Assert.assertNull(workflow.getName());
         Assert.assertNull(workflow.getDataIns());
@@ -82,16 +82,16 @@ public class WorkflowTest {
      */
     @Test
     public void testHashEquals() {
-        Workflow workflow = new Workflow("name", null, null, null);
+        final Workflow workflow = new Workflow("name", null, null, null);
 
         Assert.assertEquals(workflow, workflow);
         Assert.assertEquals(workflow.hashCode(), workflow.hashCode());
         Assert.assertNotEquals(workflow, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(workflow, compound);
 
-        Workflow workflow2 = new Workflow("name", null, null, null);
+        final Workflow workflow2 = new Workflow("name", null, null, null);
         Assert.assertEquals(workflow, workflow2);
         Assert.assertEquals(workflow.hashCode(), workflow2.hashCode());
 

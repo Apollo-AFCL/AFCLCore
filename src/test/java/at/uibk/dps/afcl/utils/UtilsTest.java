@@ -29,12 +29,12 @@ public class UtilsTest {
      */
     private Workflow getSimpleWorkflow() {
 
-        List<Function> workflowBody = new ArrayList<>();
+        final List<Function> workflowBody = new ArrayList<>();
 
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
         workflowBody.add(atomicFunction);
 
-        ParallelFor parallelFor = new ParallelFor("parallelFor", null,
+        final ParallelFor parallelFor = new ParallelFor("parallelFor", null,
                 new LoopCounter("loopCounter", "loopCounterType", "0", "10"),
                 new ArrayList<>(Collections.singleton(atomicFunction)),
                 null);
@@ -52,7 +52,7 @@ public class UtilsTest {
     private Workflow getSimpleInvalidWorkflow() {
 
         List<Function> workflowBody = new ArrayList<>();
-        ParallelFor parallelFor = new ParallelFor();
+        final ParallelFor parallelFor = new ParallelFor();
         workflowBody.add(parallelFor);
 
         return new Workflow("workflow", null, workflowBody, null);
@@ -63,8 +63,8 @@ public class UtilsTest {
      */
     @Test
     public void writeReadJsonTest() {
-        File workflowFile = new File("writeRead.json");
-        File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
+        final File workflowFile = new File("writeRead.json");
+        final File schema = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json")).getFile());
 
         Workflow workflow1 = getSimpleWorkflow();
         Workflow workflow2 = null;
