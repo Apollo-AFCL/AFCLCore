@@ -73,8 +73,7 @@ public class DataIns {
     /**
      * Default empty constructor for data input ports.
      */
-    public DataIns() {
-    }
+    public DataIns() { }
 
     /**
      * Constructor for data input ports
@@ -109,7 +108,7 @@ public class DataIns {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -119,7 +118,7 @@ public class DataIns {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -129,7 +128,7 @@ public class DataIns {
     }
 
     @JsonProperty("source")
-    public void setSource(String source) {
+    public void setSource(final String source) {
         this.source = source;
     }
 
@@ -139,7 +138,7 @@ public class DataIns {
     }
 
     @JsonProperty("value")
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
@@ -149,7 +148,7 @@ public class DataIns {
     }
 
     @JsonProperty("passing")
-    public void setPassing(Boolean passing) {
+    public void setPassing(final Boolean passing) {
         this.passing = passing;
     }
 
@@ -159,7 +158,7 @@ public class DataIns {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
+    public void setProperties(final List<PropertyConstraint> properties) {
         this.properties = properties;
     }
 
@@ -169,12 +168,12 @@ public class DataIns {
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
+    public void setConstraints(final List<PropertyConstraint> constraints) {
         this.constraints = constraints;
     }
 
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
