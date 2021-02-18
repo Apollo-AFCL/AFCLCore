@@ -66,9 +66,9 @@ public class CaseTest {
      */
     @Test
     public void testHashEquals() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
 
-        Case aCase = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Case aCase = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
 
         Assert.assertEquals(aCase, aCase);
         Assert.assertEquals(aCase.hashCode(), aCase.hashCode());

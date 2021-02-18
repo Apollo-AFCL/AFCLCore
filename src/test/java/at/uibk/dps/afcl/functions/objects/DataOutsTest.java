@@ -62,7 +62,7 @@ public class DataOutsTest {
      */
     @Test
     public void testHashEquals() {
-        DataOuts dataOuts = new DataOuts("name", "type", "source");
+        final DataOuts dataOuts = new DataOuts("name", "type", "source");
 
         Assert.assertEquals(dataOuts, dataOuts);
         Assert.assertEquals(dataOuts.hashCode(), dataOuts.hashCode());

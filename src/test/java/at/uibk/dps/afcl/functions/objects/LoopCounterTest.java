@@ -61,7 +61,7 @@ public class LoopCounterTest {
      */
     @Test
     public void testHashEquals() {
-        LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
+        final LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
 
         Assert.assertEquals(loopCounter, loopCounter);
         Assert.assertEquals(loopCounter.hashCode(), loopCounter.hashCode());

@@ -62,7 +62,7 @@ public class DataLoopsTest {
      */
     @Test
     public void testHashEquals() {
-        DataLoops dataLoops = new DataLoops("name", "type");
+        final DataLoops dataLoops = new DataLoops("name", "type");
 
         Assert.assertEquals(dataLoops, dataLoops);
         Assert.assertEquals(dataLoops.hashCode(), dataLoops.hashCode());

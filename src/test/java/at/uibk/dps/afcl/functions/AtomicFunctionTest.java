@@ -68,7 +68,7 @@ public class AtomicFunctionTest {
      */
     @Test
     public void testAdditionalProperties() {
-        AtomicFunction atomicFunction = new AtomicFunction();
+        final AtomicFunction atomicFunction = new AtomicFunction();
         Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
 
         atomicFunction.setAdditionalProperty("name", "value");

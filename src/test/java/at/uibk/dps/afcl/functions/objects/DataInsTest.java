@@ -62,7 +62,7 @@ public class DataInsTest {
      */
     @Test
     public void testHashEquals() {
-        DataIns dataIns = new DataIns("name", "type", "source");
+        final DataIns dataIns = new DataIns("name", "type", "source");
 
         Assert.assertEquals(dataIns, dataIns);
         Assert.assertEquals(dataIns.hashCode(), dataIns.hashCode());

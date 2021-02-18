@@ -60,7 +60,7 @@ public class DataOutsAtomicTest {
      */
     @Test
     public void testHashEquals() {
-        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("name", "type");
+        final DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("name", "type");
 
         Assert.assertEquals(dataOutsAtomic, dataOutsAtomic);
         Assert.assertEquals(dataOutsAtomic.hashCode(), dataOutsAtomic.hashCode());

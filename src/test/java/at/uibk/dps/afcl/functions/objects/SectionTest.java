@@ -61,9 +61,9 @@ public class SectionTest {
      */
     @Test
     public void testHashEquals() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
 
-        Section section = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Section section = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
 
         Assert.assertEquals(section, section);
         Assert.assertEquals(section.hashCode(), section.hashCode());
@@ -78,8 +78,7 @@ public class SectionTest {
         section2.setAdditionalProperty("name", "type");
         Assert.assertNotEquals(section, section2);
 
-        Section section3;
-        section3 = new Section(new ArrayList<>(Collections.singleton(new AtomicFunction())));
+        final Section section3= new Section(new ArrayList<>(Collections.singleton(new AtomicFunction())));
         Assert.assertNotEquals(section, section3);
     }
 }

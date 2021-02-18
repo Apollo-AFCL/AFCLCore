@@ -51,7 +51,7 @@ public class UtilsTest {
      */
     private Workflow getSimpleInvalidWorkflow() {
 
-        List<Function> workflowBody = new ArrayList<>();
+        final List<Function> workflowBody = new ArrayList<>();
         final ParallelFor parallelFor = new ParallelFor();
         workflowBody.add(parallelFor);
 
@@ -92,7 +92,7 @@ public class UtilsTest {
             Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json"))
                 .getFile());
 
-        Workflow workflow1 = getSimpleWorkflow();
+        final Workflow workflow1 = getSimpleWorkflow();
         Workflow workflow2 = null;
         try {
             Utils.writeYaml(workflow1, workflowFile.getName(), schema.getAbsolutePath());
@@ -195,11 +195,11 @@ public class UtilsTest {
                 + "\"to\": \"10\"\r\n        },\r\n        \"loopBody\": [\r\n          {\r\n            \"function\": {\r\n              "
                 + "\"name\": \"atomicFunction\",\r\n              \"type\": \"atomicFunctionType\"\r\n            }\r\n          }\r\n        "
                 + "]\r\n      }\r\n    }\r\n  ]\r\n}";
-        File schema = new File(
+        final File schema = new File(
             Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json"))
                 .getFile());
 
-        Workflow workflow1 = getSimpleWorkflow();
+        final Workflow workflow1 = getSimpleWorkflow();
         Workflow workflow2 = null;
         try {
             workflow2 = Utils.readJSONString(jsonString, schema.getAbsolutePath());
@@ -214,7 +214,7 @@ public class UtilsTest {
      * Test the reading of an invalid json string.
      */
     @Test public void readJsonStringInvalid() {
-        String jsonString =
+        final String jsonString =
             "{\r\n  \"name\": \"workflow\",\r\n  \"workflowBody\": [\r\n    {\r\n      \"function\": {\r\n        \"name\": \"atomicFunction\",\r\n        "
                 + "\"type\": \"atomicFunctionType\"\r\n      }\r\n    },\r\n    {\r\n      \"parallelFor\": {\r\n        \"name\": \"parallelFor\",\r\n        "
                 + "\"loopCounter\": {\r\n          \"name\": \"loopCounter\",\r\n          \"type\": \"loopCounterType\",\r\n          \"from\": \"0\",\r\n          "
@@ -222,7 +222,7 @@ public class UtilsTest {
                 + "\"name\": \"atomicFunction\"            }\r\n          }\r\n        "
                 + "]\r\n      }\r\n    }\r\n  ]\r\n}";
 
-        Workflow workflow1 = getSimpleWorkflow();
+        final Workflow workflow1 = getSimpleWorkflow();
         Workflow workflow2 = null;
         try {
             workflow2 = Utils.readJSONStringNoValidation(jsonString);
@@ -237,10 +237,10 @@ public class UtilsTest {
      * Test the validation of a Workflow.
      */
     @Test public void validateWorkflow() {
-        File schema = new File(
+        final File schema = new File(
             Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json"))
                 .getFile());
-        Workflow workflow1 = getSimpleWorkflow();
+        final Workflow workflow1 = getSimpleWorkflow();
         try {
             Assert.assertTrue(Utils.validate(workflow1, schema.getAbsolutePath()));
         } catch (IOException | ProcessingException e) {
@@ -252,10 +252,10 @@ public class UtilsTest {
      * Test the validation of an invalid Workflow.
      */
     @Test public void validateInvalidWorkflow() {
-        File schema = new File(
+        final File schema = new File(
             Objects.requireNonNull(getClass().getClassLoader().getResource("schema.json"))
                 .getFile());
-        Workflow workflow1 = getSimpleInvalidWorkflow();
+        final Workflow workflow1 = getSimpleInvalidWorkflow();
         try {
             Assert.assertFalse(Utils.validate(workflow1, schema.getAbsolutePath()));
         } catch (IOException | ProcessingException e) {
@@ -310,7 +310,7 @@ public class UtilsTest {
         final File invalidFile = new File("path/to/invalidName.yaml");
 
         try {
-            Workflow workflow1 = getSimpleWorkflow();
+            final Workflow workflow1 = getSimpleWorkflow();
             Utils.writeYamlNoValidation(workflow1, invalidFile.getAbsolutePath());
 
             Assert.assertFalse(invalidFile.exists());

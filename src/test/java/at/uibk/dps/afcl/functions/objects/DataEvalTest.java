@@ -57,7 +57,7 @@ public class DataEvalTest {
      */
     @Test
     public void testHashEquals() {
-        DataEval dataEval = new DataEval("name", "type");
+        final DataEval dataEval = new DataEval("name", "type");
 
         Assert.assertEquals(dataEval, dataEval);
         Assert.assertEquals(dataEval.hashCode(), dataEval.hashCode());

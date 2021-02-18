@@ -23,7 +23,7 @@ public class ConditionTest {
     public void testFullConstruction() {
         final ACondition aCondition = new ACondition("1", "2", "==");
 
-        Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
+        final Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
 
         Assert.assertEquals("AND", condition.getCombinedWith());
 
@@ -65,9 +65,9 @@ public class ConditionTest {
      */
     @Test
     public void testHashEquals() {
-        ACondition aCondition = new ACondition("1", "2", "==");
+        final ACondition aCondition = new ACondition("1", "2", "==");
 
-        Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
+        final Condition condition = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
 
         Assert.assertEquals(condition, condition);
         Assert.assertEquals(condition.hashCode(), condition.hashCode());

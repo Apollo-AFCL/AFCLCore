@@ -56,7 +56,7 @@ public class PropertyConstraintTest {
      */
     @Test
     public void testHashEquals() {
-        PropertyConstraint propertyConstraint = new PropertyConstraint("name", "value");
+        final PropertyConstraint propertyConstraint = new PropertyConstraint("name", "value");
 
         Assert.assertEquals(propertyConstraint, propertyConstraint);
         Assert.assertEquals(propertyConstraint.hashCode(), propertyConstraint.hashCode());
