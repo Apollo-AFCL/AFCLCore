@@ -22,9 +22,9 @@ public class CaseTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
 
-        Case aCase = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Case aCase = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
 
         Assert.assertEquals("1", aCase.getValue());
 
@@ -41,7 +41,7 @@ public class CaseTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Case aCase = new Case();
+        final Case aCase = new Case();
 
         Assert.assertNull(aCase.getBreak());
         Assert.assertNull(aCase.getFunctions());
@@ -74,10 +74,10 @@ public class CaseTest {
         Assert.assertEquals(aCase.hashCode(), aCase.hashCode());
         Assert.assertNotEquals(aCase, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(aCase, compound);
 
-        Case aCase2 = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Case aCase2 = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
         Assert.assertEquals(aCase, aCase2);
         Assert.assertEquals(aCase.hashCode(), aCase2.hashCode());
         aCase2.setAdditionalProperty("name", "type");

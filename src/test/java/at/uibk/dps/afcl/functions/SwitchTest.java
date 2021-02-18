@@ -25,13 +25,13 @@ public class SwitchTest {
     @Test
     public void testFullConstruction() {
 
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
-        Case caseCondition = new Case();
-        DataEval dataEval = new DataEval();
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final Case caseCondition = new Case();
+        final DataEval dataEval = new DataEval();
 
-        Switch switchCondition = new Switch("switch",
+        final Switch switchCondition = new Switch("switch",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 dataEval,
                 new ArrayList<>(Collections.singleton(caseCondition)),
@@ -64,7 +64,7 @@ public class SwitchTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Switch switchCondition = new Switch();
+        final Switch switchCondition = new Switch();
 
         Assert.assertNull(switchCondition.getName());
         Assert.assertNull(switchCondition.getDataIns());
@@ -91,18 +91,17 @@ public class SwitchTest {
      */
     @Test
     public void testHashEquals() {
-        Switch switchCondition = new Switch("name", null, null, null, null);
+        final Switch switchCondition = new Switch("name", null, null, null, null);
         Assert.assertEquals(switchCondition, switchCondition);
         Assert.assertEquals(switchCondition.hashCode(), switchCondition.hashCode());
         Assert.assertNotEquals(switchCondition, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(switchCondition, compound);
 
-        Switch switchCondition2 = new Switch("name", null, null, null, null);
+        final Switch switchCondition2 = new Switch("name", null, null, null, null);
         Assert.assertEquals(switchCondition, switchCondition2);
         Assert.assertEquals(switchCondition.hashCode(), switchCondition2.hashCode());
-        ;
 
         switchCondition2.setAdditionalProperty("name", "type");
         Assert.assertNotEquals(switchCondition, switchCondition2);

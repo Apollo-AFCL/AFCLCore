@@ -22,9 +22,9 @@ public class SectionTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
 
-        Section section = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Section section = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
 
         Assert.assertEquals(1, section.getSection().size());
         Assert.assertEquals(atomicFunction, section.getSection().get(0));
@@ -38,7 +38,7 @@ public class SectionTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Section section = new Section();
+        final Section section = new Section();
 
         Assert.assertNull(section.getSection());
         Assert.assertEquals(0, section.getAdditionalProperties().size());
@@ -69,10 +69,10 @@ public class SectionTest {
         Assert.assertEquals(section.hashCode(), section.hashCode());
         Assert.assertNotEquals(section, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(section, compound);
 
-        Section section2 = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
+        final Section section2 = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
         Assert.assertEquals(section, section2);
         Assert.assertEquals(section.hashCode(), section2.hashCode());
         section2.setAdditionalProperty("name", "type");

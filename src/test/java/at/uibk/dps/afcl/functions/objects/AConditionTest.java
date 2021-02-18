@@ -18,7 +18,7 @@ public class AConditionTest {
      */
     @Test
     public void testFullConstruction() {
-        ACondition aCondition = new ACondition("1", "2", "==");
+        final ACondition aCondition = new ACondition("1", "2", "==");
 
         Assert.assertEquals("1", aCondition.getData1());
         Assert.assertEquals("2", aCondition.getData2());
@@ -33,7 +33,7 @@ public class AConditionTest {
      */
     @Test
     public void testEmptyConstruction() {
-        ACondition aCondition = new ACondition();
+        final ACondition aCondition = new ACondition();
 
         Assert.assertNull(aCondition.getData1());
         Assert.assertNull(aCondition.getData2());
@@ -59,16 +59,16 @@ public class AConditionTest {
      */
     @Test
     public void testHashEquals() {
-        ACondition aCondition = new ACondition("1", "2", "!=");
+        final ACondition aCondition = new ACondition("1", "2", "!=");
 
         Assert.assertEquals(aCondition, aCondition);
         Assert.assertEquals(aCondition.hashCode(), aCondition.hashCode());
         Assert.assertNotEquals(aCondition, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(aCondition, compound);
 
-        ACondition aCondition2 = new ACondition("1", "2", "!=");
+        final ACondition aCondition2 = new ACondition("1", "2", "!=");
         Assert.assertEquals(aCondition, aCondition2);
         Assert.assertEquals(aCondition.hashCode(), aCondition2.hashCode());
         aCondition2.setAdditionalProperty("name", "type");

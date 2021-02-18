@@ -18,7 +18,7 @@ public class PropertyConstraintTest {
      */
     @Test
     public void testFullConstruction() {
-        PropertyConstraint propertyConstraint = new PropertyConstraint("name", "value");
+        final PropertyConstraint propertyConstraint = new PropertyConstraint("name", "value");
 
         Assert.assertEquals("name", propertyConstraint.getName());
         Assert.assertEquals("value", propertyConstraint.getValue());
@@ -32,7 +32,7 @@ public class PropertyConstraintTest {
      */
     @Test
     public void testEmptyConstruction() {
-        PropertyConstraint propertyConstraint = new PropertyConstraint();
+        final PropertyConstraint propertyConstraint = new PropertyConstraint();
 
         Assert.assertNull(propertyConstraint.getName());
         Assert.assertNull(propertyConstraint.getValue());
@@ -62,10 +62,10 @@ public class PropertyConstraintTest {
         Assert.assertEquals(propertyConstraint.hashCode(), propertyConstraint.hashCode());
         Assert.assertNotEquals(propertyConstraint, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(propertyConstraint, compound);
 
-        PropertyConstraint propertyConstraint2 = new PropertyConstraint("name", "value");
+        final PropertyConstraint propertyConstraint2 = new PropertyConstraint("name", "value");
         Assert.assertEquals(propertyConstraint, propertyConstraint2);
         Assert.assertEquals(propertyConstraint.hashCode(), propertyConstraint2.hashCode());
         propertyConstraint2.setAdditionalProperty("name", "type");

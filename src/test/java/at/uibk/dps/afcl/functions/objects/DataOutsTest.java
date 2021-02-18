@@ -20,7 +20,7 @@ public class DataOutsTest {
      */
     @Test
     public void testFullConstruction() {
-        DataOuts dataOuts = new DataOuts("name", "type", "source");
+        final DataOuts dataOuts = new DataOuts("name", "type", "source");
 
         Assert.assertEquals("name", dataOuts.getName());
         Assert.assertEquals("type", dataOuts.getType());
@@ -68,10 +68,10 @@ public class DataOutsTest {
         Assert.assertEquals(dataOuts.hashCode(), dataOuts.hashCode());
         Assert.assertNotEquals(dataOuts, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(dataOuts, compound);
 
-        DataOuts dataOuts2 = new DataOuts("name", "type", "source");
+        final DataOuts dataOuts2 = new DataOuts("name", "type", "source");
         Assert.assertEquals(dataOuts, dataOuts2);
         Assert.assertEquals(dataOuts.hashCode(), dataOuts2.hashCode());
 

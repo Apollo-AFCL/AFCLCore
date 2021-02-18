@@ -24,13 +24,13 @@ public class SequentialWhileTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
         final DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
-        DataLoops dataLoops = new DataLoops();
-        Condition condition = new Condition();
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final DataLoops dataLoops = new DataLoops();
+        final Condition condition = new Condition();
 
-        SequentialWhile sequentialWhile = new SequentialWhile("sequentialWhile",
+        final SequentialWhile sequentialWhile = new SequentialWhile("sequentialWhile",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(dataLoops)),
                 condition,
@@ -68,7 +68,7 @@ public class SequentialWhileTest {
      */
     @Test
     public void testEmptyConstruction() {
-        SequentialWhile sequentialWhile = new SequentialWhile();
+        final SequentialWhile sequentialWhile = new SequentialWhile();
 
         Assert.assertNull(sequentialWhile.getName());
         Assert.assertNull(sequentialWhile.getDataIns());
@@ -96,16 +96,16 @@ public class SequentialWhileTest {
      */
     @Test
     public void testHashEquals() {
-        SequentialWhile sequentialWhile = new SequentialWhile("name", null, null, null, null, null);
+        final SequentialWhile sequentialWhile = new SequentialWhile("name", null, null, null, null, null);
 
         Assert.assertEquals(sequentialWhile, sequentialWhile);
         Assert.assertEquals(sequentialWhile.hashCode(), sequentialWhile.hashCode());
         Assert.assertNotEquals(sequentialWhile, null);
 
-        LoopCompound loopCompound = new LoopCompound();
+        final LoopCompound loopCompound = new LoopCompound();
         Assert.assertNotEquals(sequentialWhile, loopCompound);
 
-        SequentialWhile sequentialWhile2 = new SequentialWhile("name", null, null, null, null, null);
+        final SequentialWhile sequentialWhile2 = new SequentialWhile("name", null, null, null, null, null);
         Assert.assertEquals(sequentialWhile, sequentialWhile2);
         Assert.assertEquals(sequentialWhile.hashCode(), sequentialWhile2.hashCode());
         sequentialWhile2.setAdditionalProperty("name", "type");

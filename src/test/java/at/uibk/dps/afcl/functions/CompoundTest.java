@@ -33,15 +33,15 @@ public class CompoundTest {
      */
     @Test
     public void testHashEquals() {
-        Compound compound1 = new Compound();
+        final Compound compound1 = new Compound();
         Assert.assertEquals(compound1, compound1);
         Assert.assertEquals(compound1.hashCode(), compound1.hashCode());
         Assert.assertNotEquals(compound1, null);
 
-        Function function = new Function();
+        final Function function = new Function();
         Assert.assertNotEquals(compound1, function);
 
-        Compound compound2 = new Compound();
+        final Compound compound2 = new Compound();
         Assert.assertEquals(compound1, compound2);
         Assert.assertEquals(compound1.hashCode(), compound2.hashCode());
 

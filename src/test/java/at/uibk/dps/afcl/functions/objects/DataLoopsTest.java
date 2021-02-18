@@ -20,7 +20,7 @@ public class DataLoopsTest {
      */
     @Test
     public void testFullConstruction() {
-        DataLoops dataLoops = new DataLoops("name", "type");
+        final DataLoops dataLoops = new DataLoops("name", "type");
 
         Assert.assertEquals("name", dataLoops.getName());
         Assert.assertEquals("type", dataLoops.getType());
@@ -33,7 +33,7 @@ public class DataLoopsTest {
      */
     @Test
     public void testEmptyConstruction() {
-        DataLoops dataLoops = new DataLoops();
+        final DataLoops dataLoops = new DataLoops();
 
         Assert.assertNull(dataLoops.getName());
         Assert.assertNull(dataLoops.getType());
@@ -71,7 +71,7 @@ public class DataLoopsTest {
         final Compound compound = new Compound();
         Assert.assertNotEquals(dataLoops, compound);
 
-        DataLoops dataLoops2 = new DataLoops("name", "type");
+        final DataLoops dataLoops2 = new DataLoops("name", "type");
         Assert.assertEquals(dataLoops, dataLoops2);
         Assert.assertEquals(dataLoops.hashCode(), dataLoops2.hashCode());
 

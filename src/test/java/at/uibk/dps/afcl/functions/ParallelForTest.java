@@ -25,12 +25,12 @@ public class ParallelForTest {
     @Test
     public void testFullConstruction() {
 
-        LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final LoopCounter loopCounter = new LoopCounter("name", "type", "0", "10");
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        ParallelFor parallelFor = new ParallelFor("parallelFor",
+        final ParallelFor parallelFor = new ParallelFor("parallelFor",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 loopCounter,
                 new ArrayList<>(Collections.singleton(atomicFunction)),
@@ -63,7 +63,7 @@ public class ParallelForTest {
      */
     @Test
     public void testEmptyConstruction() {
-        ParallelFor parallelFor = new ParallelFor();
+        final ParallelFor parallelFor = new ParallelFor();
 
         Assert.assertNull(parallelFor.getName());
         Assert.assertNull(parallelFor.getDataIns());
@@ -90,15 +90,15 @@ public class ParallelForTest {
      */
     @Test
     public void testHashEquals() {
-        ParallelFor parallelFor1 = new ParallelFor("name", null, null, null, null);
+        final ParallelFor parallelFor1 = new ParallelFor("name", null, null, null, null);
         Assert.assertEquals(parallelFor1, parallelFor1);
         Assert.assertEquals(parallelFor1.hashCode(), parallelFor1.hashCode());
         Assert.assertNotEquals(parallelFor1, null);
 
-        LoopCompound loopCompound = new LoopCompound();
+        final LoopCompound loopCompound = new LoopCompound();
         Assert.assertNotEquals(parallelFor1, loopCompound);
 
-        ParallelFor parallelFor2 = new ParallelFor("name", null, null, null, null);
+        final ParallelFor parallelFor2 = new ParallelFor("name", null, null, null, null);
         Assert.assertEquals(parallelFor1, parallelFor2);
         Assert.assertEquals(parallelFor1.hashCode(), parallelFor2.hashCode());
         parallelFor2.setAdditionalProperty("name", "type");

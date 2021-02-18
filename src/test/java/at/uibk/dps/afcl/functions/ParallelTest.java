@@ -24,11 +24,11 @@ public class ParallelTest {
     @Test
     public void testFullConstruction() {
         final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        Section section = new Section(Collections.singletonList(atomicFunction));
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final Section section = new Section(Collections.singletonList(atomicFunction));
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        Parallel parallel = new Parallel("parallel",
+        final Parallel parallel = new Parallel("parallel",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(section)),
                 new ArrayList<>(Collections.singleton(dataOuts)));
@@ -57,7 +57,7 @@ public class ParallelTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Parallel parallel = new Parallel();
+        final Parallel parallel = new Parallel();
 
         Assert.assertNull(parallel.getName());
         Assert.assertNull(parallel.getDataIns());
@@ -83,7 +83,7 @@ public class ParallelTest {
      */
     @Test
     public void testHashEquals() {
-        Parallel parallel = new Parallel("name", null, null, null);
+        final Parallel parallel = new Parallel("name", null, null, null);
 
         Assert.assertEquals(parallel, parallel);
         Assert.assertEquals(parallel.hashCode(), parallel.hashCode());

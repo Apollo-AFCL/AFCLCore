@@ -24,13 +24,13 @@ public class SequentialForTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
         final DataLoops dataLoops = new DataLoops();
-        LoopCounter loopCounter = new LoopCounter();
+        final LoopCounter loopCounter = new LoopCounter();
 
-        SequentialFor sequentialFor = new SequentialFor("sequentialFor",
+        final SequentialFor sequentialFor = new SequentialFor("sequentialFor",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(dataLoops)),
                 loopCounter,
@@ -68,7 +68,7 @@ public class SequentialForTest {
      */
     @Test
     public void testEmptyConstruction() {
-        SequentialFor sequentialFor = new SequentialFor();
+        final SequentialFor sequentialFor = new SequentialFor();
 
         Assert.assertNull(sequentialFor.getName());
         Assert.assertNull(sequentialFor.getDataIns());
@@ -96,16 +96,16 @@ public class SequentialForTest {
      */
     @Test
     public void testHashEquals() {
-        SequentialFor sequentialFor = new SequentialFor("name", null, null, null, null, null);
+        final SequentialFor sequentialFor = new SequentialFor("name", null, null, null, null, null);
 
         Assert.assertEquals(sequentialFor, sequentialFor);
         Assert.assertEquals(sequentialFor.hashCode(), sequentialFor.hashCode());
         Assert.assertNotEquals(sequentialFor, null);
 
-        LoopCompound loopCompound = new LoopCompound();
+        final LoopCompound loopCompound = new LoopCompound();
         Assert.assertNotEquals(sequentialFor, loopCompound);
 
-        SequentialFor sequentialFor2 = new SequentialFor("name", null, null, null, null, null);
+        final SequentialFor sequentialFor2 = new SequentialFor("name", null, null, null, null, null);
         Assert.assertEquals(sequentialFor, sequentialFor2);
         Assert.assertEquals(sequentialFor.hashCode(), sequentialFor2.hashCode());
         sequentialFor2.setAdditionalProperty("name", "type");

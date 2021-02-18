@@ -20,7 +20,7 @@ public class DataOutsAtomicTest {
      */
     @Test
     public void testFullConstruction() {
-        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("name", "type");
+        final DataOutsAtomic dataOutsAtomic = new DataOutsAtomic("name", "type");
 
         Assert.assertEquals("name", dataOutsAtomic.getName());
         Assert.assertEquals("type", dataOutsAtomic.getType());
@@ -33,7 +33,7 @@ public class DataOutsAtomicTest {
      */
     @Test
     public void testEmptyConstruction() {
-        DataOutsAtomic dataOutsAtomic = new DataOutsAtomic();
+        final DataOutsAtomic dataOutsAtomic = new DataOutsAtomic();
 
         Assert.assertNull(dataOutsAtomic.getName());
         Assert.assertNull(dataOutsAtomic.getType());
@@ -66,10 +66,10 @@ public class DataOutsAtomicTest {
         Assert.assertEquals(dataOutsAtomic.hashCode(), dataOutsAtomic.hashCode());
         Assert.assertNotEquals(dataOutsAtomic, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(dataOutsAtomic, compound);
 
-        DataOutsAtomic dataOutsAtomic2 = new DataOutsAtomic("name", "type");
+        final DataOutsAtomic dataOutsAtomic2 = new DataOutsAtomic("name", "type");
         Assert.assertEquals(dataOutsAtomic, dataOutsAtomic2);
         Assert.assertEquals(dataOutsAtomic.hashCode(), dataOutsAtomic2.hashCode());
 

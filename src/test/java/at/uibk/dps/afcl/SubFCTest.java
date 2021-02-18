@@ -25,9 +25,9 @@ public class SubFCTest {
      */
     @Test
     public void testFullConstruction() {
-        AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
         final SubFC subFC = new SubFC("subFC",
                 new ArrayList<>(Collections.singleton(dataIns)),
@@ -58,7 +58,7 @@ public class SubFCTest {
      */
     @Test
     public void testEmptyConstruction() {
-        SubFC subFC = new SubFC();
+        final SubFC subFC = new SubFC();
 
         Assert.assertNull(subFC.getName());
         Assert.assertNull(subFC.getDataIns());
@@ -83,16 +83,16 @@ public class SubFCTest {
      */
     @Test
     public void testHashEquals() {
-        SubFC subFC = new SubFC("name", null, null, null);
+        final SubFC subFC = new SubFC("name", null, null, null);
 
         Assert.assertEquals(subFC, subFC);
         Assert.assertEquals(subFC.hashCode(), subFC.hashCode());
         Assert.assertNotEquals(subFC, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(subFC, compound);
 
-        SubFC subFC2 = new SubFC("name", null, null, null);
+        final SubFC subFC2 = new SubFC("name", null, null, null);
         Assert.assertEquals(subFC, subFC2);
         Assert.assertEquals(subFC.hashCode(), subFC2.hashCode());
 

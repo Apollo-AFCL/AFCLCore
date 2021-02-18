@@ -20,7 +20,7 @@ public class DataInsTest {
      */
     @Test
     public void testFullConstruction() {
-        DataIns dataIns = new DataIns("name", "type", "source");
+        final DataIns dataIns = new DataIns("name", "type", "source");
 
         Assert.assertEquals("name", dataIns.getName());
         Assert.assertEquals("type", dataIns.getType());
@@ -34,7 +34,7 @@ public class DataInsTest {
      */
     @Test
     public void testEmptyConstruction() {
-        DataIns dataIns = new DataIns();
+        final DataIns dataIns = new DataIns();
 
         Assert.assertNull(dataIns.getName());
         Assert.assertNull(dataIns.getType());
@@ -68,10 +68,10 @@ public class DataInsTest {
         Assert.assertEquals(dataIns.hashCode(), dataIns.hashCode());
         Assert.assertNotEquals(dataIns, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(dataIns, compound);
 
-        DataIns dataIns2 = new DataIns("name", "type", "source");
+        final DataIns dataIns2 = new DataIns("name", "type", "source");
         Assert.assertEquals(dataIns, dataIns2);
         Assert.assertEquals(dataIns.hashCode(), dataIns2.hashCode());
 

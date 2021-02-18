@@ -23,10 +23,10 @@ public class SequenceTest {
     @Test
     public void testFullConstruction() {
         final AtomicFunction atomicFunction = new AtomicFunction("atomicFunction", "atomicFunctionType", null, null);
-        DataIns dataIns = new DataIns("inName", "inType");
-        DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
+        final DataIns dataIns = new DataIns("inName", "inType");
+        final DataOuts dataOuts = new DataOuts("outName", "outType", "outSource");
 
-        Sequence sequence = new Sequence("sequence",
+        final Sequence sequence = new Sequence("sequence",
                 new ArrayList<>(Collections.singleton(dataIns)),
                 new ArrayList<>(Collections.singleton(atomicFunction)),
                 new ArrayList<>(Collections.singleton(dataOuts)));
@@ -55,7 +55,7 @@ public class SequenceTest {
      */
     @Test
     public void testEmptyConstruction() {
-        Sequence sequence = new Sequence();
+        final Sequence sequence = new Sequence();
 
         Assert.assertNull(sequence.getName());
         Assert.assertNull(sequence.getDataIns());
@@ -81,16 +81,16 @@ public class SequenceTest {
      */
     @Test
     public void testHashEquals() {
-        Sequence sequence = new Sequence("name", null, null, null);
+        final Sequence sequence = new Sequence("name", null, null, null);
 
         Assert.assertEquals(sequence, sequence);
         Assert.assertEquals(sequence.hashCode(), sequence.hashCode());
         Assert.assertNotEquals(sequence, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(sequence, compound);
 
-        Sequence sequence2 = new Sequence("name", null, null, null);
+        final Sequence sequence2 = new Sequence("name", null, null, null);
         Assert.assertEquals(sequence, sequence2);
         Assert.assertEquals(sequence.hashCode(), sequence2.hashCode());
         sequence2.setAdditionalProperty("name", "type");

@@ -32,12 +32,12 @@ public class LoopCompoundTest {
      */
     @Test
     public void testHashEquals() {
-        LoopCompound loopCompound1 = new LoopCompound();
+        final LoopCompound loopCompound1 = new LoopCompound();
         Assert.assertEquals(loopCompound1, loopCompound1);
         Assert.assertEquals(loopCompound1.hashCode(), loopCompound1.hashCode());
         Assert.assertNotEquals(loopCompound1, null);
 
-        Compound compound = new Compound();
+        final Compound compound = new Compound();
         Assert.assertNotEquals(loopCompound1, compound);
 
         final LoopCompound loopCompound2 = new LoopCompound();
