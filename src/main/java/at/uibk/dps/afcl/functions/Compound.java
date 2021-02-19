@@ -26,7 +26,6 @@ public class Compound extends Function {
     @JsonProperty("dataOuts")
     protected List<DataOuts> dataOuts;
 
-
     /**
      * Getter and Setter
      */

@@ -50,6 +50,7 @@ public class ParallelFor extends LoopCompound {
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
     public ParallelFor(final String name, final List<DataIns> dataIns, final LoopCounter loopCounter, final List<Function> loopBodyParallelFor, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.loopCounter = loopCounter;

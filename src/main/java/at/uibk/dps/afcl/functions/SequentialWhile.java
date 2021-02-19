@@ -58,6 +58,7 @@ public class SequentialWhile extends LoopCompound {
      */
     public SequentialWhile(final String name, final List<DataIns> dataIns, final List<DataLoops> dataLoops, final Condition condition,
                            final List<Function> loopBodySequentialWhile, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.dataLoops = dataLoops;

@@ -58,6 +58,7 @@ public class SequentialFor extends LoopCompound {
      */
     public SequentialFor(final String name, final List<DataIns> dataIns, final List<DataLoops> dataLoops, final LoopCounter loopCounter,
                          final List<Function> loopBodySequentialFor, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.dataLoops = dataLoops;
