@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -38,13 +39,17 @@ public class DataEval {
     @JsonProperty("source")
     private String evaluatorSource;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesEvaluator = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Empty constructor for a data evaluation object.
      */
     public DataEval() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -53,7 +58,7 @@ public class DataEval {
      * @param evaluatorName Unique identifier for the data eval
      * @param evaluatorType Data type
      */
-    public DataEval(String evaluatorName, String evaluatorType) {
+    public DataEval(final String evaluatorName, final String evaluatorType) {
         this.evaluatorName = evaluatorName;
         this.evaluatorType = evaluatorType;
     }
@@ -68,7 +73,7 @@ public class DataEval {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.evaluatorName = name;
     }
 
@@ -78,7 +83,7 @@ public class DataEval {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.evaluatorType = type;
     }
 
@@ -88,37 +93,37 @@ public class DataEval {
     }
 
     @JsonProperty("source")
-    public void setSource(String source) {
+    public void setSource(final String source) {
         this.evaluatorSource = source;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesEvaluator;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesEvaluator.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataEval dataEval = (DataEval) o;
+        final DataEval dataEval = (DataEval) object;
         return Objects.equals(evaluatorName, dataEval.evaluatorName) &&
                 Objects.equals(evaluatorType, dataEval.evaluatorType) &&
                 Objects.equals(evaluatorSource, dataEval.evaluatorSource) &&
-                Objects.equals(additionalPropertiesEvaluator, dataEval.additionalPropertiesEvaluator);
+                Objects.equals(additionalProperties, dataEval.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(evaluatorName, evaluatorType, evaluatorSource, additionalPropertiesEvaluator);
+        return Objects.hash(evaluatorName, evaluatorType, evaluatorSource, additionalProperties);
     }
 }

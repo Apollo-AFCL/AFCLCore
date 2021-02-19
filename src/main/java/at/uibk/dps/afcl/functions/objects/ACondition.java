@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * This class represents a condition of {@link Condition}
@@ -43,10 +44,17 @@ public class ACondition {
     @JsonProperty("negation")
     private String negation;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesACondition = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public ACondition() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -56,7 +64,7 @@ public class ACondition {
      * @param data2    Right operand
      * @param operator Operand (e.g. ==, contains, ...)
      */
-    public ACondition(String data1, String data2, String operator) {
+    public ACondition(final String data1, final String data2, final String operator) {
         this.data1 = data1;
         this.data2 = data2;
         this.operator = operator;
@@ -72,7 +80,7 @@ public class ACondition {
     }
 
     @JsonProperty("data1")
-    public void setData1(String data1) {
+    public void setData1(final String data1) {
         this.data1 = data1;
     }
 
@@ -82,7 +90,7 @@ public class ACondition {
     }
 
     @JsonProperty("data2")
-    public void setData2(String data2) {
+    public void setData2(final String data2) {
         this.data2 = data2;
     }
 
@@ -92,7 +100,7 @@ public class ACondition {
     }
 
     @JsonProperty("operator")
-    public void setOperator(String operator) {
+    public void setOperator(final String operator) {
         this.operator = operator;
     }
 
@@ -102,38 +110,38 @@ public class ACondition {
     }
 
     @JsonProperty("negation")
-    public void setNegation(String negation) {
+    public void setNegation(final String negation) {
         this.negation = negation;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesACondition;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesACondition.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        ACondition that = (ACondition) o;
+        final ACondition that = (ACondition) object;
         return Objects.equals(data1, that.data1) &&
                 Objects.equals(data2, that.data2) &&
                 Objects.equals(operator, that.operator) &&
                 Objects.equals(negation, that.negation) &&
-                Objects.equals(additionalPropertiesACondition, that.additionalPropertiesACondition);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(data1, data2, operator, negation, additionalPropertiesACondition);
+        return Objects.hash(data1, data2, operator, negation, additionalProperties);
     }
 }

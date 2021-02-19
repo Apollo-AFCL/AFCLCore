@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -53,10 +54,17 @@ public class LoopCounter {
     @JsonProperty("step")
     private String step;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesLoopCounter = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public LoopCounter() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -67,7 +75,7 @@ public class LoopCounter {
      * @param from Initial assignment of the counter variable
      * @param to If this value is reached or exceeded the iterations stops
      */
-    public LoopCounter(String loopCounterName, String loopCounterType, String from, String to) {
+    public LoopCounter(final String loopCounterName, final String loopCounterType, final String from, final String to) {
         this(loopCounterName, loopCounterType, from, to, null);
     }
 
@@ -80,7 +88,7 @@ public class LoopCounter {
      * @param to If this value is reached or exceeded the iterations stops
      * @param step The counter variable will be increased step times in each iteration.
      */
-    public LoopCounter(String loopCounterName, String loopCounterType, String from, String to, String step) {
+    public LoopCounter(final String loopCounterName, final String loopCounterType, final String from, final String to, final String step) {
         this.loopCounterName = loopCounterName;
         this.loopCounterType = loopCounterType;
         this.from = from;
@@ -98,7 +106,7 @@ public class LoopCounter {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.loopCounterName = name;
     }
 
@@ -108,7 +116,7 @@ public class LoopCounter {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.loopCounterType = type;
     }
 
@@ -118,7 +126,7 @@ public class LoopCounter {
     }
 
     @JsonProperty("from")
-    public void setFrom(String from) {
+    public void setFrom(final String from) {
         this.from = from;
     }
 
@@ -128,7 +136,7 @@ public class LoopCounter {
     }
 
     @JsonProperty("to")
-    public void setTo(String to) {
+    public void setTo(final String to) {
         this.to = to;
     }
 
@@ -138,39 +146,39 @@ public class LoopCounter {
     }
 
     @JsonProperty("step")
-    public void setStep(String step) {
+    public void setStep(final String step) {
         this.step = step;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesLoopCounter;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesLoopCounter.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        LoopCounter that = (LoopCounter) o;
+        final LoopCounter that = (LoopCounter) object;
         return Objects.equals(loopCounterName, that.loopCounterName) &&
                 Objects.equals(loopCounterType, that.loopCounterType) &&
                 Objects.equals(from, that.from) &&
                 Objects.equals(to, that.to) &&
                 Objects.equals(step, that.step) &&
-                Objects.equals(additionalPropertiesLoopCounter, that.additionalPropertiesLoopCounter);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(loopCounterName, loopCounterType, from, to, step, additionalPropertiesLoopCounter);
+        return Objects.hash(loopCounterName, loopCounterType, from, to, step, additionalProperties);
     }
 }

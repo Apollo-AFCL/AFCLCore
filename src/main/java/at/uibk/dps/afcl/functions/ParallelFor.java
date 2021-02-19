@@ -29,9 +29,13 @@ public class ParallelFor extends LoopCompound {
      * Contains needed information about the number of (parallel) loop iterations
      */
     @JsonProperty("loopCounter")
-    private LoopCounter loopCounterParallelFor;
+    private LoopCounter loopCounter;
 
+    /**
+     * Default constructor.
+     */
     public ParallelFor() {
+        super();
     }
 
     /**
@@ -39,14 +43,16 @@ public class ParallelFor extends LoopCompound {
      *
      * @param name        Unique identifier of the compound
      * @param dataIns     Data input ports ({@link DataIns})
-     * @param loopCounterParallelFor information about the number of (parallel) loop iterations
-     * @param loopBodyParallelFor    functions which should be executed in each iteration
+     * @param loopCounter information about the number of
+     *                    (parallel) loop iterations
+     * @param loopBodyParallelFor    functions which should be
+     *                               executed in each iteration
      * @param dataOuts    Data output ports ({@link DataOuts})
      */
-    public ParallelFor(String name, List<DataIns> dataIns, LoopCounter loopCounterParallelFor, List<Function> loopBodyParallelFor, List<DataOuts> dataOuts) {
+    public ParallelFor(final String name, final List<DataIns> dataIns, final LoopCounter loopCounter, final List<Function> loopBodyParallelFor, final List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
-        this.loopCounterParallelFor = loopCounterParallelFor;
+        this.loopCounter = loopCounter;
         this.setLoopBody(loopBodyParallelFor);
         this.dataOuts = dataOuts;
     }
@@ -57,31 +63,31 @@ public class ParallelFor extends LoopCompound {
 
     @JsonProperty("loopCounter")
     public LoopCounter getLoopCounter() {
-        return loopCounterParallelFor;
+        return loopCounter;
     }
 
     @JsonProperty("loopCounter")
-    public void setLoopCounter(LoopCounter loopCounterParallelFor) {
-        this.loopCounterParallelFor = loopCounterParallelFor;
+    public void setLoopCounter(final LoopCounter loopCounter) {
+        this.loopCounter = loopCounter;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        ParallelFor that = (ParallelFor) o;
-        return Objects.equals(loopCounterParallelFor, that.loopCounterParallelFor);
+        final ParallelFor that = (ParallelFor) object;
+        return Objects.equals(loopCounter, that.loopCounter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), loopCounterParallelFor);
+        return Objects.hash(super.hashCode(), loopCounter);
     }
 }

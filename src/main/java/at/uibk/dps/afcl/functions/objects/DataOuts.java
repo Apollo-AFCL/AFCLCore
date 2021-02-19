@@ -70,7 +70,11 @@ public class DataOuts {
     @JsonProperty("constraints")
     private List<PropertyConstraint> constraintsDataOuts;
 
+    /**
+     * Default constructor.
+     */
     public DataOuts() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -80,7 +84,7 @@ public class DataOuts {
      * @param outputType   Data type of the data port
      * @param outputSource Source location of the data port
      */
-    public DataOuts(String outputName, String outputType, String outputSource) {
+    public DataOuts(final String outputName, final String outputType, final String outputSource) {
         this.outputName = outputName;
         this.outputType = outputType;
         this.outputSource = outputSource;
@@ -96,7 +100,7 @@ public class DataOuts {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.outputName = name;
     }
 
@@ -106,7 +110,7 @@ public class DataOuts {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.outputType = type;
     }
 
@@ -116,7 +120,7 @@ public class DataOuts {
     }
 
     @JsonProperty("source")
-    public void setSource(String source) {
+    public void setSource(final String source) {
         this.outputSource = source;
     }
 
@@ -126,7 +130,7 @@ public class DataOuts {
     }
 
     @JsonProperty("saveto")
-    public void setSaveto(String saveto) {
+    public void setSaveto(final String saveto) {
         this.outputSaveTo = saveto;
     }
 
@@ -136,7 +140,7 @@ public class DataOuts {
     }
 
     @JsonProperty("passing")
-    public void setPassing(Boolean passing) {
+    public void setPassing(final Boolean passing) {
         this.passingDataOuts = passing;
     }
 
@@ -146,7 +150,7 @@ public class DataOuts {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
+    public void setProperties(final List<PropertyConstraint> properties) {
         this.propertiesDataOuts = properties;
     }
 
@@ -156,19 +160,19 @@ public class DataOuts {
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
+    public void setConstraints(final List<PropertyConstraint> constraints) {
         this.constraintsDataOuts = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataOuts dataOuts = (DataOuts) o;
+        final DataOuts dataOuts = (DataOuts) object;
         return Objects.equals(outputName, dataOuts.outputName) &&
                 Objects.equals(outputType, dataOuts.outputType) &&
                 Objects.equals(outputSource, dataOuts.outputSource) &&

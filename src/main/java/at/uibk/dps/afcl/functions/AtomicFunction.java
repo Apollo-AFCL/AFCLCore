@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -46,10 +47,17 @@ public class AtomicFunction extends Function {
     @JsonProperty("dataOuts")
     private List<DataOutsAtomic> dataOuts;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesAtomicFunction = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public AtomicFunction() {
+        super();
     }
 
     /**
@@ -60,7 +68,7 @@ public class AtomicFunction extends Function {
      * @param dataIns  Data input ports ({@link DataIns})
      * @param dataOuts Data output ports ({@link DataOuts})
      */
-    public AtomicFunction(String name, String type, List<DataIns> dataIns, List<DataOutsAtomic> dataOuts) {
+    public AtomicFunction(final String name, final String type, final List<DataIns> dataIns, final List<DataOutsAtomic> dataOuts) {
         this.name = name;
         this.type = type;
         this.dataIns = dataIns;
@@ -77,7 +85,7 @@ public class AtomicFunction extends Function {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -87,7 +95,7 @@ public class AtomicFunction extends Function {
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(List<DataIns> dataIns) {
+    public void setDataIns(final List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -97,38 +105,38 @@ public class AtomicFunction extends Function {
     }
 
     @JsonProperty("dataOuts")
-    public void setDataOuts(List<DataOutsAtomic> dataOuts) {
+    public void setDataOuts(final List<DataOutsAtomic> dataOuts) {
         this.dataOuts = dataOuts;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesAtomicFunction;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesAtomicFunction.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        AtomicFunction that = (AtomicFunction) o;
-        return super.equals(o) &&
+        final AtomicFunction that = (AtomicFunction) object;
+        return super.equals(object) &&
                 Objects.equals(type, that.type) &&
                 Objects.equals(dataIns, that.dataIns) &&
                 Objects.equals(dataOuts, that.dataOuts) &&
-                Objects.equals(additionalPropertiesAtomicFunction, that.additionalPropertiesAtomicFunction);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), type, dataIns, dataOuts, additionalPropertiesAtomicFunction);
+        return Objects.hash(super.hashCode(), type, dataIns, dataOuts, additionalProperties);
     }
 }

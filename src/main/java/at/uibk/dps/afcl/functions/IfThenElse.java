@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -51,10 +52,17 @@ public class IfThenElse extends Compound {
     @JsonProperty("else")
     private List<Function> elseBranch;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesIfThenElse = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
+    /**
+     * Default constructor.
+     */
     public IfThenElse() {
+        super();
     }
 
     /**
@@ -71,7 +79,7 @@ public class IfThenElse extends Compound {
      *                  is not fulfilled.
      * @param dataOuts  Data output ports ({@link DataOuts})
      */
-    public IfThenElse(String name, List<DataIns> dataIns, Condition condition, List<Function> thenBranch, List<Function> elseBranch, List<DataOuts> dataOuts) {
+    public IfThenElse(final String name, final List<DataIns> dataIns, final Condition condition, final List<Function> thenBranch, final List<Function> elseBranch, final List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.condition = condition;
@@ -90,7 +98,7 @@ public class IfThenElse extends Compound {
     }
 
     @JsonProperty("condition")
-    public void setCondition(Condition condition) {
+    public void setCondition(final Condition condition) {
         this.condition = condition;
     }
 
@@ -100,7 +108,7 @@ public class IfThenElse extends Compound {
     }
 
     @JsonProperty("then")
-    public void setThen(List<Function> thenBranch) {
+    public void setThen(final List<Function> thenBranch) {
         this.thenBranch = thenBranch;
     }
 
@@ -110,40 +118,40 @@ public class IfThenElse extends Compound {
     }
 
     @JsonProperty("else")
-    public void setElse(List<Function> elseBranch) {
+    public void setElse(final List<Function> elseBranch) {
         this.elseBranch = elseBranch;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesIfThenElse;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesIfThenElse.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        IfThenElse that = (IfThenElse) o;
+        final IfThenElse that = (IfThenElse) object;
         return Objects.equals(condition, that.condition) &&
                 Objects.equals(thenBranch, that.thenBranch) &&
                 Objects.equals(elseBranch, that.elseBranch) &&
-                Objects.equals(additionalPropertiesIfThenElse, that.additionalPropertiesIfThenElse);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), condition, thenBranch, elseBranch, additionalPropertiesIfThenElse);
+        return Objects.hash(super.hashCode(), condition, thenBranch, elseBranch, additionalProperties);
     }
 }

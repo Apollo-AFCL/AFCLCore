@@ -37,7 +37,7 @@ public class Compound extends Function {
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(List<DataIns> dataIns) {
+    public void setDataIns(final List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -47,20 +47,20 @@ public class Compound extends Function {
     }
 
     @JsonProperty("dataOuts")
-    public void setDataOuts(List<DataOuts> dataOuts) {
+    public void setDataOuts(final List<DataOuts> dataOuts) {
         this.dataOuts = dataOuts;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Compound compound = (Compound) o;
-        return super.equals(o) &&
+        final Compound compound = (Compound) object;
+        return super.equals(object) &&
                 Objects.equals(dataIns, compound.dataIns) &&
                 Objects.equals(dataOuts, compound.dataOuts);
     }

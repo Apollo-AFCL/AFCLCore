@@ -37,13 +37,6 @@ public class Utils {
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
 
     /**
-     * Default constructor
-     */
-    public Utils(){
-        // This constructor is intentionally empty. Nothing special is needed here.
-    }
-
-    /**
      * Parse a workflow
      *
      * @param workflow object to parse

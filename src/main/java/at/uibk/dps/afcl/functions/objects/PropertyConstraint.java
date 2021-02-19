@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -31,10 +32,18 @@ public class PropertyConstraint {
      */
     @JsonProperty("value")
     private String value;
-    @JsonIgnore
-    private Map<String, Object> additionalPropertiesPropertiesConstraint = new HashMap<>();
 
+    /**
+     * Optional additional json properties.
+     */
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
+
+    /**
+     * Default constructor.
+     */
     public PropertyConstraint() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -44,7 +53,7 @@ public class PropertyConstraint {
      * @param value Value of the property or constraint regarding
      *              its {@link PropertyConstraint#name}
      */
-    public PropertyConstraint(String name, String value) {
+    public PropertyConstraint(final String name, final String value) {
         this.name = name;
         this.value = value;
     }
@@ -59,7 +68,7 @@ public class PropertyConstraint {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -69,36 +78,36 @@ public class PropertyConstraint {
     }
 
     @JsonProperty("value")
-    public void setValue(String value) {
+    public void setValue(final String value) {
         this.value = value;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesPropertiesConstraint;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesPropertiesConstraint.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        PropertyConstraint that = (PropertyConstraint) o;
+        final PropertyConstraint that = (PropertyConstraint) object;
         return Objects.equals(name, that.name) &&
                 Objects.equals(value, that.value) &&
-                Objects.equals(additionalPropertiesPropertiesConstraint, that.additionalPropertiesPropertiesConstraint);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, value, additionalPropertiesPropertiesConstraint);
+        return Objects.hash(name, value, additionalProperties);
     }
 }

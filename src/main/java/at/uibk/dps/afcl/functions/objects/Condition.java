@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -35,13 +36,17 @@ public class Condition {
     @JsonProperty("conditions")
     private List<ACondition> conditions;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesCondition = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Empty constructor for a condition.
      */
     public Condition() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -50,7 +55,7 @@ public class Condition {
      * @param combinedWith Combination of the different conditions (AND or OR)
      * @param conditions   List of conditions
      */
-    public Condition(String combinedWith, List<ACondition> conditions) {
+    public Condition(final String combinedWith, final List<ACondition> conditions) {
         this.combinedWith = combinedWith;
         this.conditions = conditions;
     }
@@ -65,7 +70,7 @@ public class Condition {
     }
 
     @JsonProperty("combinedWith")
-    public void setCombinedWith(String combinedWith) {
+    public void setCombinedWith(final String combinedWith) {
         this.combinedWith = combinedWith;
     }
 
@@ -75,36 +80,36 @@ public class Condition {
     }
 
     @JsonProperty("conditions")
-    public void setConditions(List<ACondition> conditions) {
+    public void setConditions(final List<ACondition> conditions) {
         this.conditions = conditions;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesCondition;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesCondition.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        final Condition condition = (Condition) o;
+        final Condition condition = (Condition) object;
         return Objects.equals(combinedWith, condition.combinedWith) &&
                 Objects.equals(conditions, condition.conditions) &&
-                Objects.equals(additionalPropertiesCondition, condition.additionalPropertiesCondition);
+                Objects.equals(additionalProperties, condition.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(combinedWith, conditions, additionalPropertiesCondition);
+        return Objects.hash(combinedWith, conditions, additionalProperties);
     }
 }

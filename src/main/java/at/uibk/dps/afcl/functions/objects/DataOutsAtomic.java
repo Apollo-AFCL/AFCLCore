@@ -64,7 +64,11 @@ public class DataOutsAtomic {
     @JsonProperty("constraints")
     private List<PropertyConstraint> constraintsDataOutsAtomic;
 
+    /**
+     * Default constructor.
+     */
     public DataOutsAtomic() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -73,7 +77,7 @@ public class DataOutsAtomic {
      * @param atomicOutputName Unique identifier for the data output port
      * @param atomicOutputType Data type of the data port
      */
-    public DataOutsAtomic(String atomicOutputName, String atomicOutputType) {
+    public DataOutsAtomic(final String atomicOutputName, final String atomicOutputType) {
         this.atomicOutputName = atomicOutputName;
         this.atomicOutputType = atomicOutputType;
     }
@@ -88,7 +92,7 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.atomicOutputName = name;
     }
 
@@ -98,7 +102,7 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("type")
-    public void setType(String type) {
+    public void setType(final String type) {
         this.atomicOutputType = type;
     }
 
@@ -108,7 +112,7 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("saveto")
-    public void setSaveto(String saveto) {
+    public void setSaveto(final String saveto) {
         this.atomicOutputSaveTo = saveto;
     }
 
@@ -118,7 +122,7 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("passing")
-    public void setPassing(Boolean passing) {
+    public void setPassing(final Boolean passing) {
         this.passingDataOutsAtomic = passing;
     }
 
@@ -128,7 +132,7 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
+    public void setProperties(final List<PropertyConstraint> properties) {
         this.propertiesDataOutsAtomic = properties;
     }
 
@@ -138,19 +142,19 @@ public class DataOutsAtomic {
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraints) {
+    public void setConstraints(final List<PropertyConstraint> constraints) {
         this.constraintsDataOutsAtomic = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        DataOutsAtomic that = (DataOutsAtomic) o;
+        final DataOutsAtomic that = (DataOutsAtomic) object;
         return Objects.equals(atomicOutputName, that.atomicOutputName) &&
                 Objects.equals(atomicOutputType, that.atomicOutputType) &&
                 Objects.equals(atomicOutputSaveTo, that.atomicOutputSaveTo) &&

@@ -56,7 +56,7 @@ public class Function {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -66,7 +66,7 @@ public class Function {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> propertiesFunction) {
+    public void setProperties(final List<PropertyConstraint> propertiesFunction) {
         this.propertiesFunction = propertiesFunction;
     }
 
@@ -76,19 +76,19 @@ public class Function {
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraintsFunction) {
+    public void setConstraints(final List<PropertyConstraint> constraintsFunction) {
         this.constraintsFunction = constraintsFunction;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Function function = (Function) o;
+        final Function function = (Function) object;
         return Objects.equals(name, function.name) &&
                 Objects.equals(propertiesFunction, function.propertiesFunction) &&
                 Objects.equals(constraintsFunction, function.constraintsFunction);

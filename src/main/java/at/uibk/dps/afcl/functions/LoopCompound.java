@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -22,8 +23,11 @@ public class LoopCompound extends Compound {
     @JsonProperty("loopBody")
     private List<Function> loopBody;
 
+    /**
+     * Optional additional json properties.
+     */
     @JsonIgnore
-    private Map<String, Object> additionalPropertiesLoopCompound = new HashMap<>();
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Getter and Setter
@@ -35,38 +39,38 @@ public class LoopCompound extends Compound {
     }
 
     @JsonProperty("loopBody")
-    public void setLoopBody(List<Function> loopBodyParallelFor) {
+    public void setLoopBody(final List<Function> loopBodyParallelFor) {
         this.loopBody = loopBodyParallelFor;
     }
 
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
-        return this.additionalPropertiesLoopCompound;
+        return this.additionalProperties;
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalPropertiesLoopCompound.put(name, value);
+    public void setAdditionalProperty(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        LoopCompound that = (LoopCompound) o;
+        final LoopCompound that = (LoopCompound) object;
         return Objects.equals(loopBody, that.loopBody) &&
-                Objects.equals(additionalPropertiesLoopCompound, that.additionalPropertiesLoopCompound);
+                Objects.equals(additionalProperties, that.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), loopBody, additionalPropertiesLoopCompound);
+        return Objects.hash(super.hashCode(), loopBody, additionalProperties);
     }
 }

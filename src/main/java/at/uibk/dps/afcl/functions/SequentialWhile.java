@@ -74,7 +74,7 @@ public class SequentialWhile extends LoopCompound {
     public List<DataLoops> getDataLoops() { return dataLoops; }
 
     @JsonProperty("dataLoops")
-    public void setDataLoops(List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
+    public void setDataLoops(final List<DataLoops> dataLoops) { this.dataLoops = dataLoops; }
 
     @JsonProperty("condition")
     public Condition getCondition() {
@@ -82,22 +82,22 @@ public class SequentialWhile extends LoopCompound {
     }
 
     @JsonProperty("condition")
-    public void setCondition(Condition loopCounter) {
+    public void setCondition(final Condition loopCounter) {
         this.condition = loopCounter;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
+        if (!super.equals(object)) {
             return false;
         }
-        SequentialWhile that = (SequentialWhile) o;
+        final SequentialWhile that = (SequentialWhile) object;
         return Objects.equals(dataLoops, that.dataLoops) &&
                 Objects.equals(condition, that.condition);
     }
