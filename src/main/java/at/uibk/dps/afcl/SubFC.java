@@ -54,24 +54,26 @@ public class SubFC {
      * {@link PropertyConstraint} (information about the behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesSubFC;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled by underlying workflow
      * runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsSubFC;
+    private List<PropertyConstraint> constraints;
 
     /**
      * Constructor for sub function choreographies
      *
-     * @param name      Unique identifier for the sub function choreography
+     * @param name      Unique identifier for the sub function
+     *                  choreography
      * @param dataIns   Data input ports ({@link DataIns})
-     * @param subFCBody Body of the sub function choreography containing {@link Function}s
+     * @param subFCBody Body of the sub function choreography
+     *                  containing {@link Function}s
      * @param dataOuts  Data output ports ({@link DataOuts})
      */
-    public SubFC(String name, List<DataIns> dataIns, List<Function> subFCBody, List<DataOuts> dataOuts) {
+    public SubFC(final String name, final List<DataIns> dataIns, final List<Function> subFCBody, final List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.subFCBody = subFCBody;
@@ -82,7 +84,9 @@ public class SubFC {
      * Empty constructor for sub function choreographies
      *
      */
-    public SubFC() { }
+    public SubFC() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
 
 
     /**
@@ -95,7 +99,7 @@ public class SubFC {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -105,7 +109,7 @@ public class SubFC {
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(List<DataIns> dataIns) {
+    public void setDataIns(final List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -115,7 +119,7 @@ public class SubFC {
     }
 
     @JsonProperty("subFCBody")
-    public void setSubFCBody(List<Function> subFCBody) {
+    public void setSubFCBody(final List<Function> subFCBody) {
         this.subFCBody = subFCBody;
     }
 
@@ -125,49 +129,49 @@ public class SubFC {
     }
 
     @JsonProperty("dataOuts")
-    public void setDataOuts(List<DataOuts> dataOuts) {
+    public void setDataOuts(final List<DataOuts> dataOuts) {
         this.dataOuts = dataOuts;
     }
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return propertiesSubFC;
+        return properties;
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> propertiesSubFC) {
-        this.propertiesSubFC = propertiesSubFC;
+    public void setProperties(final List<PropertyConstraint> properties) {
+        this.properties = properties;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraintsSubFC;
+        return constraints;
     }
 
     @JsonProperty("constraints")
-    public void setConstraints(List<PropertyConstraint> constraintsSubFC) {
-        this.constraintsSubFC = constraintsSubFC;
+    public void setConstraints(final List<PropertyConstraint> constraints) {
+        this.constraints = constraints;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        SubFC subFC = (SubFC) o;
+        final SubFC subFC = (SubFC) object;
         return Objects.equals(name, subFC.name) &&
                 Objects.equals(dataIns, subFC.dataIns) &&
                 Objects.equals(subFCBody, subFC.subFCBody) &&
                 Objects.equals(dataOuts, subFC.dataOuts) &&
-                Objects.equals(propertiesSubFC, subFC.propertiesSubFC) &&
-                Objects.equals(constraintsSubFC, subFC.constraintsSubFC);
+                Objects.equals(properties, subFC.properties) &&
+                Objects.equals(constraints, subFC.constraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, dataIns, subFCBody, dataOuts, propertiesSubFC, constraintsSubFC);
+        return Objects.hash(name, dataIns, subFCBody, dataOuts, properties, constraints);
     }
 }

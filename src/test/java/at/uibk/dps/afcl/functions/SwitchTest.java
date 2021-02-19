@@ -120,7 +120,7 @@ public class SwitchTest {
         Assert.assertNotEquals(switchCondition, switchCondition3);
 
         switchCondition3 = new Switch("name", null, null, null, null);
-        switchCondition3.setDefault(Collections.singletonList(new AtomicFunction()));
+        switchCondition3.setDefaultBranch(Collections.singletonList(new AtomicFunction()));
         Assert.assertNotEquals(switchCondition, switchCondition3);
 
         switchCondition3 = new Switch("name", null, null, null, Collections.singletonList(new DataOuts("name", "type", "source")));

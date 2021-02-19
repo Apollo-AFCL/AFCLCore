@@ -54,7 +54,11 @@ public class Workflow {
     @JsonProperty("dataOuts")
     private List<DataOuts> dataOuts;
 
+    /**
+     * Default constructor.
+     */
     public Workflow() {
+        // This constructor is intentionally empty. Nothing special is needed here.
     }
 
     /**
@@ -65,7 +69,7 @@ public class Workflow {
      * @param workflowBody Workflow body containing {@link Function}s
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
-    public Workflow(String name, List<DataIns> dataIns, List<Function> workflowBody, List<DataOuts> dataOuts) {
+    public Workflow(final String name, final List<DataIns> dataIns, final List<Function> workflowBody, final List<DataOuts> dataOuts) {
         this.name = name;
         this.dataIns = dataIns;
         this.workflowBody = workflowBody;
@@ -82,7 +86,7 @@ public class Workflow {
     }
 
     @JsonProperty("name")
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -92,7 +96,7 @@ public class Workflow {
     }
 
     @JsonProperty("dataOuts")
-    public void setDataOuts(List<DataOuts> dataOuts) {
+    public void setDataOuts(final List<DataOuts> dataOuts) {
         this.dataOuts = dataOuts;
     }
 
@@ -102,7 +106,7 @@ public class Workflow {
     }
 
     @JsonProperty("subFCs")
-    public void setSubFCs(List<SubFC> subFCs) {
+    public void setSubFCs(final List<SubFC> subFCs) {
         this.subFCs = subFCs;
     }
 
@@ -112,7 +116,7 @@ public class Workflow {
     }
 
     @JsonProperty("dataIns")
-    public void setDataIns(List<DataIns> dataIns) {
+    public void setDataIns(final List<DataIns> dataIns) {
         this.dataIns = dataIns;
     }
 
@@ -122,19 +126,19 @@ public class Workflow {
     }
 
     @JsonProperty("workflowBody")
-    public void setWorkflowBody(List<Function> workflowBody) {
+    public void setWorkflowBody(final List<Function> workflowBody) {
         this.workflowBody = workflowBody;
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(final Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Workflow workflow = (Workflow) o;
+        final Workflow workflow = (Workflow) object;
         return Objects.equals(name, workflow.name) &&
                 Objects.equals(subFCs, workflow.subFCs) &&
                 Objects.equals(dataIns, workflow.dataIns) &&
