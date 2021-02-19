@@ -5,7 +5,6 @@ import at.uibk.dps.afcl.Function;
 import at.uibk.dps.afcl.functions.Parallel;
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

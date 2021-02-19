@@ -3,7 +3,6 @@ package at.uibk.dps.afcl.functions.objects;
 
 import com.fasterxml.jackson.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
