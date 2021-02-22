@@ -1,6 +1,11 @@
 package at.uibk.dps.afcl;
 
-import at.uibk.dps.afcl.functions.*;
+import at.uibk.dps.afcl.functions.Switch;
+import at.uibk.dps.afcl.functions.AtomicFunction;
+import at.uibk.dps.afcl.functions.IfThenElse;
+import at.uibk.dps.afcl.functions.Parallel;
+import at.uibk.dps.afcl.functions.ParallelFor;
+import at.uibk.dps.afcl.functions.Sequence;
 import at.uibk.dps.afcl.functions.objects.PropertyConstraint;
 import com.fasterxml.jackson.annotation.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -50,13 +55,6 @@ public class Function {
      */
     @JsonIgnore
     private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
-     * Default constructor.
-     */
-    public Function() {
-        // This constructor is intentionally empty. Nothing special is needed here.
-    }
 
     /**
      * Getter and Setter

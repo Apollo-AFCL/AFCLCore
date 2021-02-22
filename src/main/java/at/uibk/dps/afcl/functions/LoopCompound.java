@@ -18,13 +18,6 @@ public class LoopCompound extends Compound {
     private List<Function> loopBody;
 
     /**
-     * Default constructor.
-     */
-    public LoopCompound() {
-        super();
-    }
-
-    /**
      * Getter and Setter
      */
 

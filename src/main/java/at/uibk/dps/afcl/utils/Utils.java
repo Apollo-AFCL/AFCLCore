@@ -190,12 +190,12 @@ public final class Utils {
      * @return workflow
      */
     public static Workflow readJSONString(final String origin, final String jsonSchema) throws IOException, ProcessingException {
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
 
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         final Workflow workflow = objectMapper.readValue(origin, Workflow.class);
-        return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
+        return parseWorkflow(workflow, yamlFactory, jsonSchema, objectMapper);
     }
 
     /**
@@ -205,9 +205,9 @@ public final class Utils {
      * @return workflow
      */
     public static Workflow readJSONStringNoValidation(final String origin) throws IOException {
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         return objectMapper.readValue(origin, Workflow.class);
     }
 
@@ -237,9 +237,9 @@ public final class Utils {
      * @param destination file to write (i.e. workflow.json)
      */
     public static void writeYamlNoValidation(final Workflow workflow, final String destination) throws JsonProcessingException {
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         final byte[] bytes = objectMapper.writeValueAsBytes(workflow);
 
         final File file = new File(destination);
@@ -254,9 +254,9 @@ public final class Utils {
      */
     public static Workflow readYAMLNoValidation(final String origin) throws IOException {
         final File file = new File(origin);
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         return objectMapper.readValue(file, Workflow.class);
     }
 
@@ -267,9 +267,9 @@ public final class Utils {
      * @return workflow
      */
     public static Workflow readYAMLNoValidation(final byte[] origin) throws IOException {
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         return objectMapper.readValue(origin, Workflow.class);
     }
 }

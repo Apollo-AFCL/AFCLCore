@@ -27,13 +27,6 @@ public class Compound extends Function {
     protected List<DataOuts> dataOuts;
 
     /**
-     * Default constructor.
-     */
-    public Compound() {
-        super();
-    }
-
-    /**
      * Getter and Setter
      */
 
