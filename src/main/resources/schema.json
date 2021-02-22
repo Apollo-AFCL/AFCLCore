@@ -33,10 +33,7 @@
             "type": "string"
           },
           "value": {
-            "type": "string"
-          },
-          "passing": {
-            "type": "boolean"
+            "type": ["number", "string", "object", "array", "boolean", "null"]
           },
           "properties": {
             "$ref": "#/definitions/propertiesConstraintDef"
@@ -68,9 +65,6 @@
           },
           "saveto": {
             "type": "string"
-          },
-          "passing": {
-            "type": "boolean"
           },
           "properties": {
             "$ref": "#/definitions/propertiesConstraintDef"
@@ -106,9 +100,6 @@
           },
           "value": {
             "type": "string"
-          },
-          "passing": {
-            "type": "boolean"
           },
           "properties": {
             "$ref": "#/definitions/propertiesConstraintDef"
@@ -171,8 +162,7 @@
                 "operator"
               ]
             }
-          ],
-          "additionalItems": false
+          ]
         }
       },
       "required": [
@@ -235,11 +225,14 @@
                   "type": {
                     "type": "string"
                   },
-                  "passing": {
-                    "type": "boolean"
-                  },
                   "saveto": {
                     "type": "string"
+                  },
+                  "properties": {
+                    "$ref": "#/definitions/propertiesConstraintDef"
+                  },
+                  "constraints": {
+                    "$ref": "#/definitions/propertiesConstraintDef"
                   }
                 },
                 "required": [
