@@ -50,12 +50,6 @@ public class Switch extends Compound {
     private List<Function> defaultBranch;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Default constructor.
      */
     public Switch() {
@@ -115,16 +109,6 @@ public class Switch extends Compound {
         this.defaultBranch = defaultBranch;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -140,11 +124,11 @@ public class Switch extends Compound {
         return Objects.equals(dataEval, aSwitch.dataEval) &&
                 Objects.equals(cases, aSwitch.cases) &&
                 Objects.equals(defaultBranch, aSwitch.defaultBranch) &&
-                Objects.equals(additionalProperties, aSwitch.additionalProperties);
+                Objects.equals(getAdditionalProperties(), aSwitch.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), dataEval, cases, defaultBranch, additionalProperties);
+        return Objects.hash(super.hashCode(), dataEval, cases, defaultBranch, getAdditionalProperties());
     }
 }

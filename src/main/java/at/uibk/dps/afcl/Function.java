@@ -2,12 +2,12 @@ package at.uibk.dps.afcl;
 
 import at.uibk.dps.afcl.functions.*;
 import at.uibk.dps.afcl.functions.objects.PropertyConstraint;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
 
 /**
  * This class describes an abstract function ({@link AtomicFunction} or
@@ -45,6 +45,11 @@ public class Function {
     @JsonProperty("constraints")
     private List<PropertyConstraint> constraints;
 
+    /**
+     * Optional additional json properties.
+     */
+    @JsonIgnore
+    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
      * Getter and Setter
@@ -78,6 +83,22 @@ public class Function {
     @JsonProperty("constraints")
     public void setConstraints(final List<PropertyConstraint> constraintsFunction) {
         this.constraints = constraintsFunction;
+    }
+
+    @JsonAnyGetter
+    public Map<String, Object> getAdditionalProperties() {
+        return this.additionalProperties;
+    }
+
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
+    @JsonAnySetter
+    public void setAdditionalProperties(final String name, final Object value) {
+        this.additionalProperties.put(name, value);
     }
 
     @Override

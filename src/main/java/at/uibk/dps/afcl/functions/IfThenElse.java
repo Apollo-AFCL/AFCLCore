@@ -52,12 +52,6 @@ public class IfThenElse extends Compound {
     private List<Function> elseBranch;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Default constructor.
      */
     public IfThenElse() {
@@ -69,16 +63,22 @@ public class IfThenElse extends Compound {
      *
      * @param name      Unique identifier of the compound
      * @param dataIns   Data input ports ({@link DataIns})
-     * @param condition Represents the condition which should be fulfilled to execute
-     *                  the {@link IfThenElse#thenBranch} functions. If the condition is not
-     *                  fulfilled {@link IfThenElse#elseBranch} will be executed.
-     * @param thenBranch List of functions that will be executed if {@link IfThenElse#condition}
-     *                  is fulfilled.
-     * @param elseBranch     List of functions that will be executed if {@link IfThenElse#condition}
-     *                  is not fulfilled.
-     * @param dataOuts  Data output ports ({@link DataOuts})
+     * @param condition Represents the condition which should be
+     *                  fulfilled to execute the
+     *                  {@link IfThenElse#thenBranch} functions.
+     *                  If the condition is not fulfilled
+     *                  {@link IfThenElse#elseBranch} will be
+     *                  executed.
+     * @param thenBranch List of functions that will be executed
+     *                   if {@link IfThenElse#condition} is
+     *                   fulfilled.
+     * @param elseBranch List of functions that will be executed
+     *                   if {@link IfThenElse#condition} is not
+     *                   fulfilled.
+     * @param dataOuts   Data output ports ({@link DataOuts})
      */
     public IfThenElse(final String name, final List<DataIns> dataIns, final Condition condition, final List<Function> thenBranch, final List<Function> elseBranch, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.condition = condition;
@@ -121,16 +121,6 @@ public class IfThenElse extends Compound {
         this.elseBranch = elseBranch;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -146,11 +136,11 @@ public class IfThenElse extends Compound {
         return Objects.equals(condition, that.condition) &&
                 Objects.equals(thenBranch, that.thenBranch) &&
                 Objects.equals(elseBranch, that.elseBranch) &&
-                Objects.equals(additionalProperties, that.additionalProperties);
+                Objects.equals(getAdditionalProperties(), that.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), condition, thenBranch, elseBranch, additionalProperties);
+        return Objects.hash(super.hashCode(), condition, thenBranch, elseBranch, getAdditionalProperties());
     }
 }

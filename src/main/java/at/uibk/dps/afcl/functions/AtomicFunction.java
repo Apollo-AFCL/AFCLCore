@@ -47,12 +47,6 @@ public class AtomicFunction extends Function {
     private List<DataOutsAtomic> dataOuts;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Default constructor.
      */
     public AtomicFunction() {
@@ -109,16 +103,6 @@ public class AtomicFunction extends Function {
         this.dataOuts = dataOuts;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -132,11 +116,11 @@ public class AtomicFunction extends Function {
                 Objects.equals(type, that.type) &&
                 Objects.equals(dataIns, that.dataIns) &&
                 Objects.equals(dataOuts, that.dataOuts) &&
-                Objects.equals(additionalProperties, that.additionalProperties);
+                Objects.equals(getAdditionalProperties(), that.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), type, dataIns, dataOuts, additionalProperties);
+        return Objects.hash(super.hashCode(), type, dataIns, dataOuts, getAdditionalProperties());
     }
 }

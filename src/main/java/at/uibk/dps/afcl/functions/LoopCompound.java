@@ -23,12 +23,6 @@ public class LoopCompound extends Compound {
     private List<Function> loopBody;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Default constructor.
      */
     public LoopCompound() {
@@ -49,16 +43,6 @@ public class LoopCompound extends Compound {
         this.loopBody = loopBodyParallelFor;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -72,11 +56,11 @@ public class LoopCompound extends Compound {
         }
         final LoopCompound that = (LoopCompound) object;
         return Objects.equals(loopBody, that.loopBody) &&
-                Objects.equals(additionalProperties, that.additionalProperties);
+                Objects.equals(getAdditionalProperties(), that.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), loopBody, additionalProperties);
+        return Objects.hash(super.hashCode(), loopBody, getAdditionalProperties());
     }
 }

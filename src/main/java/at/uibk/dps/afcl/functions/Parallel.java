@@ -34,12 +34,6 @@ public class Parallel extends Compound {
     private List<Section> parallelBody;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Default constructor.
      */
     public Parallel() {
@@ -76,16 +70,6 @@ public class Parallel extends Compound {
         this.parallelBody = parallelBody;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -99,11 +83,11 @@ public class Parallel extends Compound {
         }
         final Parallel parallel = (Parallel) object;
         return Objects.equals(parallelBody, parallel.parallelBody) &&
-                Objects.equals(additionalProperties, parallel.additionalProperties);
+                Objects.equals(getAdditionalProperties(), parallel.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), parallelBody, additionalProperties);
+        return Objects.hash(super.hashCode(), parallelBody, getAdditionalProperties());
     }
 }

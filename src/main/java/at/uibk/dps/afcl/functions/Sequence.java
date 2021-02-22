@@ -33,12 +33,6 @@ public class Sequence extends Compound {
     private List<Function> sequenceBody;
 
     /**
-     * Optional additional json properties.
-     */
-    @JsonIgnore
-    private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
-
-    /**
      * Empty constructor for sequence construct.
      */
     public Sequence() {
@@ -75,16 +69,6 @@ public class Sequence extends Compound {
         this.sequenceBody = sequenceBody;
     }
 
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    @JsonAnySetter
-    public void setAdditionalProperties(final String name, final Object value) {
-        this.additionalProperties.put(name, value);
-    }
-
     @Override
     public boolean equals(final Object object) {
         if (this == object) {
@@ -98,11 +82,11 @@ public class Sequence extends Compound {
         }
         final Sequence sequence = (Sequence) object;
         return Objects.equals(sequenceBody, sequence.sequenceBody) &&
-                Objects.equals(additionalProperties, sequence.additionalProperties);
+                Objects.equals(getAdditionalProperties(), sequence.getAdditionalProperties());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), sequenceBody, additionalProperties);
+        return Objects.hash(super.hashCode(), sequenceBody, getAdditionalProperties());
     }
 }
