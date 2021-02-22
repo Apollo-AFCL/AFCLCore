@@ -1,14 +1,9 @@
 package at.uibk.dps.afcl.functions;
 
 import at.uibk.dps.afcl.Function;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**
@@ -26,7 +21,7 @@ public class LoopCompound extends Compound {
      * Default constructor.
      */
     public LoopCompound() {
-        // This constructor is intentionally empty. Nothing special is needed here.
+        super();
     }
 
     /**

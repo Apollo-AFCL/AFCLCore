@@ -23,7 +23,8 @@ import java.util.Objects;
 public class Case {
 
     /**
-     * If this value is equal to the one in {@link DataEval} the case will be executed.
+     * If this value is equal to the one in
+     * {@link DataEval} the case will be executed.
      */
     @JsonProperty("value")
     private String value;
@@ -104,6 +105,12 @@ public class Case {
         return this.additionalProperties;
     }
 
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
     @JsonAnySetter
     public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);

@@ -7,8 +7,6 @@ import at.uibk.dps.afcl.functions.objects.DataOutsAtomic;
 import com.fasterxml.jackson.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.Objects;
 
 /**

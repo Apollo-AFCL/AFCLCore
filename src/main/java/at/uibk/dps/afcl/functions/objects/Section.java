@@ -68,6 +68,12 @@ public class Section {
         return this.additionalProperties;
     }
 
+    /**
+     * Set specific property.
+     *
+     * @param name of the property.
+     * @param value of the property.
+     */
     @JsonAnySetter
     public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);

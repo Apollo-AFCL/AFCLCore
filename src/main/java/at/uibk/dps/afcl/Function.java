@@ -52,6 +52,13 @@ public class Function {
     private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
+     * Default constructor.
+     */
+    public Function() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
+
+    /**
      * Getter and Setter
      */
 

@@ -30,7 +30,7 @@ public class Compound extends Function {
      * Default constructor.
      */
     public Compound() {
-        // This constructor is intentionally empty. Nothing special is needed here.
+        super();
     }
 
     /**

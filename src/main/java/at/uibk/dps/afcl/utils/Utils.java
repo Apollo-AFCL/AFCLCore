@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  * Utility class to write and read a workflow
  * @author stefanpedratscher
  */
-public class Utils {
+public final class Utils {
 
     /**
      * Prefix for the error output.
@@ -174,12 +174,12 @@ public class Utils {
      */
     public static Workflow readYAML(final String origin, final String jsonSchema) throws IOException, ProcessingException {
         final File file = new File(origin);
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
 
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         final Workflow workflow = objectMapper.readValue(file, Workflow.class);
-        return parseWorkflow(workflow, yf, jsonSchema, objectMapper);
+        return parseWorkflow(workflow, yamlFactory, jsonSchema, objectMapper);
 
     }
 

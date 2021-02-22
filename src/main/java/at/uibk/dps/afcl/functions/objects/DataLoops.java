@@ -175,7 +175,7 @@ public class DataLoops {
     }
 
     @JsonProperty("properties")
-    public void setProperties(List<PropertyConstraint> properties) {
+    public void setProperties(final List<PropertyConstraint> properties) {
         this.properties = properties;
     }
 
