@@ -95,7 +95,7 @@ public class ParallelTest {
         final Parallel parallel2 = new Parallel("name", null, null, null);
         Assert.assertEquals(parallel, parallel2);
         Assert.assertEquals(parallel.hashCode(), parallel2.hashCode());
-        parallel2.setAdditionalProperty("name", "type");
+        parallel2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(parallel, parallel2);
 
         Parallel parallel3;

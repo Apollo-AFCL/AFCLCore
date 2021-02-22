@@ -29,6 +29,13 @@ public class LoopCompound extends Compound {
     private final Map<String, Object> additionalProperties = new ConcurrentHashMap<>();
 
     /**
+     * Default constructor.
+     */
+    public LoopCompound() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
+
+    /**
      * Getter and Setter
      */
 
@@ -48,7 +55,7 @@ public class LoopCompound extends Compound {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

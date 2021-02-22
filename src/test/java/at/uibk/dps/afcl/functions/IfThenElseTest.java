@@ -53,9 +53,9 @@ public class IfThenElseTest {
         Assert.assertEquals(condition, ifThenElse.getCondition());
         Assert.assertEquals(condition.hashCode(), ifThenElse.getCondition().hashCode());
 
-        Assert.assertEquals(1, ifThenElse.getThen().size());
-        Assert.assertEquals(atomicFunction, ifThenElse.getThen().get(0));
-        Assert.assertEquals(atomicFunction.hashCode(), ifThenElse.getThen().get(0).hashCode());
+        Assert.assertEquals(1, ifThenElse.getThenBranch().size());
+        Assert.assertEquals(atomicFunction, ifThenElse.getThenBranch().get(0));
+        Assert.assertEquals(atomicFunction.hashCode(), ifThenElse.getThenBranch().get(0).hashCode());
 
         Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
     }
@@ -73,8 +73,8 @@ public class IfThenElseTest {
         Assert.assertNull(ifThenElse.getDataIns());
         Assert.assertNull(ifThenElse.getDataOuts());
         Assert.assertNull(ifThenElse.getCondition());
-        Assert.assertNull(ifThenElse.getThen());
-        Assert.assertNull(ifThenElse.getElse());
+        Assert.assertNull(ifThenElse.getThenBranch());
+        Assert.assertNull(ifThenElse.getElseBranch());
         Assert.assertEquals(0, ifThenElse.getAdditionalProperties().size());
     }
 
@@ -107,7 +107,7 @@ public class IfThenElseTest {
         Assert.assertEquals(ifThenElse1, ifThenElse2);
         Assert.assertEquals(ifThenElse1.hashCode(), ifThenElse2.hashCode());
 
-        ifThenElse2.setAdditionalProperty("name", "type");
+        ifThenElse2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(ifThenElse1, ifThenElse2);
 
         IfThenElse ifThenElse3;

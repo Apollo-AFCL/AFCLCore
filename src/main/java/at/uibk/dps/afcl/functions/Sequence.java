@@ -54,6 +54,7 @@ public class Sequence extends Compound {
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
     public Sequence(final String name, final List<DataIns> dataIns, final List<Function> sequenceBody, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.sequenceBody = sequenceBody;
@@ -80,7 +81,7 @@ public class Sequence extends Compound {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

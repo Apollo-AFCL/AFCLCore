@@ -25,7 +25,7 @@ public class Section {
      * List of {@link Function}s within one section
      */
     @JsonProperty("section")
-    private List<Function> sectionBody;
+    private List<Function> section;
 
     /**
      * Optional additional json properties.
@@ -46,7 +46,7 @@ public class Section {
      * @param section List of {@link Function}s within one section
      */
     public Section(final List<Function> section) {
-        this.sectionBody = section;
+        this.section = section;
     }
 
     /**
@@ -55,12 +55,12 @@ public class Section {
 
     @JsonProperty("section")
     public List<Function> getSection() {
-        return sectionBody;
+        return section;
     }
 
     @JsonProperty("section")
     public void setSection(final List<Function> section) {
-        this.sectionBody = section;
+        this.section = section;
     }
 
     @JsonAnyGetter
@@ -69,7 +69,7 @@ public class Section {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 
@@ -82,12 +82,12 @@ public class Section {
             return false;
         }
         final Section section = (Section) object;
-        return Objects.equals(sectionBody, section.sectionBody) &&
+        return Objects.equals(this.section, section.section) &&
                 Objects.equals(additionalProperties, section.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sectionBody, additionalProperties);
+        return Objects.hash(section, additionalProperties);
     }
 }

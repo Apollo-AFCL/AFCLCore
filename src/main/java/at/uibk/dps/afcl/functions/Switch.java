@@ -72,6 +72,7 @@ public class Switch extends Compound {
      * @param dataOuts Data output ports ({@link DataOuts})
      */
     public Switch(final String name, final List<DataIns> dataIns, final DataEval dataEval, final List<Case> cases, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.dataEval = dataEval;
@@ -120,7 +121,7 @@ public class Switch extends Compound {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

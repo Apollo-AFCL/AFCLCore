@@ -43,7 +43,7 @@ public class CaseTest {
     public void testEmptyConstruction() {
         final Case aCase = new Case();
 
-        Assert.assertNull(aCase.getBreak());
+        Assert.assertNull(aCase.getBreakCase());
         Assert.assertNull(aCase.getFunctions());
         Assert.assertNull(aCase.getValue());
         Assert.assertEquals(0, aCase.getAdditionalProperties().size());
@@ -80,7 +80,7 @@ public class CaseTest {
         final Case aCase2 = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
         Assert.assertEquals(aCase, aCase2);
         Assert.assertEquals(aCase.hashCode(), aCase2.hashCode());
-        aCase2.setAdditionalProperty("name", "type");
+        aCase2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(aCase, aCase2);
 
         Case aCase3;
@@ -91,7 +91,7 @@ public class CaseTest {
         Assert.assertNotEquals(aCase, aCase3);
 
         aCase3 = new Case("1", new ArrayList<>(Collections.singleton(atomicFunction)));
-        aCase3.setBreak("break");
+        aCase3.setBreakCase("break");
         Assert.assertNotEquals(aCase, aCase3);
     }
 }

@@ -108,7 +108,7 @@ public class SequentialForTest {
         final SequentialFor sequentialFor2 = new SequentialFor("name", null, null, null, null, null);
         Assert.assertEquals(sequentialFor, sequentialFor2);
         Assert.assertEquals(sequentialFor.hashCode(), sequentialFor2.hashCode());
-        sequentialFor2.setAdditionalProperty("name", "type");
+        sequentialFor2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(sequentialFor, sequentialFor2);
 
         SequentialFor sequentialFor3;

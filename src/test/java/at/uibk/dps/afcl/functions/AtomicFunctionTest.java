@@ -71,10 +71,10 @@ public class AtomicFunctionTest {
         final AtomicFunction atomicFunction = new AtomicFunction();
         Assert.assertEquals(0, atomicFunction.getAdditionalProperties().size());
 
-        atomicFunction.setAdditionalProperty("name", "value");
+        atomicFunction.setAdditionalProperties("name", "value");
         Assert.assertEquals(1, atomicFunction.getAdditionalProperties().size());
 
-        atomicFunction.setAdditionalProperty("name2", "value2");
+        atomicFunction.setAdditionalProperties("name2", "value2");
         Assert.assertEquals(2, atomicFunction.getAdditionalProperties().size());
 
         Assert.assertEquals("value", atomicFunction.getAdditionalProperties().get("name"));
@@ -110,7 +110,7 @@ public class AtomicFunctionTest {
         Assert.assertEquals(atomicFunction1, atomicFunction2);
         Assert.assertEquals(atomicFunction1.hashCode(), atomicFunction2.hashCode());
 
-        atomicFunction2.setAdditionalProperty("name", "type");
+        atomicFunction2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(atomicFunction1, atomicFunction2);
 
         AtomicFunction atomicFunction3;

@@ -108,7 +108,7 @@ public class SequentialWhileTest {
         final SequentialWhile sequentialWhile2 = new SequentialWhile("name", null, null, null, null, null);
         Assert.assertEquals(sequentialWhile, sequentialWhile2);
         Assert.assertEquals(sequentialWhile.hashCode(), sequentialWhile2.hashCode());
-        sequentialWhile2.setAdditionalProperty("name", "type");
+        sequentialWhile2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(sequentialWhile, sequentialWhile2);
 
         SequentialWhile sequentialWhile3;

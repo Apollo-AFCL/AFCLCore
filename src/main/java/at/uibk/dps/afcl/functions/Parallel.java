@@ -55,6 +55,7 @@ public class Parallel extends Compound {
      * @param dataOuts     Data output ports ({@link DataOuts})
      */
     public Parallel(final String name, final List<DataIns> dataIns, final List<Section> parallelBody, final List<DataOuts> dataOuts) {
+        this();
         this.name = name;
         this.dataIns = dataIns;
         this.parallelBody = parallelBody;
@@ -81,7 +82,7 @@ public class Parallel extends Compound {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

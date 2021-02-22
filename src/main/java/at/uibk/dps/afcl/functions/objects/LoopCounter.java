@@ -26,13 +26,13 @@ public class LoopCounter {
      * Unique identifier for the loop counter
      */
     @JsonProperty("name")
-    private String loopCounterName;
+    private String name;
 
     /**
      * Type of the counter variable (e.g. integer)
      */
     @JsonProperty("type")
-    private String loopCounterType;
+    private String type;
 
     /**
      * Initial assignment of the counter variable
@@ -69,27 +69,28 @@ public class LoopCounter {
     /**
      * Constructor for loop counter
      *
-     * @param loopCounterName Unique identifier for the loop counter
-     * @param loopCounterType Type of the counter variable (e.g. integer)
+     * @param name Unique identifier for the loop counter
+     * @param type Type of the counter variable (e.g. integer)
      * @param from Initial assignment of the counter variable
      * @param to If this value is reached or exceeded the iterations stops
      */
-    public LoopCounter(final String loopCounterName, final String loopCounterType, final String from, final String to) {
-        this(loopCounterName, loopCounterType, from, to, null);
+    public LoopCounter(final String name, final String type, final String from, final String to) {
+        this(name, type, from, to, null);
     }
 
     /**
      * Constructor for loop counter
      *
-     * @param loopCounterName Unique identifier for the loop counter
-     * @param loopCounterType Type of the counter variable (e.g. integer)
+     * @param name Unique identifier for the loop counter
+     * @param type Type of the counter variable (e.g. integer)
      * @param from Initial assignment of the counter variable
      * @param to If this value is reached or exceeded the iterations stops
-     * @param step The counter variable will be increased step times in each iteration.
+     * @param step The counter variable will be increased
+     *             step times in each iteration.
      */
-    public LoopCounter(final String loopCounterName, final String loopCounterType, final String from, final String to, final String step) {
-        this.loopCounterName = loopCounterName;
-        this.loopCounterType = loopCounterType;
+    public LoopCounter(final String name, final String type, final String from, final String to, final String step) {
+        this.name = name;
+        this.type = type;
         this.from = from;
         this.to = to;
         this.step = step;
@@ -101,22 +102,22 @@ public class LoopCounter {
 
     @JsonProperty("name")
     public String getName() {
-        return loopCounterName;
+        return name;
     }
 
     @JsonProperty("name")
     public void setName(final String name) {
-        this.loopCounterName = name;
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return loopCounterType;
+        return type;
     }
 
     @JsonProperty("type")
     public void setType(final String type) {
-        this.loopCounterType = type;
+        this.type = type;
     }
 
     @JsonProperty("from")
@@ -155,7 +156,7 @@ public class LoopCounter {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 
@@ -168,8 +169,8 @@ public class LoopCounter {
             return false;
         }
         final LoopCounter that = (LoopCounter) object;
-        return Objects.equals(loopCounterName, that.loopCounterName) &&
-                Objects.equals(loopCounterType, that.loopCounterType) &&
+        return Objects.equals(name, that.name) &&
+                Objects.equals(type, that.type) &&
                 Objects.equals(from, that.from) &&
                 Objects.equals(to, that.to) &&
                 Objects.equals(step, that.step) &&
@@ -178,6 +179,6 @@ public class LoopCounter {
 
     @Override
     public int hashCode() {
-        return Objects.hash(loopCounterName, loopCounterType, from, to, step, additionalProperties);
+        return Objects.hash(name, type, from, to, step, additionalProperties);
     }
 }

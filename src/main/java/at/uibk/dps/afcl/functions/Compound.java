@@ -27,6 +27,13 @@ public class Compound extends Function {
     protected List<DataOuts> dataOuts;
 
     /**
+     * Default constructor.
+     */
+    public Compound() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
+
+    /**
      * Getter and Setter
      */
 

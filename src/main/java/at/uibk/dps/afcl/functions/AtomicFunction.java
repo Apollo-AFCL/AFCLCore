@@ -68,6 +68,7 @@ public class AtomicFunction extends Function {
      * @param dataOuts Data output ports ({@link DataOuts})
      */
     public AtomicFunction(final String name, final String type, final List<DataIns> dataIns, final List<DataOutsAtomic> dataOuts) {
+        this();
         this.name = name;
         this.type = type;
         this.dataIns = dataIns;
@@ -114,7 +115,7 @@ public class AtomicFunction extends Function {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

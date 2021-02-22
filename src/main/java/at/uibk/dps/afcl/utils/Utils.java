@@ -37,6 +37,13 @@ public class Utils {
     private static final Logger LOGGER = Logger.getLogger(Utils.class.getName());
 
     /**
+     * Default constructor.
+     */
+    private Utils() {
+        // This constructor is intentionally empty. Nothing special is needed here.
+    }
+
+    /**
      * Parse a workflow
      *
      * @param workflow object to parse
@@ -128,11 +135,11 @@ public class Utils {
      * @param destination file to write (i.e. workflow.json)
      */
     public static void writeYaml(final Workflow workflow, final String destination, final String jsonSchema) throws IOException, ProcessingException {
-        final YAMLFactory yf = new YAMLFactory();
-        yf.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
-        final ObjectMapper objectMapper = new ObjectMapper(yf);
+        final YAMLFactory yamlFactory = new YAMLFactory();
+        yamlFactory.disable(YAMLGenerator.Feature.USE_NATIVE_TYPE_ID);
+        final ObjectMapper objectMapper = new ObjectMapper(yamlFactory);
         final byte[] bytes = objectMapper.writeValueAsBytes(workflow);
-        final JsonNode workflowNode = objectMapper.readTree(yf.createParser(bytes));
+        final JsonNode workflowNode = objectMapper.readTree(yamlFactory.createParser(bytes));
         validateAndWriteFile(workflowNode, bytes, destination, jsonSchema);
 
     }

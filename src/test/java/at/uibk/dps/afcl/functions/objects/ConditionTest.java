@@ -79,7 +79,7 @@ public class ConditionTest {
         final Condition condition2 = new Condition("AND", new ArrayList<>(Collections.singleton(aCondition)));
         Assert.assertEquals(condition, condition2);
         Assert.assertEquals(condition.hashCode(), condition2.hashCode());
-        condition2.setAdditionalProperty("name", "type");
+        condition2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(condition, condition2);
 
         Condition condition3;

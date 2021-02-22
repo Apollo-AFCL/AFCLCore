@@ -36,14 +36,14 @@ public class Function {
      * behaviour of functions)
      */
     @JsonProperty("properties")
-    private List<PropertyConstraint> propertiesFunction;
+    private List<PropertyConstraint> properties;
 
     /**
      * {@link PropertyConstraint} (which must be fulfilled
      * by underlying workflow runtime environment)
      */
     @JsonProperty("constraints")
-    private List<PropertyConstraint> constraintsFunction;
+    private List<PropertyConstraint> constraints;
 
 
     /**
@@ -62,22 +62,22 @@ public class Function {
 
     @JsonProperty("properties")
     public List<PropertyConstraint> getProperties() {
-        return propertiesFunction;
+        return properties;
     }
 
     @JsonProperty("properties")
     public void setProperties(final List<PropertyConstraint> propertiesFunction) {
-        this.propertiesFunction = propertiesFunction;
+        this.properties = propertiesFunction;
     }
 
     @JsonProperty("constraints")
     public List<PropertyConstraint> getConstraints() {
-        return constraintsFunction;
+        return constraints;
     }
 
     @JsonProperty("constraints")
     public void setConstraints(final List<PropertyConstraint> constraintsFunction) {
-        this.constraintsFunction = constraintsFunction;
+        this.constraints = constraintsFunction;
     }
 
     @Override
@@ -90,12 +90,12 @@ public class Function {
         }
         final Function function = (Function) object;
         return Objects.equals(name, function.name) &&
-                Objects.equals(propertiesFunction, function.propertiesFunction) &&
-                Objects.equals(constraintsFunction, function.constraintsFunction);
+                Objects.equals(properties, function.properties) &&
+                Objects.equals(constraints, function.constraints);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, propertiesFunction, constraintsFunction);
+        return Objects.hash(name, properties, constraints);
     }
 }

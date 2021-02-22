@@ -24,19 +24,19 @@ public class DataEval {
      * Unique identifier for the data eval
      */
     @JsonProperty("name")
-    private String evaluatorName;
+    private String name;
 
     /**
      * Indicates the data type
      */
     @JsonProperty("type")
-    private String evaluatorType;
+    private String type;
 
     /**
      * Represents where the data comes from
      */
     @JsonProperty("source")
-    private String evaluatorSource;
+    private String source;
 
     /**
      * Optional additional json properties.
@@ -54,12 +54,12 @@ public class DataEval {
     /**
      * Constructor for data eval
      *
-     * @param evaluatorName Unique identifier for the data eval
-     * @param evaluatorType Data type
+     * @param name Unique identifier for the data eval
+     * @param type Data type
      */
-    public DataEval(final String evaluatorName, final String evaluatorType) {
-        this.evaluatorName = evaluatorName;
-        this.evaluatorType = evaluatorType;
+    public DataEval(final String name, final String type) {
+        this.name = name;
+        this.type = type;
     }
 
     /**
@@ -68,32 +68,32 @@ public class DataEval {
 
     @JsonProperty("name")
     public String getName() {
-        return evaluatorName;
+        return name;
     }
 
     @JsonProperty("name")
     public void setName(final String name) {
-        this.evaluatorName = name;
+        this.name = name;
     }
 
     @JsonProperty("type")
     public String getType() {
-        return evaluatorType;
+        return type;
     }
 
     @JsonProperty("type")
     public void setType(final String type) {
-        this.evaluatorType = type;
+        this.type = type;
     }
 
     @JsonProperty("source")
     public String getSource() {
-        return evaluatorSource;
+        return source;
     }
 
     @JsonProperty("source")
     public void setSource(final String source) {
-        this.evaluatorSource = source;
+        this.source = source;
     }
 
     @JsonAnyGetter
@@ -102,7 +102,7 @@ public class DataEval {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 
@@ -115,14 +115,14 @@ public class DataEval {
             return false;
         }
         final DataEval dataEval = (DataEval) object;
-        return Objects.equals(evaluatorName, dataEval.evaluatorName) &&
-                Objects.equals(evaluatorType, dataEval.evaluatorType) &&
-                Objects.equals(evaluatorSource, dataEval.evaluatorSource) &&
+        return Objects.equals(name, dataEval.name) &&
+                Objects.equals(type, dataEval.type) &&
+                Objects.equals(source, dataEval.source) &&
                 Objects.equals(additionalProperties, dataEval.additionalProperties);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(evaluatorName, evaluatorType, evaluatorSource, additionalProperties);
+        return Objects.hash(name, type, source, additionalProperties);
     }
 }

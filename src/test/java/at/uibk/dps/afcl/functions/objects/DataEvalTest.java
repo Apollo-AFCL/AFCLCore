@@ -69,7 +69,7 @@ public class DataEvalTest {
         final DataEval dataEval2 = new DataEval("name", "type");
         Assert.assertEquals(dataEval, dataEval2);
         Assert.assertEquals(dataEval.hashCode(), dataEval2.hashCode());
-        dataEval2.setAdditionalProperty("name", "type");
+        dataEval2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(dataEval, dataEval2);
 
         DataEval dataEval3;

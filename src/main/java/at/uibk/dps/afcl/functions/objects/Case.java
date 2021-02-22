@@ -56,7 +56,8 @@ public class Case {
     /**
      * Constructor for case
      *
-     * @param value     If this value is equal to the one in {@link DataEval} the case will be executed.
+     * @param value     If this value is equal to the one in
+     *                  {@link DataEval} the case will be executed.
      * @param functions List of functions to be executed
      */
     public Case(final String value, final List<Function> functions) {
@@ -79,12 +80,12 @@ public class Case {
     }
 
     @JsonProperty("break")
-    public String getBreak() {
+    public String getBreakCase() {
         return breakCase;
     }
 
     @JsonProperty("break")
-    public void setBreak(final String breakCase) {
+    public void setBreakCase(final String breakCase) {
         this.breakCase = breakCase;
     }
 
@@ -104,7 +105,7 @@ public class Case {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

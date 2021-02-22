@@ -75,7 +75,7 @@ public class SectionTest {
         final Section section2 = new Section(new ArrayList<>(Collections.singleton(atomicFunction)));
         Assert.assertEquals(section, section2);
         Assert.assertEquals(section.hashCode(), section2.hashCode());
-        section2.setAdditionalProperty("name", "type");
+        section2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(section, section2);
 
         final Section section3= new Section(new ArrayList<>(Collections.singleton(new AtomicFunction())));

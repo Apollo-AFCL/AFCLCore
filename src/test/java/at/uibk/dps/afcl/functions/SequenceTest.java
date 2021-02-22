@@ -93,7 +93,7 @@ public class SequenceTest {
         final Sequence sequence2 = new Sequence("name", null, null, null);
         Assert.assertEquals(sequence, sequence2);
         Assert.assertEquals(sequence.hashCode(), sequence2.hashCode());
-        sequence2.setAdditionalProperty("name", "type");
+        sequence2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(sequence, sequence2);
 
         Sequence sequence3;

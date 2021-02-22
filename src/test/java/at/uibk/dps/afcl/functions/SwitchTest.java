@@ -103,7 +103,7 @@ public class SwitchTest {
         Assert.assertEquals(switchCondition, switchCondition2);
         Assert.assertEquals(switchCondition.hashCode(), switchCondition2.hashCode());
 
-        switchCondition2.setAdditionalProperty("name", "type");
+        switchCondition2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(switchCondition, switchCondition2);
 
         Switch switchCondition3;

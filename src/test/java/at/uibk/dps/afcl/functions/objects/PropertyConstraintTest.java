@@ -68,7 +68,7 @@ public class PropertyConstraintTest {
         final PropertyConstraint propertyConstraint2 = new PropertyConstraint("name", "value");
         Assert.assertEquals(propertyConstraint, propertyConstraint2);
         Assert.assertEquals(propertyConstraint.hashCode(), propertyConstraint2.hashCode());
-        propertyConstraint2.setAdditionalProperty("name", "type");
+        propertyConstraint2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(propertyConstraint, propertyConstraint2);
 
         PropertyConstraint propertyConstraint3;

@@ -73,7 +73,7 @@ public class LoopCounterTest {
         final LoopCounter loopCounter2 = new LoopCounter("name", "type", "0", "10");
         Assert.assertEquals(loopCounter, loopCounter2);
         Assert.assertEquals(loopCounter.hashCode(), loopCounter2.hashCode());
-        loopCounter2.setAdditionalProperty("name", "type");
+        loopCounter2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(loopCounter, loopCounter2);
 
         LoopCounter loopCounter3;

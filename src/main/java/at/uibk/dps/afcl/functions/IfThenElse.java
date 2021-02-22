@@ -102,22 +102,22 @@ public class IfThenElse extends Compound {
     }
 
     @JsonProperty("then")
-    public List<Function> getThen() {
+    public List<Function> getThenBranch() {
         return thenBranch;
     }
 
     @JsonProperty("then")
-    public void setThen(final List<Function> thenBranch) {
+    public void setThenBranch(final List<Function> thenBranch) {
         this.thenBranch = thenBranch;
     }
 
     @JsonProperty("else")
-    public List<Function> getElse() {
+    public List<Function> getElseBranch() {
         return elseBranch;
     }
 
     @JsonProperty("else")
-    public void setElse(final List<Function> elseBranch) {
+    public void setElseBranch(final List<Function> elseBranch) {
         this.elseBranch = elseBranch;
     }
 
@@ -127,7 +127,7 @@ public class IfThenElse extends Compound {
     }
 
     @JsonAnySetter
-    public void setAdditionalProperty(final String name, final Object value) {
+    public void setAdditionalProperties(final String name, final Object value) {
         this.additionalProperties.put(name, value);
     }
 

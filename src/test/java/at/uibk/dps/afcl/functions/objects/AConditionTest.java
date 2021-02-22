@@ -71,7 +71,7 @@ public class AConditionTest {
         final ACondition aCondition2 = new ACondition("1", "2", "!=");
         Assert.assertEquals(aCondition, aCondition2);
         Assert.assertEquals(aCondition.hashCode(), aCondition2.hashCode());
-        aCondition2.setAdditionalProperty("name", "type");
+        aCondition2.setAdditionalProperties("name", "type");
         Assert.assertNotEquals(aCondition, aCondition2);
 
         ACondition aCondition3;
